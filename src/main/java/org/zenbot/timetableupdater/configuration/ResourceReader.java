@@ -5,16 +5,17 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
 public class ResourceReader {
 
     private final Environment environment;

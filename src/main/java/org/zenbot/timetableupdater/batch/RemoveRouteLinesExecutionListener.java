@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 import org.zenbot.timetableupdater.dao.RouteRepository;
 import org.zenbot.timetableupdater.domain.BusRoute;
 
@@ -13,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
-@Component
 public class RemoveRouteLinesExecutionListener implements JobExecutionListener {
 
     private final RouteRepository routeRepository;

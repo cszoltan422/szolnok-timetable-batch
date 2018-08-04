@@ -2,15 +2,14 @@ package org.zenbot.timetableupdater.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.file.ResourceAwareItemReaderItemStream;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
-public class TimetableReader implements ResourceAwareItemReaderItemStream<String> {
+public class TimetableReader implements ResourceAwareItemReaderItemStream<Document> {
     private Resource resource;
     private int count = -1;
     private boolean readNext = false;
@@ -21,13 +20,13 @@ public class TimetableReader implements ResourceAwareItemReaderItemStream<String
     }
 
     @Override
-    public String read() throws Exception {
+    public Document read() throws Exception {
         count++;
         if (readNext) {
             return null;
         }
         log.info("Reading html file [{}]", resource.getURL().toString());
-        return Jsoup.connect(resource.getURL().toString()).get().html();
+        return Jsoup.connect(resource.getURL().toString()).get();
     }
 
     @Override

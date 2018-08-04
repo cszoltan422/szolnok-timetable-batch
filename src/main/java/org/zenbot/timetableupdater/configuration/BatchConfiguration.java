@@ -1,6 +1,7 @@
 package org.zenbot.timetableupdater.configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.nodes.Document;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
@@ -14,12 +15,12 @@ import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
-import org.zenbot.timetableupdater.batch.Timetable;
-import org.zenbot.timetableupdater.batch.TimetableReader;
+import org.zenbot.timetableupdater.batch.*;
+import org.zenbot.timetableupdater.dao.RouteRepository;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Configuration
@@ -29,46 +30,23 @@ public class BatchConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final ItemProcessor<String, Timetable> itemProcessor;
-    private final ItemWriter<Timetable> itemWriter;
-    private final JobExecutionListener jobExecutionListener;
     private final ResourceReader resourceReader;
+    private final RouteRepository routeRepository;
+    private final Environment environment;
 
-    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, ItemProcessor<String, Timetable> itemProcessor, ItemWriter<Timetable> itemWriter, JobExecutionListener jobExecutionListener, ResourceReader resourceReader) {
+    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, ResourceReader resourceReader, RouteRepository routeRepository, Environment environment) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
-        this.itemProcessor = itemProcessor;
-        this.itemWriter = itemWriter;
-        this.jobExecutionListener = jobExecutionListener;
         this.resourceReader = resourceReader;
-    }
-
-    @Bean
-    public ItemReader<String> timetableReader() throws IOException {
-        Resource[] resources = resourceReader.readResources().stream().toArray(Resource[]::new);
-//        Resource[] resources = resourceLocationProperties.getLocataions()
-//                .stream()
-//                .map(location -> {
-//                    try {
-//                        return new UrlResource(location);
-//                    } catch (MalformedURLException e) {
-//                        log.error("{}", e);
-//                        return null;
-//                    }
-//                })
-//                .filter(resouce -> resouce != null)
-//                .toArray(Resource[]::new);
-        MultiResourceItemReader<String> multiResourceItemReader = new MultiResourceItemReader<>();
-        multiResourceItemReader.setResources(resources);
-        multiResourceItemReader.setDelegate(new TimetableReader());
-        return multiResourceItemReader;
+        this.routeRepository = routeRepository;
+        this.environment = environment;
     }
 
     @Bean
     public Job importTimetableJob() throws IOException {
         return jobBuilderFactory
                 .get("importTimetableJob")
-                .listener(jobExecutionListener)
+                .listener(jobExecutionListener())
                 .flow(importTimetableStep())
                 .end()
                 .build();
@@ -78,10 +56,39 @@ public class BatchConfiguration {
     public Step importTimetableStep() throws IOException {
         return stepBuilderFactory
                 .get("importTimetableStep")
-                .<String, Timetable> chunk(1)
+                .<Document, Timetable> chunk(1)
                 .reader(timetableReader())
-                .processor(itemProcessor)
-                .writer(itemWriter)
+                .processor(itemProcessor())
+                .writer(itemWriter())
                 .build();
+    }
+
+    @Bean
+    public ItemReader<Document> timetableReader() throws IOException {
+        Resource[] resources = resourceReader.readResources().stream().toArray(Resource[]::new);
+        MultiResourceItemReader<Document> multiResourceItemReader = new MultiResourceItemReader<>();
+        multiResourceItemReader.setResources(resources);
+        multiResourceItemReader.setDelegate(new TimetableReader());
+        return multiResourceItemReader;
+    }
+
+    @Bean
+    public ItemProcessor<Document, Timetable> itemProcessor() {
+        return new TimetableProcessor(stringCleaner());
+    }
+
+    @Bean
+    public ItemWriter<Timetable> itemWriter() {
+        return new TimetableItemWriter(routeRepository);
+    }
+
+    @Bean
+    public JobExecutionListener jobExecutionListener() {
+        return new RemoveRouteLinesExecutionListener(routeRepository, environment);
+    }
+
+    @Bean
+    public StringCleaner stringCleaner() {
+        return new StringCleaner();
     }
 }

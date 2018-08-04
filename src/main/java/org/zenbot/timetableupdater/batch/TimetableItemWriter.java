@@ -2,7 +2,6 @@ package org.zenbot.timetableupdater.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.stereotype.Component;
 import org.zenbot.timetableupdater.dao.RouteRepository;
 import org.zenbot.timetableupdater.domain.*;
 
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Component
 public class TimetableItemWriter implements ItemWriter<Timetable> {
 
     private final RouteRepository routeRepository;

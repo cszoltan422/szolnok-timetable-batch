@@ -1,11 +1,8 @@
 package org.zenbot.timetableupdater.configuration;
 
-import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.util.Comparator;
 
-@Component
 public class FilenameComparator implements Comparator<File> {
     
     @Override

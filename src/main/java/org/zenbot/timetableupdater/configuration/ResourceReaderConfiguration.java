@@ -11,16 +11,19 @@ public class ResourceReaderConfiguration {
 
     private final Environment environment;
     private final TimetableResourceLocationProperties properties;
-    private final FilenameComparator comparator;
 
-    public ResourceReaderConfiguration(Environment environment, TimetableResourceLocationProperties properties, FilenameComparator comparator) {
+    public ResourceReaderConfiguration(Environment environment, TimetableResourceLocationProperties properties) {
         this.environment = environment;
         this.properties = properties;
-        this.comparator = comparator;
     }
 
     @Bean
     public ResourceReader resourceReader() {
-        return new ResourceReader(environment, comparator, properties);
+        return new ResourceReader(environment, comparator(), properties);
+    }
+
+    @Bean
+    public FilenameComparator comparator() {
+        return new FilenameComparator();
     }
 }
