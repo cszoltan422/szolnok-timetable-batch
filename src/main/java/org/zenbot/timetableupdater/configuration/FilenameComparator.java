@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Comparator;
 
 public class FilenameComparator implements Comparator<File> {
-    
+
     @Override
     public int compare(File first, File second) {
         String firstFilename = first.getName();
@@ -12,12 +12,12 @@ public class FilenameComparator implements Comparator<File> {
         int a = getNumber(firstFilename);
         int b = getNumber(secondFilename);
         if (a != b) {
-            return Integer.compare(a, b) * 2; // "Stronger" comparision
+            return Integer.compare(a, b);
         } else {
             if (firstFilename.length() != secondFilename.length()) {
                 return Integer.compare(firstFilename.length(), secondFilename.length());
             } else {
-                return compareLastChars(firstFilename, secondFilename);
+                return firstFilename.compareTo(secondFilename);
             }
         }
     }
@@ -30,9 +30,5 @@ public class FilenameComparator implements Comparator<File> {
             }
         }
         return Integer.parseInt(builder.toString());
-    }
-
-    private int compareLastChars(String first, String second) {
-        return first.substring(first.length() - 1).compareTo(second.substring(second.length() - 1));
     }
 }
