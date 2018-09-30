@@ -20,7 +20,24 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>8</java.version>
+
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 	</properties>
+
+	<scm>
+		<developerConnection>scm:git:git@github.com:cszoltan422/szolnok-timetable-batch.git</developerConnection>
+		<url>https://github.com/cszoltan422/szolnok-timetable-batch</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<developers>
+		<developer>
+			<email>cszoltan422@gmail.com</email>
+			<name>Zoltan Csenyi</name>
+			<url>https://github.com/cszoltan422</url>
+		</developer>
+	</developers>
+
 
 	<dependencies>
 		<dependency>
@@ -85,6 +102,12 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven-release-plugin.version}</version>
+			</plugin>
+
 		</plugins>
 	</build>
 
