@@ -16,11 +16,11 @@
         </encoder>
     </appender>
 
-    <logger name="org.zenbot.timetableupdater" level="DEBUG" additivity="false">
+    <logger name="org.zenbot.szolnok.timetable.batch" level="DEBUG" additivity="false">
         <appender-ref ref="FILE" />
     </logger>
 
-    <logger name="org.zenbot.timetableupdater" level="DEBUG" additivity="false">
+    <logger name="org.zenbot.szolnok.timetable.batch" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 

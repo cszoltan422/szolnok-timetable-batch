@@ -1,4 +1,4 @@
-package org.zenbot.timetableupdater.configuration;
+package org.zenbot.szolnok.timetable.batch.configuration;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

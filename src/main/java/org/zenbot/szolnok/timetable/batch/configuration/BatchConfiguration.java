@@ -1,4 +1,4 @@
-package org.zenbot.timetableupdater.configuration;
+package org.zenbot.szolnok.timetable.batch.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
@@ -17,8 +17,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
-import org.zenbot.timetableupdater.batch.*;
-import org.zenbot.timetableupdater.dao.RouteRepository;
+import org.zenbot.szolnok.timetable.batch.batch.*;
+import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
 
 import java.io.IOException;
 

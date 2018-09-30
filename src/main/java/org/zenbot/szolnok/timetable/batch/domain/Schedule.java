@@ -1,4 +1,4 @@
-package org.zenbot.timetableupdater.domain;
+package org.zenbot.szolnok.timetable.batch.domain;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

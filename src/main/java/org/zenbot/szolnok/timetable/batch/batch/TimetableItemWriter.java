@@ -1,9 +1,9 @@
-package org.zenbot.timetableupdater.batch;
+package org.zenbot.szolnok.timetable.batch.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
-import org.zenbot.timetableupdater.dao.RouteRepository;
-import org.zenbot.timetableupdater.domain.*;
+import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
+import org.zenbot.szolnok.timetable.batch.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;

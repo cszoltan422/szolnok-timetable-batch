@@ -1,7 +1,7 @@
-package org.zenbot.timetableupdater.dao;
+package org.zenbot.szolnok.timetable.batch.dao;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.zenbot.timetableupdater.domain.BusRoute;
+import org.zenbot.szolnok.timetable.batch.domain.BusRoute;
 
 public interface RouteRepository extends MongoRepository<BusRoute, String> {
 

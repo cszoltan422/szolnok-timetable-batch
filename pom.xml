@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.zenbot</groupId>
-	<artifactId>timetable-updater</artifactId>
+	<artifactId>szolnok-timetable-batch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>timetable-updater</name>
+	<name>szolnok-timetable-batch</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

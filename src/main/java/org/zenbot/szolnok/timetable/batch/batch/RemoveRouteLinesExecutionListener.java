@@ -1,11 +1,11 @@
-package org.zenbot.timetableupdater.batch;
+package org.zenbot.szolnok.timetable.batch.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.core.env.Environment;
-import org.zenbot.timetableupdater.dao.RouteRepository;
-import org.zenbot.timetableupdater.domain.BusRoute;
+import org.zenbot.szolnok.timetable.batch.domain.BusRoute;
+import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;

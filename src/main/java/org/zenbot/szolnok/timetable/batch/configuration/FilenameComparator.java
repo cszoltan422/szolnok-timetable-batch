@@ -1,4 +1,4 @@
-package org.zenbot.timetableupdater.configuration;
+package org.zenbot.szolnok.timetable.batch.configuration;
 
 import java.io.File;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package org.zenbot.timetableupdater.batch;
+package org.zenbot.szolnok.timetable.batch.batch;
 
 import lombok.Data;
 

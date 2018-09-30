@@ -1,4 +1,4 @@
-package org.zenbot.timetableupdater.batch;
+package org.zenbot.szolnok.timetable.batch.batch;
 
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package org.zenbot.timetableupdater.configuration;
+package org.zenbot.szolnok.timetable.batch.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
