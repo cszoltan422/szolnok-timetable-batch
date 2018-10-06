@@ -10,11 +10,11 @@ import org.springframework.batch.item.ItemProcessor;
 @Slf4j
 public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
 
-    private static final String ROUTE_NAME_SELECTOR = "#art-main > div > div > div > div > div > div > div.art-postcontent > table > tbody > tr > td > center > table:nth-child(2) > tbody > tr > td > font > b";
-    private static final String FROM_SELECTOR = "#art-main > div > div > div > div > div > div > div.art-postcontent > table > tbody > tr > td > center > table.stations > tbody > tr:nth-child(2) > td:nth-child(3) > a";
-    private static final String ACTUALSTOP_SELECTOR = "#art-main > div > div > div > div > div > div > div.art-postcontent > table > tbody > tr > td > center > table.schedule > tbody > tr:nth-child(1) > th > font";
-    private static final String STATIONS_SELECTOR = "#art-main > div > div.art-layout-wrapper > div > div > div > div > div.art-postcontent > table > tbody > tr > td > center > table.stations";
-    private static final String TIME_TABLE_SELECTOR = "#art-main > div > div > div > div > div > div > div.art-postcontent > table > tbody > tr > td > center > table.schedule";
+    private static final String ROUTE_NAME_SELECTOR = "td.route_number";
+    private static final String FROM_SELECTOR = "table.stations > tbody > tr:nth-child(2) > td:nth-child(3) > a";
+    private static final String ACTUALSTOP_SELECTOR = "table.schedule > tbody > tr:nth-child(1) > th > font";
+    private static final String STATIONS_SELECTOR = "table.stations";
+    private static final String TIME_TABLE_SELECTOR = "table.schedule";
     private static final String TABLE_ROW_SELECTOR = "tr";
     private static final String TABLE_COLUMN_SELECTOR = "td";
 
