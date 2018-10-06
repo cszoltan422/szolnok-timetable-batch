@@ -8,6 +8,9 @@ import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.file.ResourceAwareItemReaderItemStream;
 import org.springframework.core.io.Resource;
 
+import javax.print.Doc;
+import java.net.SocketTimeoutException;
+
 @Slf4j
 public class TimetableReader implements ResourceAwareItemReaderItemStream<Document> {
     private Resource resource;
@@ -26,7 +29,22 @@ public class TimetableReader implements ResourceAwareItemReaderItemStream<Docume
             return null;
         }
         log.info("Reading html file [{}]", resource.getURL().toString());
-        return Jsoup.connect(resource.getURL().toString()).get();
+        Document result = null;
+        int i = 0;
+        while (i <= 4) {
+            try  {
+                result = Jsoup.connect(resource.getURL().toString()).get();
+                break;
+            } catch (SocketTimeoutException e) {
+                log.debug("Read timed out [{}]", resource.getURL().toString());
+                log.debug("Retry last operation for the [{}] time", i + 1);
+            }
+            i++;
+        }
+        if (result == null) {
+            throw new IllegalStateException(String.format("Cannot fetch documet=[%s]", resource.getURL().toString()));
+        }
+        return result;
     }
 
     @Override
