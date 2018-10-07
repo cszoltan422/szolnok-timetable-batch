@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.core.env.Environment;
+import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.domain.BusRoute;
 import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
 
@@ -15,10 +16,12 @@ import java.util.List;
 public class RemoveRouteLinesExecutionListener implements JobExecutionListener {
 
     private final RouteRepository routeRepository;
+    private final BusStopRepository busStopRepository;
     private final Environment environment;
 
-    public RemoveRouteLinesExecutionListener(RouteRepository routeRepository, Environment environment) {
+    public RemoveRouteLinesExecutionListener(RouteRepository routeRepository, BusStopRepository busStopRepository, Environment environment) {
         this.routeRepository = routeRepository;
+        this.busStopRepository = busStopRepository;
         this.environment = environment;
     }
 
@@ -37,6 +40,7 @@ public class RemoveRouteLinesExecutionListener implements JobExecutionListener {
             log.info("Removing all routelines from database");
             routes.forEach(route -> route.setBusRouteLines(new ArrayList<>()));
         }
+        busStopRepository.deleteAll();
         routeRepository.saveAll(routes);
     }
 

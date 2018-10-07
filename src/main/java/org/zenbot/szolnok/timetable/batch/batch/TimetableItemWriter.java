@@ -2,30 +2,52 @@ package org.zenbot.szolnok.timetable.batch.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
+import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
 import org.zenbot.szolnok.timetable.batch.domain.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class TimetableItemWriter implements ItemWriter<Timetable> {
 
     private final RouteRepository routeRepository;
+    private final BusStopRepository busStopRepository;
 
-    public TimetableItemWriter(RouteRepository routeRepository) {
+    public TimetableItemWriter(RouteRepository routeRepository, BusStopRepository busStopRepository) {
         this.routeRepository = routeRepository;
+        this.busStopRepository = busStopRepository;
     }
 
     @Override
     public void write(List<? extends Timetable> list) {
         checkConstraints(list);
+        Timetable timetable = buildBusRouteAndSave(list);
+        saveBusStop(timetable);
+    }
+
+    private void saveBusStop(Timetable timetable) {
+        Optional<BusStopWithRoutes> busStopWithRoutesOptional = busStopRepository.findByBusStopName(timetable.getActiveStopName());
+        BusStopWithRoutes busStopWithRoutes = null;
+        if (!busStopWithRoutesOptional.isPresent()) {
+            busStopWithRoutes = new BusStopWithRoutes();
+            busStopWithRoutes.setBusStopName(timetable.getActiveStopName());
+            busStopWithRoutes.setBusRoutes(new HashSet<>(Collections.singletonList(timetable.getRouteName())));
+        } else {
+            busStopWithRoutes = busStopWithRoutesOptional.get();
+            busStopWithRoutes.getBusRoutes().add(timetable.getRouteName());
+        }
+        log.info("Saving busStop=[{}] to database", busStopWithRoutes);
+        busStopRepository.save(busStopWithRoutes);
+    }
+
+    private Timetable buildBusRouteAndSave(List<? extends Timetable> list) {
         Timetable timetable = list.get(0);
         log.info("Writing busRoute [#{} from={}, stop={}] to database", timetable.getRouteName(), timetable.getStartBusStopName(), timetable.getActiveStopName());
         BusRoute busRoute = getRoute(timetable);
         BusRouteLine busRouteLine = getRoutePath(timetable, busRoute);
         BusStop busStop = new BusStop();
+
 
         buildBusStopTimeTable(timetable, busStop);
         setRoutePathProperties(busRouteLine, timetable, busStop);
@@ -33,6 +55,7 @@ public class TimetableItemWriter implements ItemWriter<Timetable> {
 
         log.info("Saving to database [#{}]", busRoute.getRoutename());
         routeRepository.save(busRoute);
+        return timetable;
     }
 
     private void addRoutePath(BusRoute busRoute, BusRouteLine busRouteLine) {

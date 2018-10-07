@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.zenbot.szolnok.timetable.batch.batch.*;
+import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
 
 import java.io.IOException;
@@ -30,41 +31,35 @@ public class BatchConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
-    private final ResourceReader resourceReader;
-    private final RouteRepository routeRepository;
-    private final Environment environment;
 
-    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, ResourceReader resourceReader, RouteRepository routeRepository, Environment environment) {
+    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
-        this.resourceReader = resourceReader;
-        this.routeRepository = routeRepository;
-        this.environment = environment;
     }
 
     @Bean
-    public Job importTimetableJob() throws IOException {
+    public Job importTimetableJob(RouteRepository routeRepository, BusStopRepository busStopRepository, Environment environment, ResourceReader resourceReader) throws IOException {
         return jobBuilderFactory
                 .get("importTimetableJob")
-                .listener(jobExecutionListener())
-                .flow(importTimetableStep())
+                .listener(jobExecutionListener(routeRepository, busStopRepository,environment))
+                .flow(importTimetableStep(resourceReader, routeRepository, busStopRepository))
                 .end()
                 .build();
     }
 
     @Bean
-    public Step importTimetableStep() throws IOException {
+    public Step importTimetableStep(ResourceReader resourceReader, RouteRepository routeRepository, BusStopRepository busStopRepository) throws IOException {
         return stepBuilderFactory
                 .get("importTimetableStep")
                 .<Document, Timetable> chunk(1)
-                .reader(timetableReader())
+                .reader(timetableReader(resourceReader))
                 .processor(itemProcessor())
-                .writer(itemWriter())
+                .writer(itemWriter(routeRepository, busStopRepository))
                 .build();
     }
 
     @Bean
-    public ItemReader<Document> timetableReader() throws IOException {
+    public ItemReader<Document> timetableReader(ResourceReader resourceReader) throws IOException {
         Resource[] resources = resourceReader.readResources().stream().toArray(Resource[]::new);
         MultiResourceItemReader<Document> multiResourceItemReader = new MultiResourceItemReader<>();
         multiResourceItemReader.setResources(resources);
@@ -78,13 +73,13 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ItemWriter<Timetable> itemWriter() {
-        return new TimetableItemWriter(routeRepository);
+    public ItemWriter<Timetable> itemWriter(RouteRepository routeRepository, BusStopRepository busStopRepository) {
+        return new TimetableItemWriter(routeRepository, busStopRepository);
     }
 
     @Bean
-    public JobExecutionListener jobExecutionListener() {
-        return new RemoveRouteLinesExecutionListener(routeRepository, environment);
+    public JobExecutionListener jobExecutionListener(RouteRepository routeRepository,BusStopRepository busStopRepository, Environment environment) {
+        return new RemoveRouteLinesExecutionListener(routeRepository, busStopRepository, environment);
     }
 
     @Bean
