@@ -31,13 +31,13 @@ public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
     @Override
     public Timetable process(Document htmlDocument) {
         Timetable timetable = new Timetable();
-        setRoutename(htmlDocument, timetable);
+        setBusName(htmlDocument, timetable);
         setStartBusStopName(htmlDocument, timetable);
         setEndBusStopName(htmlDocument, timetable);
         setActiveBusStopName(htmlDocument, timetable);
         setTimetable(htmlDocument, timetable);
 
-        log.info("Process html with routename [#{}] and timetable for [{}] stop", timetable.getRouteName(), timetable.getActiveStopName());
+        log.info("Process html with busName [#{}] and timetable for [{}] stop", timetable.getBusName(), timetable.getActiveStopName());
         return timetable;
     }
 
@@ -87,9 +87,9 @@ public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
         timetable.setStartBusStopName(stringCleaner.clean(from));
     }
 
-    private void setRoutename(Document htmlDocument, Timetable timetable) {
+    private void setBusName(Document htmlDocument, Timetable timetable) {
         String routename = getHtmlText(htmlDocument, ROUTE_NAME_SELECTOR);
-        timetable.setRouteName(routename);
+        timetable.setBusName(routename);
     }
 
     private String getHtmlText(Document htmlDocument, String s) {

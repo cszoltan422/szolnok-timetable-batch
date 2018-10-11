@@ -8,11 +8,11 @@ import java.util.Set;
 
 @Data
 @Document
-public class BusStopWithRoutes {
+public class BusStopWithBuses {
 
     @Id
     private String id;
 
     private String busStopName;
-    private Set<String> busRoutes;
+    private Set<String> buses;
 }

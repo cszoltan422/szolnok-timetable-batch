@@ -5,22 +5,22 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.core.env.Environment;
 import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
-import org.zenbot.szolnok.timetable.batch.domain.BusRoute;
-import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
+import org.zenbot.szolnok.timetable.batch.domain.Bus;
+import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
-public class RemoveRouteLinesExecutionListener implements JobExecutionListener {
+public class RemoveBusRoutesExecutionListener implements JobExecutionListener {
 
-    private final RouteRepository routeRepository;
+    private final BusRepository busRepository;
     private final BusStopRepository busStopRepository;
     private final Environment environment;
 
-    public RemoveRouteLinesExecutionListener(RouteRepository routeRepository, BusStopRepository busStopRepository, Environment environment) {
-        this.routeRepository = routeRepository;
+    public RemoveBusRoutesExecutionListener(BusRepository busRepository, BusStopRepository busStopRepository, Environment environment) {
+        this.busRepository = busRepository;
         this.busStopRepository = busStopRepository;
         this.environment = environment;
     }
@@ -28,20 +28,20 @@ public class RemoveRouteLinesExecutionListener implements JobExecutionListener {
     @Override
     public void beforeJob(JobExecution jobExecution) {
         List<String> activeProfilesList = Arrays.asList(environment.getActiveProfiles());
-        List<BusRoute> routes = routeRepository.findAll();
+        List<Bus> routes = busRepository.findAll();
         if (!activeProfilesList.isEmpty()) {
-            log.info("Removing routelines [{}]", String.join(",", activeProfilesList));
+            log.info("Removing bus routes [{}]", String.join(",", activeProfilesList));
             routes.forEach(route -> {
-                if (activeProfilesList.contains(route.getRoutename())) {
-                    route.setBusRouteLines(new ArrayList<>());
+                if (activeProfilesList.contains(route.getBusName())) {
+                    route.setBusRoutes(new ArrayList<>());
                 }
             });
         } else {
-            log.info("Removing all routelines from database");
-            routes.forEach(route -> route.setBusRouteLines(new ArrayList<>()));
+            log.info("Removing all bus routes from database");
+            routes.forEach(route -> route.setBusRoutes(new ArrayList<>()));
+            busStopRepository.deleteAll();
         }
-        busStopRepository.deleteAll();
-        routeRepository.saveAll(routes);
+        busRepository.saveAll(routes);
     }
 
     @Override

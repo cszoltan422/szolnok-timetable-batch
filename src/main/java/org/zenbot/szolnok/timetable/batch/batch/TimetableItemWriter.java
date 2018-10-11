@@ -3,7 +3,7 @@ package org.zenbot.szolnok.timetable.batch.batch;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
 import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
-import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
+import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
 import org.zenbot.szolnok.timetable.batch.domain.*;
 
 import java.util.*;
@@ -11,67 +11,65 @@ import java.util.*;
 @Slf4j
 public class TimetableItemWriter implements ItemWriter<Timetable> {
 
-    private final RouteRepository routeRepository;
+    private final BusRepository busRepository;
     private final BusStopRepository busStopRepository;
 
-    public TimetableItemWriter(RouteRepository routeRepository, BusStopRepository busStopRepository) {
-        this.routeRepository = routeRepository;
+    public TimetableItemWriter(BusRepository busRepository, BusStopRepository busStopRepository) {
+        this.busRepository = busRepository;
         this.busStopRepository = busStopRepository;
     }
 
     @Override
     public void write(List<? extends Timetable> list) {
         checkConstraints(list);
-        Timetable timetable = buildBusRouteAndSave(list);
-        saveBusStop(timetable);
+        Bus bus = buildBus(list.get(0));
+        busRepository.save(bus);
+        saveBusStop(list.get(0));
     }
 
     private void saveBusStop(Timetable timetable) {
-        Optional<BusStopWithRoutes> busStopWithRoutesOptional = busStopRepository.findByBusStopName(timetable.getActiveStopName());
-        BusStopWithRoutes busStopWithRoutes = null;
+        Optional<BusStopWithBuses> busStopWithRoutesOptional = busStopRepository.findByBusStopName(timetable.getActiveStopName());
+        BusStopWithBuses busStopWithBuses;
         if (!busStopWithRoutesOptional.isPresent()) {
-            busStopWithRoutes = new BusStopWithRoutes();
-            busStopWithRoutes.setBusStopName(timetable.getActiveStopName());
-            busStopWithRoutes.setBusRoutes(new HashSet<>(Collections.singletonList(timetable.getRouteName())));
+            busStopWithBuses = new BusStopWithBuses();
+            busStopWithBuses.setBusStopName(timetable.getActiveStopName());
+            busStopWithBuses.setBuses(new HashSet<>(Collections.singletonList(timetable.getBusName())));
         } else {
-            busStopWithRoutes = busStopWithRoutesOptional.get();
-            busStopWithRoutes.getBusRoutes().add(timetable.getRouteName());
+            busStopWithBuses = busStopWithRoutesOptional.get();
+            busStopWithBuses.getBuses().add(timetable.getBusName());
         }
-        log.info("Saving busStop=[{}] to database", busStopWithRoutes);
-        busStopRepository.save(busStopWithRoutes);
+        log.info("Saving busStop=[{}] to database", busStopWithBuses);
+        busStopRepository.save(busStopWithBuses);
     }
 
-    private Timetable buildBusRouteAndSave(List<? extends Timetable> list) {
-        Timetable timetable = list.get(0);
-        log.info("Writing busRoute [#{} from={}, stop={}] to database", timetable.getRouteName(), timetable.getStartBusStopName(), timetable.getActiveStopName());
-        BusRoute busRoute = getRoute(timetable);
-        BusRouteLine busRouteLine = getRoutePath(timetable, busRoute);
+    private Bus buildBus(Timetable timetable) {
+        log.info("Writing bus [#{} from={}, stop={}, to={}] to database", timetable.getBusName(), timetable.getStartBusStopName(), timetable.getActiveStopName(), timetable.getEndBusStopName());
+        Bus bus = getBus(timetable);
+        BusRoute busRoute = getBusRoute(timetable, bus);
         BusStop busStop = new BusStop();
 
-
         buildBusStopTimeTable(timetable, busStop);
-        setRoutePathProperties(busRouteLine, timetable, busStop);
-        addRoutePath(busRoute, busRouteLine);
+        setRoutePathProperties(busRoute, timetable, busStop);
+        addRoutePath(bus, busRoute);
 
-        log.info("Saving to database [#{}]", busRoute.getRoutename());
-        routeRepository.save(busRoute);
-        return timetable;
+        log.info("Saving to database bus=[#{}]", bus.getBusName());
+        return bus;
     }
 
-    private void addRoutePath(BusRoute busRoute, BusRouteLine busRouteLine) {
-        if (busRoute.hasNoRoutePath(busRouteLine)) {
-            busRoute.getBusRouteLines().add(busRouteLine);
+    private void addRoutePath(Bus bus, BusRoute busRoute) {
+        if (bus.hasNoBusRoute(busRoute)) {
+            bus.getBusRoutes().add(busRoute);
         }
     }
 
-    private void setRoutePathProperties(BusRouteLine busRouteLine, Timetable timetable, BusStop busStop) {
-        busRouteLine.addBusStopTimetable(busStop);
-        busRouteLine.setStartBusStop(timetable.getStartBusStopName());
-        busRouteLine.setEndBusStop(timetable.getEndBusStopName());
+    private void setRoutePathProperties(BusRoute busRoute, Timetable timetable, BusStop busStop) {
+        busRoute.addBusStopTimetable(busStop);
+        busRoute.setStartBusStop(timetable.getStartBusStopName());
+        busRoute.setEndBusStop(timetable.getEndBusStopName());
     }
 
     private void buildBusStopTimeTable(Timetable timetable, BusStop busStop) {
-        log.debug("Setting bust stop properties");
+        log.debug("Setting bus stop properties for stop=[{}] and bus=[{}]", busStop.getBusStopName(), timetable.getBusName());
         busStop.setBusStopName(timetable.getActiveStopName());
         Schedule workdaySchedule = new Schedule();
         Schedule saturdaySchedule = new Schedule();
@@ -107,21 +105,21 @@ public class TimetableItemWriter implements ItemWriter<Timetable> {
 
     }
 
-    private BusRouteLine getRoutePath(Timetable timetable, BusRoute busRoute) {
-        log.debug("Fetching routepath from busRoute [#{}]", busRoute.getRoutename());
-        return busRoute.getRoutePathByStartStopName(timetable.getStartBusStopName());
+    private BusRoute getBusRoute(Timetable timetable, Bus bus) {
+        log.debug("Fetching bus route from bus=[#{}]", bus.getBusName());
+        return bus.getBusRouteByStartStopName(timetable.getStartBusStopName());
     }
 
-    private BusRoute getRoute(Timetable timetable) {
-        log.debug("Fetching busRoute from database");
-        BusRoute busRoute = routeRepository.findByRoutename(timetable.getRouteName());
-        if (busRoute == null) {
-            log.debug("BusRoute not found! Creating a new one!");
-            busRoute = new BusRoute();
-            busRoute.setBusRouteLines(new ArrayList<>());
+    private Bus getBus(Timetable timetable) {
+        log.debug("Fetching bus=[#{}] from database", timetable.getBusName());
+        Bus bus = busRepository.findByBusName(timetable.getBusName());
+        if (bus == null) {
+            log.debug("Bus=[{}] not found! Creating a new one!", timetable.getBusName());
+            bus = new Bus();
+            bus.setBusRoutes(new ArrayList<>());
         }
-        busRoute.setRoutename(timetable.getRouteName());
-        return busRoute;
+        bus.setBusName(timetable.getBusName());
+        return bus;
     }
 
     private void checkConstraints(List<? extends Timetable> list) {

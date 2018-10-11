@@ -19,7 +19,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.zenbot.szolnok.timetable.batch.batch.*;
 import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
-import org.zenbot.szolnok.timetable.batch.dao.RouteRepository;
+import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
 
 import java.io.IOException;
 
@@ -38,23 +38,23 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Job importTimetableJob(RouteRepository routeRepository, BusStopRepository busStopRepository, Environment environment, ResourceReader resourceReader) throws IOException {
+    public Job importTimetableJob(BusRepository busRepository, BusStopRepository busStopRepository, Environment environment, ResourceReader resourceReader) throws IOException {
         return jobBuilderFactory
                 .get("importTimetableJob")
-                .listener(jobExecutionListener(routeRepository, busStopRepository,environment))
-                .flow(importTimetableStep(resourceReader, routeRepository, busStopRepository))
+                .listener(jobExecutionListener(busRepository, busStopRepository,environment))
+                .flow(importTimetableStep(resourceReader, busRepository, busStopRepository))
                 .end()
                 .build();
     }
 
     @Bean
-    public Step importTimetableStep(ResourceReader resourceReader, RouteRepository routeRepository, BusStopRepository busStopRepository) throws IOException {
+    public Step importTimetableStep(ResourceReader resourceReader, BusRepository busRepository, BusStopRepository busStopRepository) throws IOException {
         return stepBuilderFactory
                 .get("importTimetableStep")
                 .<Document, Timetable> chunk(1)
                 .reader(timetableReader(resourceReader))
                 .processor(itemProcessor())
-                .writer(itemWriter(routeRepository, busStopRepository))
+                .writer(itemWriter(busRepository, busStopRepository))
                 .build();
     }
 
@@ -73,13 +73,13 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public ItemWriter<Timetable> itemWriter(RouteRepository routeRepository, BusStopRepository busStopRepository) {
-        return new TimetableItemWriter(routeRepository, busStopRepository);
+    public ItemWriter<Timetable> itemWriter(BusRepository busRepository, BusStopRepository busStopRepository) {
+        return new TimetableItemWriter(busRepository, busStopRepository);
     }
 
     @Bean
-    public JobExecutionListener jobExecutionListener(RouteRepository routeRepository,BusStopRepository busStopRepository, Environment environment) {
-        return new RemoveRouteLinesExecutionListener(routeRepository, busStopRepository, environment);
+    public JobExecutionListener jobExecutionListener(BusRepository busRepository, BusStopRepository busStopRepository, Environment environment) {
+        return new RemoveBusRoutesExecutionListener(busRepository, busStopRepository, environment);
     }
 
     @Bean

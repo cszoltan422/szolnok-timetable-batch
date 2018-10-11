@@ -8,7 +8,7 @@ import java.util.Map;
 @Data
 public class Timetable {
 
-    private String routeName;
+    private String busName;
     private String startBusStopName;
     private String endBusStopName;
     private String activeStopName;
