@@ -66,7 +66,7 @@ public class ResourceReader {
 
     private List<File> getFileResourcesByActiveProfiles(List<String> profiles, File resourceDirectory) {
         List<String> activeProfileFilesNames = profiles.stream()
-                .map(activeProfile -> activeProfile.concat(properties.getFileExtension()))
+                .map(activeProfile -> activeProfile.concat("." + properties.getFileExtension()))
                 .collect(Collectors.toList());
 
         File[] files = resourceDirectory.listFiles();
