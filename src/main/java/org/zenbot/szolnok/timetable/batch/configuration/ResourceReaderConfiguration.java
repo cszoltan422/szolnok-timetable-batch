@@ -6,20 +6,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@EnableConfigurationProperties(TimetableResourceLocationProperties.class)
+@EnableConfigurationProperties(TimetableProperties.class)
 public class ResourceReaderConfiguration {
 
     private final Environment environment;
-    private final TimetableResourceLocationProperties properties;
+    private final TimetableProperties properties;
 
-    public ResourceReaderConfiguration(Environment environment, TimetableResourceLocationProperties properties) {
+    public ResourceReaderConfiguration(Environment environment, TimetableProperties properties) {
         this.environment = environment;
         this.properties = properties;
     }
 
     @Bean
     public ResourceReader resourceReader() {
-        return new ResourceReader(environment, comparator(), properties);
+        return new ResourceReader(environment, comparator(), properties.getResource());
     }
 
     @Bean

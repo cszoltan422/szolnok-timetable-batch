@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableResourceProperties;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,9 +21,9 @@ public class ResourceReader {
 
     private final Environment environment;
     private final FilenameComparator comparator;
-    private final TimetableResourceLocationProperties properties;
+    private final TimetableResourceProperties properties;
 
-    public ResourceReader(Environment environment, FilenameComparator comparator, TimetableResourceLocationProperties properties) {
+    public ResourceReader(Environment environment, FilenameComparator comparator, TimetableResourceProperties properties) {
         this.environment = environment;
         this.comparator = comparator;
         this.properties = properties;

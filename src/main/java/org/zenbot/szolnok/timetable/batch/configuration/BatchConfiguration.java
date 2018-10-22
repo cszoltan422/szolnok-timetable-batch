@@ -26,15 +26,17 @@ import java.io.IOException;
 @Slf4j
 @Configuration
 @EnableBatchProcessing
-@EnableConfigurationProperties(TimetableResourceLocationProperties.class)
+@EnableConfigurationProperties(TimetableProperties.class)
 public class BatchConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
+    private final TimetableProperties timetableProperties;
 
-    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
+    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, TimetableProperties timetableProperties) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
+        this.timetableProperties = timetableProperties;
     }
 
     @Bean
@@ -63,13 +65,13 @@ public class BatchConfiguration {
         Resource[] resources = resourceReader.readResources().stream().toArray(Resource[]::new);
         MultiResourceItemReader<Document> multiResourceItemReader = new MultiResourceItemReader<>();
         multiResourceItemReader.setResources(resources);
-        multiResourceItemReader.setDelegate(new TimetableReader());
+        multiResourceItemReader.setDelegate(new HtmlDocumentReaderReader());
         return multiResourceItemReader;
     }
 
     @Bean
     public ItemProcessor<Document, Timetable> itemProcessor() {
-        return new TimetableProcessor(stringCleaner());
+        return new TimetableProcessor(stringCleaner(), timetableProperties.getSelector());
     }
 
     @Bean

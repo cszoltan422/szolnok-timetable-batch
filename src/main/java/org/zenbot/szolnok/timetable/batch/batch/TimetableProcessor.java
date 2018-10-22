@@ -6,26 +6,21 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
+import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableSelectorProperties;
 
 @Slf4j
 public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
-
-    private static final String ROUTE_NAME_SELECTOR = "td.route_number";
-    private static final String FROM_SELECTOR = "table.stations > tbody > tr:nth-child(2) > td:nth-child(3) > a";
-    private static final String ACTUALSTOP_SELECTOR = "table.schedule > tbody > tr:nth-child(1) > th > font";
-    private static final String STATIONS_SELECTOR = "table.stations";
-    private static final String TIME_TABLE_SELECTOR = "table.schedule";
-    private static final String TABLE_ROW_SELECTOR = "tr";
-    private static final String TABLE_COLUMN_SELECTOR = "td";
 
     public static final String WEEKDAY_KEY = "weekday";
     public static final String SATURDAY_KEY = "saturday";
     public static final String SUNDAY_KEY = "sunday";
 
     private final StringCleaner stringCleaner;
+    private final TimetableSelectorProperties selectorProperties;
 
-    public TimetableProcessor(StringCleaner stringCleaner) {
+    public TimetableProcessor(StringCleaner stringCleaner, TimetableSelectorProperties selectorProperties) {
         this.stringCleaner = stringCleaner;
+        this.selectorProperties = selectorProperties;
     }
 
     @Override
@@ -42,9 +37,9 @@ public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
     }
 
     private void setTimetable(Document htmlDocument, Timetable timetable) {
-        for (Element table : htmlDocument.select(TIME_TABLE_SELECTOR)) {
-            for (Element row : table.select(TABLE_ROW_SELECTOR)) {
-                Elements tds = row.select(TABLE_COLUMN_SELECTOR);
+        for (Element table : htmlDocument.select(selectorProperties.getTimetableSelector())) {
+            for (Element row : table.select(selectorProperties.getTableRowSelector())) {
+                Elements tds = row.select(selectorProperties.getTableColumnSelector());
                 if (tds.size() == 4) {
                     String hour = tds.get(0).text();
                     String weekdayArrivals = tds.get(1).text().replaceAll(" ", "");
@@ -61,7 +56,7 @@ public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
     }
 
     private void setActiveBusStopName(Document htmlDocument, Timetable timetable) {
-        String actualStop = getHtmlText(htmlDocument, ACTUALSTOP_SELECTOR);
+        String actualStop = getHtmlText(htmlDocument, selectorProperties.getActualStopSelector());
         // In the html page they put it insede () signs.
         actualStop = (String) actualStop.subSequence(actualStop.indexOf("(") + 1, actualStop.indexOf(")"));
         if (actualStop.contains("(")) {
@@ -74,21 +69,21 @@ public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
     }
 
     private void setEndBusStopName(Document htmlDocument, Timetable timetable) {
-        Elements stationsTable = htmlDocument.select(STATIONS_SELECTOR);
-        stationsTable.select(TABLE_ROW_SELECTOR).size();
-        int indexOfEndBusStop = stationsTable.select(TABLE_ROW_SELECTOR).size() - 2;
-        Elements rows = stationsTable.select(TABLE_ROW_SELECTOR);
-        String to = rows.get(indexOfEndBusStop).select(TABLE_COLUMN_SELECTOR).get(2).text();
+        Elements stationsTable = htmlDocument.select(selectorProperties.getBusStopsSelector());
+        stationsTable.select(selectorProperties.getTableRowSelector()).size();
+        int indexOfEndBusStop = stationsTable.select(selectorProperties.getTableRowSelector()).size() - 2;
+        Elements rows = stationsTable.select(selectorProperties.getTableRowSelector());
+        String to = rows.get(indexOfEndBusStop).select(selectorProperties.getTableColumnSelector()).get(2).text();
         timetable.setEndBusStopName(stringCleaner.clean(to));
     }
 
     private void setStartBusStopName(Document htmlDocument, Timetable timetable) {
-        String from = getHtmlText(htmlDocument, FROM_SELECTOR);
+        String from = getHtmlText(htmlDocument, selectorProperties.getFromSelector());
         timetable.setStartBusStopName(stringCleaner.clean(from));
     }
 
     private void setBusName(Document htmlDocument, Timetable timetable) {
-        String routename = getHtmlText(htmlDocument, ROUTE_NAME_SELECTOR);
+        String routename = getHtmlText(htmlDocument, selectorProperties.getRouteNameSelector());
         timetable.setBusName(routename);
     }
 

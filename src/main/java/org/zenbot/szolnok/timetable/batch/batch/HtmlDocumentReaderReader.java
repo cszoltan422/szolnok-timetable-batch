@@ -9,10 +9,11 @@ import org.springframework.batch.item.file.ResourceAwareItemReaderItemStream;
 import org.springframework.core.io.Resource;
 
 import javax.print.Doc;
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 @Slf4j
-public class TimetableReader implements ResourceAwareItemReaderItemStream<Document> {
+public class HtmlDocumentReaderReader implements ResourceAwareItemReaderItemStream<Document> {
     private Resource resource;
     private int count = -1;
     private boolean readNext = false;
@@ -29,6 +30,10 @@ public class TimetableReader implements ResourceAwareItemReaderItemStream<Docume
             return null;
         }
         log.info("Reading html file [{}]", resource.getURL().toString());
+        return readWithRetry();
+    }
+
+    private Document readWithRetry() throws IOException {
         Document result = null;
         int i = 0;
         while (i <= 4) {

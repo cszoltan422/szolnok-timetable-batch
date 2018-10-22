@@ -6,7 +6,15 @@ spring:
       database: szolnok-busdb
       username: szolnokuser
 timetable:
-  resources:
+  resource:
     folder: buslines
     fileExtension: txt
     commentSign: '#'
+  selector:
+    route-name-selector: "td.route_number"
+    from-selector: "table.stations > tbody > tr:nth-child(2) > td:nth-child(3) > a"
+    actual-stop-selector: "table.schedule > tbody > tr:nth-child(1) > th > font"
+    bus-stops-selector: "table.stations"
+    timetable-selector: "table.schedule"
+    table-row-selector: "tr"
+    table-column-selector: "td"
