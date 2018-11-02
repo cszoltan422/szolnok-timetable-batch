@@ -9,17 +9,15 @@ import org.springframework.core.env.Environment;
 @EnableConfigurationProperties(TimetableProperties.class)
 public class ResourceReaderConfiguration {
 
-    private final Environment environment;
     private final TimetableProperties properties;
 
-    public ResourceReaderConfiguration(Environment environment, TimetableProperties properties) {
-        this.environment = environment;
+    public ResourceReaderConfiguration(TimetableProperties properties) {
         this.properties = properties;
     }
 
     @Bean
     public ResourceReader resourceReader() {
-        return new ResourceReader(environment, comparator(), properties.getResource());
+        return new ResourceReader(comparator(), properties.getResource());
     }
 
     @Bean

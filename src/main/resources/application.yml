@@ -1,10 +1,3 @@
-spring:
-  data:
-    mongodb:
-      host: 217.163.11.185
-      port: 27017
-      database: szolnok-busdb
-      username: szolnokuser
 timetable:
   resource:
     folder: buslines

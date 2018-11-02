@@ -3,4 +3,4 @@ java -version
 source ~/.profile
 echo $DB_UPDATER_HOME
 cd ${DB_UPDATER_HOME}
-mvn spring-boot:run -Dspring.data.mongodb.password=${SZOLNOK_DB_PASSWORD} -Dspring.profiles.active=$1
+mvn spring-boot:run -Dspring.profiles.active=$1 -Dtimetable.resource.selected-buses=$2

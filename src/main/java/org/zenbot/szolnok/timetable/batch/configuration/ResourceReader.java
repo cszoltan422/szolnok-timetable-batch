@@ -2,7 +2,6 @@ package org.zenbot.szolnok.timetable.batch.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableResourceProperties;
@@ -10,26 +9,22 @@ import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableReso
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
 public class ResourceReader {
 
-    private final Environment environment;
     private final FilenameComparator comparator;
     private final TimetableResourceProperties properties;
 
-    public ResourceReader(Environment environment, FilenameComparator comparator, TimetableResourceProperties properties) {
-        this.environment = environment;
+    public ResourceReader(FilenameComparator comparator, TimetableResourceProperties properties) {
         this.comparator = comparator;
         this.properties = properties;
     }
 
     public List<Resource> readResources() throws IOException {
+        log.info("{}",properties.getSelectedBuses());
         File resourceDirectory = new File(this.getClass().getResource(File.separator + properties.getFolder()).getFile());
         if (!resourceDirectory.isDirectory()) {
             throw new IllegalStateException("Must be a directory");
@@ -37,16 +32,15 @@ public class ResourceReader {
 
         log.info("Reading resources from [{}]", resourceDirectory.getAbsolutePath());
 
-        String[] activeProfiles = environment.getActiveProfiles();
-        log.info("Active profiles [{}]", String.join(",", Arrays.asList(activeProfiles)));
-        return read(resourceDirectory, Arrays.asList(activeProfiles));
+        log.info("Selected buses [{}]", String.join(",", properties.getSelectedBuses()));
+        return read(resourceDirectory, properties.getSelectedBuses());
     }
 
 
 
     private List<Resource> read(File resourceDirectory, List<String> profiles) throws IOException {
         List<Resource> resources = new ArrayList<>();
-        List<File> fileResources = getFileResourcesByActiveProfiles(profiles, resourceDirectory);
+        List<File> fileResources = getFileResourcesBySelectedBuses(profiles, resourceDirectory);
         for (File file : fileResources) {
             List<UrlResource> urlResources = Arrays.stream(FileUtils.readFileToString(file, "UTF-8")
                     .split(System.lineSeparator()))
@@ -65,20 +59,21 @@ public class ResourceReader {
         return resources;
     }
 
-    private List<File> getFileResourcesByActiveProfiles(List<String> profiles, File resourceDirectory) {
-        List<String> activeProfileFilesNames = profiles.stream()
-                .map(activeProfile -> activeProfile.concat("." + properties.getFileExtension()))
-                .collect(Collectors.toList());
-
-        File[] files = resourceDirectory.listFiles();
+    private List<File> getFileResourcesBySelectedBuses(List<String> selectedBuses, File resourceDirectory) {
         List<File> result = new ArrayList<>();
-
-        if (profiles.size() > 0) {
-            result.addAll(Arrays.stream(files)
-                    .filter(file -> activeProfileFilesNames.contains(file.getName()))
-                    .collect(Collectors.toList()));
+        File[] files = resourceDirectory.listFiles();
+        if (selectedBuses.isEmpty()) {
+            result.addAll(Arrays.stream(files).collect(Collectors.toList()));
         } else {
-            result.addAll(Arrays.asList(files));
+            List<String> selectedBusesFilenames = selectedBuses.stream()
+                    .map(bus -> bus.concat("." + properties.getFileExtension()))
+                    .collect(Collectors.toList());
+            log.info("{}",selectedBusesFilenames);
+            result.addAll(
+                    Arrays.stream(files)
+                            .filter(file -> selectedBusesFilenames.contains(file.getName()))
+                            .collect(Collectors.toList())
+            );
         }
 
         Collections.sort(result, comparator);

@@ -69,7 +69,7 @@ public class TimetableItemWriter implements ItemWriter<Timetable> {
     }
 
     private void buildBusStopTimeTable(Timetable timetable, BusStop busStop) {
-        log.debug("Setting bus stop properties for stop=[{}] and bus=[{}]", busStop.getBusStopName(), timetable.getBusName());
+        log.debug("Setting bus stop properties for stop=[{}] and bus=[{}]", timetable.getActiveStopName(), timetable.getBusName());
         busStop.setBusStopName(timetable.getActiveStopName());
         Schedule workdaySchedule = new Schedule();
         Schedule saturdaySchedule = new Schedule();

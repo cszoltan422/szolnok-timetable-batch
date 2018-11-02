@@ -22,6 +22,7 @@ import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Slf4j
 @Configuration
@@ -37,6 +38,9 @@ public class BatchConfiguration {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
         this.timetableProperties = timetableProperties;
+        if (timetableProperties.getResource().getSelectedBuses() == null) {
+            timetableProperties.getResource().setSelectedBuses(new ArrayList<>());
+        }
     }
 
     @Bean
@@ -81,7 +85,7 @@ public class BatchConfiguration {
 
     @Bean
     public JobExecutionListener jobExecutionListener(BusRepository busRepository, BusStopRepository busStopRepository, Environment environment) {
-        return new RemoveBusRoutesExecutionListener(busRepository, busStopRepository, environment);
+        return new RemoveBusRoutesExecutionListener(busRepository, busStopRepository, environment, timetableProperties.getResource());
     }
 
     @Bean
