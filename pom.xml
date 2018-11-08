@@ -18,7 +18,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>10</java.version>
+		<java.version>8</java.version>
 
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 	</properties>
@@ -100,17 +100,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
-				<configuration>
-					<release>10</release>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.ow2.asm</groupId>
-						<artifactId>asm</artifactId>
-						<version>6.2</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
