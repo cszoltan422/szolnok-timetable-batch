@@ -8,15 +8,15 @@ import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.file.ResourceAwareItemReaderItemStream;
 import org.springframework.core.io.Resource;
 
-import javax.print.Doc;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 @Slf4j
 public class HtmlDocumentReaderReader implements ResourceAwareItemReaderItemStream<Document> {
+    public static final int RETRY_COUNT = 4;
     private Resource resource;
     private int count = -1;
-    private boolean readNext = false;
+    private boolean readNext;
 
     @Override
     public void setResource(Resource resource) {
@@ -36,7 +36,7 @@ public class HtmlDocumentReaderReader implements ResourceAwareItemReaderItemStre
     private Document readWithRetry() throws IOException {
         Document result = null;
         int i = 0;
-        while (i <= 4) {
+        while (i <= RETRY_COUNT) {
             try  {
                 result = Jsoup.connect(resource.getURL().toString()).get();
                 break;

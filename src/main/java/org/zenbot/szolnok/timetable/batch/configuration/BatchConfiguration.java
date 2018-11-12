@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.zenbot.szolnok.timetable.batch.batch.*;
-import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
+import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class BatchConfiguration {
     public Job importTimetableJob(BusRepository busRepository, BusStopRepository busStopRepository, Environment environment, ResourceReader resourceReader) throws IOException {
         return jobBuilderFactory
                 .get("importTimetableJob")
-                .listener(jobExecutionListener(busRepository, busStopRepository,environment))
+                .listener(jobExecutionListener(busRepository, busStopRepository))
                 .flow(importTimetableStep(resourceReader, busRepository, busStopRepository))
                 .end()
                 .build();
@@ -84,8 +84,8 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public JobExecutionListener jobExecutionListener(BusRepository busRepository, BusStopRepository busStopRepository, Environment environment) {
-        return new RemoveBusRoutesExecutionListener(busRepository, busStopRepository, environment, timetableProperties.getResource());
+    public JobExecutionListener jobExecutionListener(BusRepository busRepository, BusStopRepository busStopRepository) {
+        return new RemoveBusRoutesExecutionListener(busRepository, busStopRepository, timetableProperties.getResource());
     }
 
     @Bean

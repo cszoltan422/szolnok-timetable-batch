@@ -21,6 +21,8 @@
 		<java.version>8</java.version>
 
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<findbugs-maven-plugin.version>3.0.1</findbugs-maven-plugin.version>
+		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
 	</properties>
 
 	<scm>
@@ -106,7 +108,42 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>${maven-release-plugin.version}</version>
 			</plugin>
-
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>${findbugs-maven-plugin.version}</version>
+				<configuration>
+					<effort>Max</effort>
+					<threshold>Low</threshold>
+					<failOnError>true</failOnError>
+				</configuration>
+				<executions>
+					<execution>
+						<id>analyze-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven-pmd-plugin.version}</version>
+				<configuration>
+					<failOnViolation>true</failOnViolation>
+					<targetJdk>1.8</targetJdk>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+							<goal>cpd-check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

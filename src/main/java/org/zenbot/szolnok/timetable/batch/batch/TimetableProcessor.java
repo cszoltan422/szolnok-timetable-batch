@@ -45,7 +45,7 @@ public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
                     String weekdayArrivals = tds.get(1).text().replaceAll(" ", "");
                     String saturdayArrivals = tds.get(2).text().replaceAll(" ", "");
                     String sundayArrivals = tds.get(3).text().replaceAll(" ", "");
-                    timetable.addRow(Integer.valueOf(hour), ImmutableMap.<String, String>builder()
+                    timetable.addRow(Integer.parseInt(hour), ImmutableMap.<String, String>builder()
                             .put(WEEKDAY_KEY, weekdayArrivals)
                             .put(SATURDAY_KEY, saturdayArrivals)
                             .put(SUNDAY_KEY, sundayArrivals)
@@ -70,7 +70,6 @@ public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
 
     private void setEndBusStopName(Document htmlDocument, Timetable timetable) {
         Elements stationsTable = htmlDocument.select(selectorProperties.getBusStopsSelector());
-        stationsTable.select(selectorProperties.getTableRowSelector()).size();
         int indexOfEndBusStop = stationsTable.select(selectorProperties.getTableRowSelector()).size() - 2;
         Elements rows = stationsTable.select(selectorProperties.getTableRowSelector());
         String to = rows.get(indexOfEndBusStop).select(selectorProperties.getTableColumnSelector()).get(2).text();

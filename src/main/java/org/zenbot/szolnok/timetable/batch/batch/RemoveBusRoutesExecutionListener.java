@@ -3,11 +3,10 @@ package org.zenbot.szolnok.timetable.batch.batch;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
-import org.springframework.core.env.Environment;
 import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableResourceProperties;
+import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
 import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.domain.Bus;
-import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class RemoveBusRoutesExecutionListener implements JobExecutionListener {
     private final BusStopRepository busStopRepository;
     private final TimetableResourceProperties properties;
 
-    public RemoveBusRoutesExecutionListener(BusRepository busRepository, BusStopRepository busStopRepository, Environment environment, TimetableResourceProperties properties) {
+    public RemoveBusRoutesExecutionListener(BusRepository busRepository, BusStopRepository busStopRepository, TimetableResourceProperties properties) {
         this.busRepository = busRepository;
         this.busStopRepository = busStopRepository;
         this.properties = properties;

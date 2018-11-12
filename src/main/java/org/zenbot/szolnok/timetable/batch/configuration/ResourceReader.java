@@ -9,7 +9,10 @@ import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableReso
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j

@@ -1,9 +1,12 @@
 package org.zenbot.szolnok.timetable.batch.configuration;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class FilenameComparator implements Comparator<File> {
+public class FilenameComparator implements Comparator<File>, Serializable {
+
+    private static final long serialVersionUID = 6106269076155338045L;
 
     @Override
     public int compare(File first, File second) {

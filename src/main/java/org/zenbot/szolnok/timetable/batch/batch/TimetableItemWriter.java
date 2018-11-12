@@ -2,8 +2,8 @@ package org.zenbot.szolnok.timetable.batch.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
-import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
+import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.domain.*;
 
 import java.util.*;
