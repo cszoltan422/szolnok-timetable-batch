@@ -26,7 +26,9 @@ public class ResourceReader {
     public List<Resource> readResources() throws IOException {
         log.info("{}",properties.getSelectedBuses());
         File resourceDirectory = new File(this.getClass().getResource(File.separator + properties.getFolder()).getFile());
+        log.info("{}", resourceDirectory.getAbsolutePath());
         if (!resourceDirectory.isDirectory()) {
+            log.error("Not a directory [{}]", resourceDirectory.getAbsolutePath());
             throw new IllegalStateException("Must be a directory");
         }
 
