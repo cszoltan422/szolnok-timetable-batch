@@ -3,7 +3,6 @@ package org.zenbot.szolnok.timetable.batch.batch.step.bus.processor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
-import org.zenbot.szolnok.timetable.batch.domain.Timetable;
 import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
 import org.zenbot.szolnok.timetable.batch.domain.*;
 
