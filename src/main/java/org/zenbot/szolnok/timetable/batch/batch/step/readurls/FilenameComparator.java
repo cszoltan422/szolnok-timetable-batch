@@ -1,9 +1,12 @@
-package org.zenbot.szolnok.timetable.batch.configuration;
+package org.zenbot.szolnok.timetable.batch.batch.step.readurls;
+
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
 
+@Component
 public class FilenameComparator implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 6106269076155338045L;

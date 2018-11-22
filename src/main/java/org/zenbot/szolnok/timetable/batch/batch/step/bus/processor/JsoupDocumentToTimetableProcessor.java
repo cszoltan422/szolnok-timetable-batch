@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.batch;
+package org.zenbot.szolnok.timetable.batch.batch.step.bus.processor;
 
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
@@ -6,10 +6,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
+import org.zenbot.szolnok.timetable.batch.domain.Timetable;
+import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableProperties;
 import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableSelectorProperties;
 
 @Slf4j
-public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
+@Component
+@EnableConfigurationProperties(TimetableProperties.class)
+public class JsoupDocumentToTimetableProcessor implements ItemProcessor<Document, Timetable> {
 
     public static final String WEEKDAY_KEY = "weekday";
     public static final String SATURDAY_KEY = "saturday";
@@ -18,9 +24,9 @@ public class TimetableProcessor implements ItemProcessor<Document, Timetable> {
     private final StringCleaner stringCleaner;
     private final TimetableSelectorProperties selectorProperties;
 
-    public TimetableProcessor(StringCleaner stringCleaner, TimetableSelectorProperties selectorProperties) {
+    public JsoupDocumentToTimetableProcessor(StringCleaner stringCleaner, TimetableProperties properties) {
         this.stringCleaner = stringCleaner;
-        this.selectorProperties = selectorProperties;
+        this.selectorProperties = properties.getSelector();
     }
 
     @Override

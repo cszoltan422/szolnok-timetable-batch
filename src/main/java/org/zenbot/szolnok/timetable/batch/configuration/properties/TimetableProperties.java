@@ -1,9 +1,7 @@
-package org.zenbot.szolnok.timetable.batch.configuration;
+package org.zenbot.szolnok.timetable.batch.configuration.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableResourceProperties;
-import org.zenbot.szolnok.timetable.batch.configuration.properties.TimetableSelectorProperties;
 
 @Data
 @ConfigurationProperties("timetable")

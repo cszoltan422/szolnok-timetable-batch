@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.batch;
+package org.zenbot.szolnok.timetable.batch.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,49 +1,33 @@
-package org.zenbot.szolnok.timetable.batch.batch;
+package org.zenbot.szolnok.timetable.batch.batch.step.bus.processor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.stereotype.Component;
+import org.zenbot.szolnok.timetable.batch.domain.Timetable;
 import org.zenbot.szolnok.timetable.batch.dao.BusRepository;
-import org.zenbot.szolnok.timetable.batch.dao.BusStopRepository;
 import org.zenbot.szolnok.timetable.batch.domain.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
-public class TimetableItemWriter implements ItemWriter<Timetable> {
+@Component
+public class TimetableToBusItemProcessor implements ItemProcessor<Timetable, Bus> {
 
     private final BusRepository busRepository;
-    private final BusStopRepository busStopRepository;
 
-    public TimetableItemWriter(BusRepository busRepository, BusStopRepository busStopRepository) {
+    public TimetableToBusItemProcessor(BusRepository busRepository) {
         this.busRepository = busRepository;
-        this.busStopRepository = busStopRepository;
     }
 
     @Override
-    public void write(List<? extends Timetable> list) {
-        checkConstraints(list);
-        Bus bus = buildBus(list.get(0));
-        busRepository.save(bus);
-        saveBusStop(list.get(0));
-    }
-
-    private void saveBusStop(Timetable timetable) {
-        Optional<BusStopWithBuses> busStopWithRoutesOptional = busStopRepository.findByBusStopName(timetable.getActiveStopName());
-        BusStopWithBuses busStopWithBuses;
-        if (!busStopWithRoutesOptional.isPresent()) {
-            busStopWithBuses = new BusStopWithBuses();
-            busStopWithBuses.setBusStopName(timetable.getActiveStopName());
-            busStopWithBuses.setBuses(new HashSet<>(Collections.singletonList(timetable.getBusName())));
-        } else {
-            busStopWithBuses = busStopWithRoutesOptional.get();
-            busStopWithBuses.getBuses().add(timetable.getBusName());
-        }
-        log.info("Saving busStop=[{}] to database", busStopWithBuses);
-        busStopRepository.save(busStopWithBuses);
+    public Bus process(Timetable timetable) throws Exception {
+        return buildBus(timetable);
     }
 
     private Bus buildBus(Timetable timetable) {
-        log.info("Writing bus [#{} from={}, stop={}, to={}] to database", timetable.getBusName(), timetable.getStartBusStopName(), timetable.getActiveStopName(), timetable.getEndBusStopName());
+        log.info("Processing timetable [#{} from={}, stop={}, to={}]", timetable.getBusName(), timetable.getStartBusStopName(), timetable.getActiveStopName(), timetable.getEndBusStopName());
         Bus bus = getBus(timetable);
         BusRoute busRoute = getBusRoute(timetable, bus);
         BusStop busStop = new BusStop();
@@ -52,7 +36,7 @@ public class TimetableItemWriter implements ItemWriter<Timetable> {
         setRoutePathProperties(busRoute, timetable, busStop);
         addRoutePath(bus, busRoute);
 
-        log.info("Saving to database bus=[#{}]", bus.getBusName());
+        log.info("Done processing timetable to bus=[#{}]", bus.getBusName());
         return bus;
     }
 
@@ -75,9 +59,9 @@ public class TimetableItemWriter implements ItemWriter<Timetable> {
         Schedule saturdaySchedule = new Schedule();
         Schedule sundaySchedule = new Schedule();
 
-        setScheduleValues(timetable, workdaySchedule, TimetableProcessor.WEEKDAY_KEY);
-        setScheduleValues(timetable, saturdaySchedule, TimetableProcessor.SATURDAY_KEY);
-        setScheduleValues(timetable, sundaySchedule, TimetableProcessor.SUNDAY_KEY);
+        setScheduleValues(timetable, workdaySchedule, JsoupDocumentToTimetableProcessor.WEEKDAY_KEY);
+        setScheduleValues(timetable, saturdaySchedule, JsoupDocumentToTimetableProcessor.SATURDAY_KEY);
+        setScheduleValues(timetable, sundaySchedule, JsoupDocumentToTimetableProcessor.SUNDAY_KEY);
 
         busStop.setWorkDaySchedule(workdaySchedule);
         busStop.setSaturdaySchedule(saturdaySchedule);
@@ -120,11 +104,5 @@ public class TimetableItemWriter implements ItemWriter<Timetable> {
         }
         bus.setBusName(timetable.getBusName());
         return bus;
-    }
-
-    private void checkConstraints(List<? extends Timetable> list) {
-        if (list.size() != 1) {
-            throw new IllegalArgumentException("The size of the list to write should be one! Writing items one by one is accepted");
-        }
     }
 }

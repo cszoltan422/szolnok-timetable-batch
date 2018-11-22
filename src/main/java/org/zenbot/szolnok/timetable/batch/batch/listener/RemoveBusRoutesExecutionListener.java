@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.batch;
+package org.zenbot.szolnok.timetable.batch.batch.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobExecution;
@@ -22,6 +22,9 @@ public class RemoveBusRoutesExecutionListener implements JobExecutionListener {
         this.busRepository = busRepository;
         this.busStopRepository = busStopRepository;
         this.properties = properties;
+        if (properties.getSelectedBuses() == null) {
+            properties.setSelectedBuses(new ArrayList<>());
+        }
     }
 
     @Override
