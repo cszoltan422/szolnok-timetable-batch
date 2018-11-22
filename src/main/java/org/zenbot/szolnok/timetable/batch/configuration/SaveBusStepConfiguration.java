@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.zenbot.szolnok.timetable.batch.batch.step.bus.processor.JsoupDocumentToTimetableProcessor;
 import org.zenbot.szolnok.timetable.batch.batch.step.bus.processor.TimetableToBusItemProcessor;
 import org.zenbot.szolnok.timetable.batch.batch.step.bus.processor.UrlResouceToDocumentJsoupProcessor;
-import org.zenbot.szolnok.timetable.batch.batch.step.bus.writer.BusMongoRepositoryItemWriter;
 import org.zenbot.szolnok.timetable.batch.batch.step.bus.reader.UrlResouceItemReader;
+import org.zenbot.szolnok.timetable.batch.batch.step.bus.writer.BusMongoRepositoryItemWriter;
 import org.zenbot.szolnok.timetable.batch.domain.Bus;
 
 import java.util.Arrays;
