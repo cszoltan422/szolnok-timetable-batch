@@ -26,7 +26,7 @@
 	</properties>
 
 	<scm>
-		<developerConnection>scm:git:https://github.com/cszoltan422/szolnok-timetable-batch.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:spotify/dockerfile-maven.git</developerConnection>
 		<url>https://github.com/cszoltan422/szolnok-timetable-batch</url>
 		<tag>HEAD</tag>
 	</scm>
