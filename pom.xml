@@ -4,7 +4,7 @@
 
 	<groupId>org.zenbot</groupId>
 	<artifactId>szolnok-timetable-batch</artifactId>
-	<version>0.6</version>
+	<version>0.7-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>szolnok-timetable-batch</name>
@@ -28,7 +28,7 @@
 	<scm>
 		<developerConnection>scm:git:git@github.com:cszoltan422/szolnok-timetable-batch.git</developerConnection>
 		<url>https://github.com/cszoltan422/szolnok-timetable-batch</url>
-		<tag>szolnok-timetable-batch-0.6</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<developers>
