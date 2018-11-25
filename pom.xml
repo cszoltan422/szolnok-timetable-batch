@@ -26,7 +26,7 @@
 	</properties>
 
 	<scm>
-		<developerConnection>scm:git:git@github.com:cszoltan422/szolnok-timetable-batch.git</developerConnection>
+		<developerConnection>scm:git:https://github.com/cszoltan422/szolnok-timetable-batch.git</developerConnection>
 		<url>https://github.com/cszoltan422/szolnok-timetable-batch</url>
 		<tag>HEAD</tag>
 	</scm>
@@ -38,6 +38,19 @@
 			<url>https://github.com/cszoltan422</url>
 		</developer>
 	</developers>
+
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>c95a99c76597-releases</name>
+			<url>http://185.92.221.160:8081/artifactory/libs-release</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>c95a99c76597-snapshots</name>
+			<url>http://185.92.221.160:8081/artifactory/libs-snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 
 	<dependencies>
