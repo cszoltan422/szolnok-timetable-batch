@@ -23,10 +23,12 @@ public class ScheduleBuilderItemProcessorHelper {
             String[] arrivalsSplitted = arrivals.split(",");
             List<BusArrival> busArrivals = new ArrayList<>();
             for (String arrival : arrivalsSplitted) {
-                BusArrival busArrival = new BusArrival();
-                busArrival.setArrivalHour(key);
-                busArrival.setArrivalMinute(arrival.isEmpty() ? null : Integer.valueOf(arrival));
-                busArrivals.add(busArrival);
+                if (!"".equals(arrival)) {
+                    BusArrival busArrival = new BusArrival();
+                    busArrival.setArrivalHour(key);
+                    busArrival.setArrivalMinute(arrival.isEmpty() ? null : Integer.valueOf(arrival));
+                    busArrivals.add(busArrival);
+                }
             }
             busArrivalsByHour.addAll(busArrivals);
         }
