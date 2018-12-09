@@ -5,7 +5,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
-import java.net.SocketTimeoutException;
+import java.io.IOException;
 
 @Slf4j
 @Component
@@ -20,7 +20,7 @@ public class UrlResouceToDocumentJsoupProcessor implements ItemProcessor<String,
     }
 
     @Override
-    public Document process(String url) throws Exception {
+    public Document process(String url) {
         log.info("Process url=[{}]", url);
         Document result = null;
         int i = 0;
@@ -28,7 +28,7 @@ public class UrlResouceToDocumentJsoupProcessor implements ItemProcessor<String,
             try  {
                 result = jsoupDocumentService.getDocument(url);
                 break;
-            } catch (SocketTimeoutException e) {
+            } catch (IOException e) {
                 log.debug("Read timed out [{}]", url);
                 log.debug("Retry last operation for the [{}] time", i + 1);
             }
