@@ -39,7 +39,7 @@ public class JsoupDocumentToTimetableProcessor implements ItemProcessor<Document
         String busName = htmlDocument.select(selectorProperties.getRouteNameSelector()).text();
         String startBusStop = htmlDocument.select(selectorProperties.getFromSelector()).text();
         String endBusStop = endBusStopSelectorItemProcessorHelper.getEndBusStop(htmlDocument, selectorProperties);
-        String actualStop = actualStopSelectorItemProcessorHelper.getActualStop(htmlDocument, selectorProperties.getActualStopSelector());
+        String actualStop = actualStopSelectorItemProcessorHelper.getActualStop(htmlDocument, selectorProperties);
         Map<Integer, Map<String, String>> timetableRows = timetableRowBuilderItemProcessorHelper.getTimetableRows(htmlDocument, selectorProperties);
 
         timetable.setBusName(busName);

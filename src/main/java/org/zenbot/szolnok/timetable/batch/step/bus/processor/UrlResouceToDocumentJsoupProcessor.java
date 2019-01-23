@@ -13,7 +13,7 @@ public class UrlResouceToDocumentJsoupProcessor implements ItemProcessor<String,
 
     private final JsoupDocumentService jsoupDocumentService;
 
-    public static final int RETRY_COUNT = 4;
+    private static final int RETRY_COUNT = 4;
 
     public UrlResouceToDocumentJsoupProcessor(JsoupDocumentService jsoupDocumentService) {
         this.jsoupDocumentService = jsoupDocumentService;

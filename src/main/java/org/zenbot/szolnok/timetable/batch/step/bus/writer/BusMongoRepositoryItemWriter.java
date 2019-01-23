@@ -19,7 +19,7 @@ public class BusMongoRepositoryItemWriter implements ItemWriter<Bus> {
     }
 
     @Override
-    public void write(List<? extends Bus> list) throws Exception {
+    public void write(List<? extends Bus> list) {
         if (list.size()  > 1) {
             throw new IllegalArgumentException("Size of the list should be [1]! Actual size is [" + list.size() + "]");
         }
