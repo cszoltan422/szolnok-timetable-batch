@@ -8,6 +8,9 @@ public class StringCleaner {
         return string
                 .replaceAll("û", "ű")
                 .replaceAll("õ", "ő")
-                .replaceAll("ô", "ő");
+                .replaceAll("ô", "ő")
+                .replaceAll("\\.", "")
+                .trim()
+                .replaceAll(" +", " ");
     }
 }

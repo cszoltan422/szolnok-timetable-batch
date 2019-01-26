@@ -6,8 +6,7 @@ import java.util.List;
 
 @Data
 public class TimetableResourceProperties {
-    private String folder;
-    private String fileExtension;
-    private String commentSign;
+    private String baseUrl;
+    private String szolnokUrl;
     private List<String> selectedBuses;
 }

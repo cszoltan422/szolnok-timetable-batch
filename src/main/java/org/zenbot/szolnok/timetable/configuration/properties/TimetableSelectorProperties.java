@@ -11,4 +11,8 @@ public class TimetableSelectorProperties {
     private String timetableSelector;
     private String tableRowSelector;
     private String tableColumnSelector;
+    private String routesLinkSelector;
+    private String hrefSelector;
+    private String stationsSelector;
+    private String otherRouteSelector;
 }

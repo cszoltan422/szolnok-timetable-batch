@@ -22,12 +22,14 @@ public class JsoupDocumentToTimetableProcessor implements ItemProcessor<Document
 
     private final TimetableSelectorProperties selectorProperties;
 
+    private final StartBusStopSelectorItemProcessorHelper startBusStopSelectorItemProcessorHelper;
     private final EndBusStopSelectorItemProcessorHelper endBusStopSelectorItemProcessorHelper;
     private final ActualStopSelectorItemProcessorHelper actualStopSelectorItemProcessorHelper;
     private final TimetableRowBuilderItemProcessorHelper timetableRowBuilderItemProcessorHelper;
 
-    public JsoupDocumentToTimetableProcessor(TimetableProperties properties, EndBusStopSelectorItemProcessorHelper endBusStopSelectorItemProcessorHelper, ActualStopSelectorItemProcessorHelper actualStopSelectorItemProcessorHelper, TimetableRowBuilderItemProcessorHelper timetableRowBuilderItemProcessorHelper) {
+    public JsoupDocumentToTimetableProcessor(TimetableProperties properties, StartBusStopSelectorItemProcessorHelper startBusStopSelectorItemProcessorHelper, EndBusStopSelectorItemProcessorHelper endBusStopSelectorItemProcessorHelper, ActualStopSelectorItemProcessorHelper actualStopSelectorItemProcessorHelper, TimetableRowBuilderItemProcessorHelper timetableRowBuilderItemProcessorHelper) {
         this.selectorProperties = properties.getSelector();
+        this.startBusStopSelectorItemProcessorHelper = startBusStopSelectorItemProcessorHelper;
         this.endBusStopSelectorItemProcessorHelper = endBusStopSelectorItemProcessorHelper;
         this.actualStopSelectorItemProcessorHelper = actualStopSelectorItemProcessorHelper;
         this.timetableRowBuilderItemProcessorHelper = timetableRowBuilderItemProcessorHelper;
@@ -37,7 +39,7 @@ public class JsoupDocumentToTimetableProcessor implements ItemProcessor<Document
     public Timetable process(Document htmlDocument) {
         Timetable timetable = new Timetable();
         String busName = htmlDocument.select(selectorProperties.getRouteNameSelector()).text();
-        String startBusStop = htmlDocument.select(selectorProperties.getFromSelector()).text();
+        String startBusStop = startBusStopSelectorItemProcessorHelper.getStartBusStop(htmlDocument, selectorProperties);
         String endBusStop = endBusStopSelectorItemProcessorHelper.getEndBusStop(htmlDocument, selectorProperties);
         String actualStop = actualStopSelectorItemProcessorHelper.getActualStop(htmlDocument, selectorProperties);
         Map<Integer, Map<String, String>> timetableRows = timetableRowBuilderItemProcessorHelper.getTimetableRows(htmlDocument, selectorProperties);

@@ -15,9 +15,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class JsoupDocumentToTimetableProcessorTest {
@@ -44,6 +42,9 @@ public class JsoupDocumentToTimetableProcessorTest {
     private Elements startBusStopElement;
 
     @Mock
+    private StartBusStopSelectorItemProcessorHelper startBusStopSelectorItemProcessorHelper;
+
+    @Mock
     private EndBusStopSelectorItemProcessorHelper endBusStopSelectorItemProcessorHelper;
 
     @Mock
@@ -63,16 +64,15 @@ public class JsoupDocumentToTimetableProcessorTest {
         TimetableProperties properties = new TimetableProperties();
         properties.setSelector(selectorProperties);
 
-        testSubject = new JsoupDocumentToTimetableProcessor(properties, endBusStopSelectorItemProcessorHelper, actualStopSelectorItemProcessorHelper, timetableRowBuilderItemProcessorHelper);
+        testSubject = new JsoupDocumentToTimetableProcessor(properties, startBusStopSelectorItemProcessorHelper, endBusStopSelectorItemProcessorHelper, actualStopSelectorItemProcessorHelper, timetableRowBuilderItemProcessorHelper);
     }
 
     @Test
     public void processShouldDelegateCallsToHelpers() {
         // GIVEN
         given(html.select(selectorProperties.getRouteNameSelector())).willReturn(routeNameElement);
-        given(html.select(selectorProperties.getFromSelector())).willReturn(startBusStopElement);
         given(routeNameElement.text()).willReturn(ROUTE_NAME);
-        given(startBusStopElement.text()).willReturn(START_BUS_STOP);
+        given(startBusStopSelectorItemProcessorHelper.getStartBusStop(html, selectorProperties)).willReturn(START_BUS_STOP);
         given(endBusStopSelectorItemProcessorHelper.getEndBusStop(any(Document.class), any(TimetableSelectorProperties.class))).willReturn(END_BUS_STOP);
         given(actualStopSelectorItemProcessorHelper.getActualStop(any(Document.class), any(TimetableSelectorProperties.class))).willReturn(ACTUAL_STOP);
         Map<Integer, Map<String, String>> timetable = new HashMap<>();
@@ -82,7 +82,8 @@ public class JsoupDocumentToTimetableProcessorTest {
         Timetable result = testSubject.process(html);
 
         //THEN
-        verify(html, times(2)).select(anyString());
+        verify(html).select(ROUTE_NAME_SELECTOR);
+        verify(startBusStopSelectorItemProcessorHelper).getStartBusStop(html, selectorProperties);
         verify(endBusStopSelectorItemProcessorHelper).getEndBusStop(html, selectorProperties);
         verify(actualStopSelectorItemProcessorHelper).getActualStop(html, selectorProperties);
         verify(timetableRowBuilderItemProcessorHelper).getTimetableRows(html, selectorProperties);
