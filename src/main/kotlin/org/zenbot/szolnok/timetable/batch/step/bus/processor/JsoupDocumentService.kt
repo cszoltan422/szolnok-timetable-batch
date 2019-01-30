@@ -1,0 +1,28 @@
+package org.zenbot.szolnok.timetable.batch.step.bus.processor
+
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Service
+import java.io.IOException
+
+@Service
+class JsoupDocumentService {
+
+    private val log = LoggerFactory.getLogger(JsoupDocumentService::class.java)
+
+    fun getDocument(url: String): Document {
+        var i = 0
+        while (i <= 4) {
+            try {
+                return Jsoup.connect(url).get()
+            } catch (e: IOException) {
+                log.debug("Read timed out [{}]", url)
+                log.debug("Retry last operation for the [{}] time", i + 1)
+            }
+
+            i++
+        }
+        throw IllegalStateException("Cannot fetch document=[$url]")
+    }
+}
