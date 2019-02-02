@@ -8,15 +8,11 @@ import org.zenbot.szolnok.timetable.dao.BusRepository
 import org.zenbot.szolnok.timetable.dao.BusStopRepository
 import org.zenbot.szolnok.timetable.domain.BusRoute
 
-class RemoveBusRoutesExecutionListener(private val busRepository: BusRepository, private val busStopRepository: BusStopRepository, private val properties: TimetableResourceProperties) : JobExecutionListener {
+class RemoveBusRoutesExecutionListener(val busRepository: BusRepository,
+                                       val busStopRepository: BusStopRepository,
+                                       val properties: TimetableResourceProperties) : JobExecutionListener {
 
     private val log = LoggerFactory.getLogger(RemoveBusRoutesExecutionListener::class.java)
-
-    init {
-        if (properties.selectedBuses == null) {
-            properties.selectedBuses = ArrayList()
-        }
-    }
 
     override fun beforeJob(jobExecution: JobExecution) {
         val routes = busRepository.findAll()

@@ -1,6 +1,5 @@
 package org.zenbot.szolnok.timetable.batch.step.bus.processor
 
-import com.google.common.collect.ImmutableMap
 import org.jsoup.nodes.Document
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.batch.step.bus.processor.JsoupDocumentToTimetableProcessor.Companion.SATURDAY_KEY
@@ -20,11 +19,9 @@ class TimetableRowBuilderItemProcessorHelper {
                     val weekdayArrivals = tds[1].text().replace(" ".toRegex(), "")
                     val saturdayArrivals = tds[2].text().replace(" ".toRegex(), "")
                     val sundayArrivals = tds[3].text().replace(" ".toRegex(), "")
-                    result[Integer.parseInt(hour)] = ImmutableMap.builder<String, String>()
-                            .put(WEEKDAY_KEY, weekdayArrivals)
-                            .put(SATURDAY_KEY, saturdayArrivals)
-                            .put(SUNDAY_KEY, sundayArrivals)
-                            .build()
+                    result[Integer.parseInt(hour)] = mapOf(WEEKDAY_KEY to weekdayArrivals,
+                            SATURDAY_KEY to saturdayArrivals,
+                            SUNDAY_KEY to sundayArrivals)
                 }
             }
         }

@@ -2,6 +2,7 @@ timetable:
   resource:
     base-url: "https://www.kmkk.hu/"
     szolnok-url: "component/schedule/?city=1"
+    selected-buses: []
   selector:
     route-name-selector: "td.route_number"
     from-selector: "table.stations > tbody > tr:nth-child(2) > td:nth-child(3) > a"
