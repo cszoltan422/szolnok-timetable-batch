@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
 data class BusArrival(
-    @Id var id: String = "",
+    @Id var id: String? = null,
     var isLowfloor: Boolean = false,
     var arrivalHour: Int = 0,
     var arrivalMinute: Int? = null

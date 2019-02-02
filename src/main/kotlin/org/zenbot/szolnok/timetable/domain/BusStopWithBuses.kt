@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
 data class BusStopWithBuses(
-    @Id var id: String,
+    @Id var id: String? = null,
     var busStopName: String,
     var buses: Set<String>
 )

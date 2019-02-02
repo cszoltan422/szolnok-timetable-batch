@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
 data class BusRoute(
-    @Id var id: String = "",
+    @Id var id: String? = null,
     var startBusStop: String = "",
     var endBusStop: String = "",
     var busStops: MutableList<BusStop> = ArrayList()
