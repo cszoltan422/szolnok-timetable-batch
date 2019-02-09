@@ -12,7 +12,7 @@ import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor.UrlResouc
 import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.reader.UrlResourceItemReader
 import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.writer.BusMongoRepositoryItemWriter
 import org.zenbot.szolnok.timetable.batch.bus.domain.Bus
-import java.util.Arrays
+import java.util.*
 
 @Configuration
 open class SaveBusStepConfiguration(private val stepBuilderFactory: StepBuilderFactory, private val urlResourceItemReader: UrlResourceItemReader, private val busMongoRepositoryItemWriter: BusMongoRepositoryItemWriter) {

@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.stereotype.Component
+import org.zenbot.szolnok.timetable.batch.utils.service.JsoupDocumentService
 
 @Component
 class UrlResouceToDocumentJsoupProcessor(private val jsoupDocumentService: JsoupDocumentService) : ItemProcessor<String, Document> {

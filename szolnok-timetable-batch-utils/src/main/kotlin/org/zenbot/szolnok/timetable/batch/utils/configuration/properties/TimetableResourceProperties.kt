@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.bus.configuration.properties
+package org.zenbot.szolnok.timetable.batch.utils.configuration.properties
 
 data class TimetableResourceProperties(
     var baseUrl: String = "",

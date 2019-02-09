@@ -5,29 +5,27 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.batch.bus.configuration.properties.TimetableProperties
-import org.zenbot.szolnok.timetable.batch.bus.configuration.properties.TimetableSelectorProperties
-import org.zenbot.szolnok.timetable.batch.bus.domain.Timetable
+import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableProperties
+import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableSelectorProperties
+import org.zenbot.szolnok.timetable.batch.utils.domain.Timetable
 
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)
-class JsoupDocumentToTimetableProcessor(properties: TimetableProperties, private val startBusStopSelectorItemProcessorHelper: StartBusStopSelectorItemProcessorHelper, private val endBusStopSelectorItemProcessorHelper: EndBusStopSelectorItemProcessorHelper, private val actualStopSelectorItemProcessorHelper: ActualStopSelectorItemProcessorHelper, private val timetableRowBuilderItemProcessorHelper: TimetableRowBuilderItemProcessorHelper) : ItemProcessor<Document, Timetable> {
+class JsoupDocumentToTimetableProcessor(private val properties: TimetableProperties,
+                                        private val startBusStopSelectorItemProcessorHelper: StartBusStopSelectorItemProcessorHelper,
+                                        private val endBusStopSelectorItemProcessorHelper: EndBusStopSelectorItemProcessorHelper,
+                                        private val actualStopSelectorItemProcessorHelper: ActualStopSelectorItemProcessorHelper,
+                                        private val timetableRowBuilderItemProcessorHelper: TimetableRowBuilderItemProcessorHelper) : ItemProcessor<Document, Timetable> {
 
     private val log = LoggerFactory.getLogger(JsoupDocumentToTimetableProcessor::class.java)
 
-    private val selectorProperties: TimetableSelectorProperties
-
-    init {
-        this.selectorProperties = properties.selector
-    }
-
     override fun process(htmlDocument: Document): Timetable {
         val timetable = Timetable()
-        val busName = htmlDocument.select(selectorProperties.routeNameSelector).text()
-        val startBusStop = startBusStopSelectorItemProcessorHelper.getStartBusStop(htmlDocument, selectorProperties)
-        val endBusStop = endBusStopSelectorItemProcessorHelper.getEndBusStop(htmlDocument, selectorProperties)
-        val actualStop = actualStopSelectorItemProcessorHelper.getActualStop(htmlDocument, selectorProperties)
-        val timetableRows = timetableRowBuilderItemProcessorHelper.getTimetableRows(htmlDocument, selectorProperties)
+        val busName = htmlDocument.select(properties.selector.routeNameSelector).text()
+        val startBusStop = startBusStopSelectorItemProcessorHelper.getStartBusStop(htmlDocument, properties.selector)
+        val endBusStop = endBusStopSelectorItemProcessorHelper.getEndBusStop(htmlDocument, properties.selector)
+        val actualStop = actualStopSelectorItemProcessorHelper.getActualStop(htmlDocument, properties.selector)
+        val timetableRows = timetableRowBuilderItemProcessorHelper.getTimetableRows(htmlDocument, properties.selector)
 
         timetable.busName = busName
         timetable.startBusStopName = startBusStop

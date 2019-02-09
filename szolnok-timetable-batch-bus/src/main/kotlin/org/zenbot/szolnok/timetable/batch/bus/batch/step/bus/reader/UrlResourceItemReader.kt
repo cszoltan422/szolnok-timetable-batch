@@ -3,7 +3,7 @@ package org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.reader
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemReader
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.batch.bus.batch.step.readurls.StringResourcesInMemoryStorage
+import org.zenbot.szolnok.timetable.batch.utils.batch.step.readurls.StringResourcesInMemoryStorage
 
 @Component
 class UrlResourceItemReader(private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage) : ItemReader<String> {

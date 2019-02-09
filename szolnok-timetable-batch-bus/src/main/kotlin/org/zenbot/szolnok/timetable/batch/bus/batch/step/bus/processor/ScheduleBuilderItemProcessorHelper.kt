@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.batch.bus.domain.BusArrival
 import org.zenbot.szolnok.timetable.batch.bus.domain.Schedule
-import org.zenbot.szolnok.timetable.batch.bus.domain.Timetable
+import org.zenbot.szolnok.timetable.batch.utils.domain.Timetable
 
 @Component
 class ScheduleBuilderItemProcessorHelper {

@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor
+package org.zenbot.szolnok.timetable.batch.utils.service
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document

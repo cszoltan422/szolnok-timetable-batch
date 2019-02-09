@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.bus.batch.step.readurls
+package org.zenbot.szolnok.timetable.batch.utils.batch.step.readurls
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component

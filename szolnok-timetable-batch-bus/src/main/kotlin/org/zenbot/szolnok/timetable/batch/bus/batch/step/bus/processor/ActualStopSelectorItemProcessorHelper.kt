@@ -2,7 +2,7 @@ package org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor
 
 import org.jsoup.nodes.Document
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.batch.bus.configuration.properties.TimetableSelectorProperties
+import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableSelectorProperties
 
 @Component
 class ActualStopSelectorItemProcessorHelper(private val stringCleaner: StringCleaner) {
