@@ -12,8 +12,10 @@ import org.zenbot.szolnok.timetable.batch.utils.service.JsoupDocumentService
 
 @Configuration
 @EnableConfigurationProperties(TimetableProperties::class)
-open class ReadUrlsTaskletStepConfiguration(private val stepBuilderFactory: StepBuilderFactory,
-                                            private val properties: TimetableProperties) {
+open class ReadUrlsTaskletStepConfiguration(
+    private val stepBuilderFactory: StepBuilderFactory,
+    private val properties: TimetableProperties
+) {
 
     @Bean
     open fun readUrlsStep(): Step {
@@ -24,7 +26,7 @@ open class ReadUrlsTaskletStepConfiguration(private val stepBuilderFactory: Step
 
     @Bean
     open fun readFileResourcesTasklet(): ReadFileResourcesTasklet {
-        return ReadFileResourcesTasklet(stringResourcesInMemoryStorage(), jsoupDocumentService(), properties);
+        return ReadFileResourcesTasklet(stringResourcesInMemoryStorage(), jsoupDocumentService(), properties)
     }
 
     @Bean

@@ -9,9 +9,9 @@ import org.zenbot.szolnok.timetable.batch.bus.domain.BusRoute
 import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableResourceProperties
 
 class RemoveBusRoutesExecutionListener(
-        val busRepository: BusRepository,
-        val busStopRepository: BusStopRepository,
-        val properties: TimetableResourceProperties
+    val busRepository: BusRepository,
+    val busStopRepository: BusStopRepository,
+    val properties: TimetableResourceProperties
 ) : JobExecutionListener {
 
     private val log = LoggerFactory.getLogger(RemoveBusRoutesExecutionListener::class.java)

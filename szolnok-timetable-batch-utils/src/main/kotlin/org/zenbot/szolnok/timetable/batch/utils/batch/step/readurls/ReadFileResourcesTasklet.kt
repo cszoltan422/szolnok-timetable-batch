@@ -8,17 +8,13 @@ import org.springframework.batch.core.StepContribution
 import org.springframework.batch.core.scope.context.ChunkContext
 import org.springframework.batch.core.step.tasklet.Tasklet
 import org.springframework.batch.repeat.RepeatStatus
-import org.springframework.boot.context.properties.EnableConfigurationProperties
-import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableProperties
-import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableResourceProperties
-import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableSelectorProperties
 import org.zenbot.szolnok.timetable.batch.utils.service.JsoupDocumentService
 
 class ReadFileResourcesTasklet(
-        private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage,
-        private val jsoupDocumentService: JsoupDocumentService,
-        private val properties: TimetableProperties
+    private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage,
+    private val jsoupDocumentService: JsoupDocumentService,
+    private val properties: TimetableProperties
 ) : Tasklet {
 
     private val log = LoggerFactory.getLogger(ReadFileResourcesTasklet::class.java)

@@ -9,4 +9,3 @@ class SzolnokTimetableBatchBusApplication
 fun main(args: Array<String>) {
     runApplication<SzolnokTimetableBatchBusApplication>(*args)
 }
-

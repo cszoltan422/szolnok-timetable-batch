@@ -31,6 +31,7 @@
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
 		<maven-findbugs-plugin.version>3.0.4</maven-findbugs-plugin.version>
+		<ktlint-maven-plugin.version>0.9.17</ktlint-maven-plugin.version>
 	</properties>
 
 	<scm>
@@ -155,6 +156,20 @@
 					<executions>
 						<execution>
 							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>com.github.gantsign.maven</groupId>
+					<artifactId>ktlint-maven-plugin</artifactId>
+					<version>${ktlint-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>format-and-check</id>
+							<goals>
+								<goal>format</goal>
 								<goal>check</goal>
 							</goals>
 						</execution>

@@ -9,4 +9,3 @@ class SzolnokTimetableBatchNewsApplication
 fun main(args: Array<String>) {
     runApplication<SzolnokTimetableBatchNewsApplication>(*args)
 }
-

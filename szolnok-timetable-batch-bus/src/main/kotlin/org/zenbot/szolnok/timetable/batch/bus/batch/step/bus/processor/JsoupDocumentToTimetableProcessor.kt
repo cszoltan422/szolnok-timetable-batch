@@ -6,16 +6,17 @@ import org.springframework.batch.item.ItemProcessor
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableProperties
-import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableSelectorProperties
 import org.zenbot.szolnok.timetable.batch.utils.domain.Timetable
 
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)
-class JsoupDocumentToTimetableProcessor(private val properties: TimetableProperties,
-                                        private val startBusStopSelectorItemProcessorHelper: StartBusStopSelectorItemProcessorHelper,
-                                        private val endBusStopSelectorItemProcessorHelper: EndBusStopSelectorItemProcessorHelper,
-                                        private val actualStopSelectorItemProcessorHelper: ActualStopSelectorItemProcessorHelper,
-                                        private val timetableRowBuilderItemProcessorHelper: TimetableRowBuilderItemProcessorHelper) : ItemProcessor<Document, Timetable> {
+class JsoupDocumentToTimetableProcessor(
+    private val properties: TimetableProperties,
+    private val startBusStopSelectorItemProcessorHelper: StartBusStopSelectorItemProcessorHelper,
+    private val endBusStopSelectorItemProcessorHelper: EndBusStopSelectorItemProcessorHelper,
+    private val actualStopSelectorItemProcessorHelper: ActualStopSelectorItemProcessorHelper,
+    private val timetableRowBuilderItemProcessorHelper: TimetableRowBuilderItemProcessorHelper
+) : ItemProcessor<Document, Timetable> {
 
     private val log = LoggerFactory.getLogger(JsoupDocumentToTimetableProcessor::class.java)
 
