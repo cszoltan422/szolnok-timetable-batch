@@ -175,6 +175,29 @@
 						</execution>
 					</executions>
 				</plugin>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>dockerfile-maven-plugin</artifactId>
+					<version>1.3.6</version>
+					<executions>
+						<execution>
+							<id>default</id>
+							<goals>
+								<goal>build</goal>
+								<goal>push</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<repository>cszoltan422/${project.build.finalName}</repository>
+						<tag>latest</tag>
+						<tag>${project.version}</tag>
+						<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+						<buildArgs>
+							<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+						</buildArgs>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
