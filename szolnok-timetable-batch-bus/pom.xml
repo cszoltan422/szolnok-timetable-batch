@@ -4,7 +4,7 @@
     <parent>
         <artifactId>szolnok-timetable-batch</artifactId>
         <groupId>org.zenbot</groupId>
-        <version>0.17-SNAPSHOT</version>
+        <version>0.17</version>
     </parent>
 
     <artifactId>szolnok-timetable-batch-bus</artifactId>
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.zenbot</groupId>
             <artifactId>szolnok-timetable-batch-utils</artifactId>
-            <version>0.17-SNAPSHOT</version>
+            <version>0.17</version>
         </dependency>
     </dependencies>
 
