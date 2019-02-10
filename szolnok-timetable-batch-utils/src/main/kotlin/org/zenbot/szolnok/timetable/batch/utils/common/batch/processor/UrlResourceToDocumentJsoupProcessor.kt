@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.utils.common.batch
+package org.zenbot.szolnok.timetable.batch.utils.common.batch.processor
 
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory

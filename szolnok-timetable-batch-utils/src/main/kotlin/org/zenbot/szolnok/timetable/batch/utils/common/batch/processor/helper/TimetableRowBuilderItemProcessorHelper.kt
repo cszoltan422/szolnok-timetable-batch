@@ -1,10 +1,10 @@
-package org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor
+package org.zenbot.szolnok.timetable.batch.utils.common.batch.processor.helper
 
 import org.jsoup.nodes.Document
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor.JsoupDocumentToTimetableProcessor.Companion.SATURDAY_KEY
-import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor.JsoupDocumentToTimetableProcessor.Companion.SUNDAY_KEY
-import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor.JsoupDocumentToTimetableProcessor.Companion.WEEKDAY_KEY
+import org.zenbot.szolnok.timetable.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor.Companion.SATURDAY_KEY
+import org.zenbot.szolnok.timetable.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor.Companion.SUNDAY_KEY
+import org.zenbot.szolnok.timetable.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor.Companion.WEEKDAY_KEY
 import org.zenbot.szolnok.timetable.batch.utils.common.properties.TimetableSelectorProperties
 
 @Component

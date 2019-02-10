@@ -4,7 +4,7 @@ import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.zenbot.szolnok.timetable.batch.utils.common.batch.ReadFileResourcesTasklet
+import org.zenbot.szolnok.timetable.batch.utils.common.batch.tasklet.ReadFileResourcesTasklet
 
 @Configuration
 class ReadUrlsTaskletStepConfiguration(

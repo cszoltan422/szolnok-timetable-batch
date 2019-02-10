@@ -4,13 +4,11 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.core.JobExecution
 import org.springframework.batch.core.JobExecutionListener
 import org.zenbot.szolnok.timetable.batch.bus.dao.BusRepository
-import org.zenbot.szolnok.timetable.batch.bus.dao.BusStopRepository
 import org.zenbot.szolnok.timetable.batch.bus.domain.BusRoute
 import org.zenbot.szolnok.timetable.batch.utils.common.properties.TimetableResourceProperties
 
 class RemoveBusRoutesExecutionListener(
     val busRepository: BusRepository,
-    val busStopRepository: BusStopRepository,
     val properties: TimetableResourceProperties
 ) : JobExecutionListener {
 
@@ -28,7 +26,6 @@ class RemoveBusRoutesExecutionListener(
         } else {
             log.info("Removing all bus routes from database")
             routes.forEach { route -> route.busRoutes = ArrayList<BusRoute>() }
-            busStopRepository.deleteAll()
         }
         busRepository.saveAll(routes)
     }

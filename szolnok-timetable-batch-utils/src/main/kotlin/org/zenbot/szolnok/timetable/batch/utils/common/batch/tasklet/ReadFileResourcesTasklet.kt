@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.utils.common.batch
+package org.zenbot.szolnok.timetable.batch.utils.common.batch.tasklet
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element

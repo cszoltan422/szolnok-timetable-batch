@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.bus.domain
+package org.zenbot.szolnok.timetable.batch.utils.common.domain
 
 data class Timetable(
     var busName: String = "",
