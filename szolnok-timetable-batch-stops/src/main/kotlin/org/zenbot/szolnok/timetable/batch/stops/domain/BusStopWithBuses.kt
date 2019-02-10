@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.bus.domain
+package org.zenbot.szolnok.timetable.batch.stops.domain
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document
 data class BusStopWithBuses(
     @Id var id: String? = null,
-    var busStopName: String,
-    var buses: Set<String>
+    var busStopName: String = "",
+    var buses: MutableSet<String> = HashSet()
 )

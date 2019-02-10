@@ -10,6 +10,14 @@
     <artifactId>szolnok-timetable-batch-stops</artifactId>
     <name>szolnok-timetable-batch-stops</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.zenbot</groupId>
+            <artifactId>szolnok-timetable-batch-utils</artifactId>
+            <version>0.17-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
