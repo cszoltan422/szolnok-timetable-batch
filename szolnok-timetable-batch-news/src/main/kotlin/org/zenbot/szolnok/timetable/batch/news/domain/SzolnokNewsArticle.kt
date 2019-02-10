@@ -1,0 +1,11 @@
+package org.zenbot.szolnok.timetable.batch.news.domain
+
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+
+@Document
+data class SzolnokNewsArticle(
+    @Id var id: String? = null,
+    var effectiveDate: String = "",
+    var content: String = ""
+)

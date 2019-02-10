@@ -1,0 +1,8 @@
+news:
+  resource:
+    base-url: "https://www.kmkk.hu/"
+  selector:
+    news-elements-selector: "div.items-leading article.art-post"
+    news-title-selector: "p:nth-child(2) > span:nth-child(1) > span:nth-child(1)"
+    news-date-selector: "p:nth-child(2) > span:nth-child(1) > span:nth-child(2)"
+    news-content-selector: "p:nth-child(4) > span"
