@@ -11,15 +11,15 @@ import org.springframework.context.annotation.Configuration
 import org.zenbot.szolnok.timetable.batch.bus.batch.listener.RemoveBusRoutesExecutionListener
 import org.zenbot.szolnok.timetable.batch.bus.dao.BusRepository
 import org.zenbot.szolnok.timetable.batch.bus.dao.BusStopRepository
-import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableProperties
+import org.zenbot.szolnok.timetable.batch.utils.common.properties.TimetableProperties
 
 @Configuration
 @EnableBatchProcessing
 @EnableConfigurationProperties(TimetableProperties::class)
-open class BatchConfiguration(private val jobBuilderFactory: JobBuilderFactory, private val timetableProperties: TimetableProperties, private val readUrlsStep: Step, private val saveBusStep: Step) {
+class BatchConfiguration(private val jobBuilderFactory: JobBuilderFactory, private val timetableProperties: TimetableProperties, private val readUrlsStep: Step, private val saveBusStep: Step) {
 
     @Bean
-    open fun importTimetableJob(busRepository: BusRepository, busStopRepository: BusStopRepository): Job {
+    fun importTimetableJob(busRepository: BusRepository, busStopRepository: BusStopRepository): Job {
         return jobBuilderFactory
                 .get("importTimetableJob")
                 .listener(jobExecutionListener(busRepository, busStopRepository))
@@ -29,7 +29,7 @@ open class BatchConfiguration(private val jobBuilderFactory: JobBuilderFactory, 
     }
 
     @Bean
-    open fun jobExecutionListener(busRepository: BusRepository, busStopRepository: BusStopRepository): JobExecutionListener {
+    fun jobExecutionListener(busRepository: BusRepository, busStopRepository: BusStopRepository): JobExecutionListener {
         return RemoveBusRoutesExecutionListener(busRepository, busStopRepository, timetableProperties.resource!!)
     }
 }

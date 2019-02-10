@@ -6,7 +6,7 @@ import org.springframework.batch.core.JobExecutionListener
 import org.zenbot.szolnok.timetable.batch.bus.dao.BusRepository
 import org.zenbot.szolnok.timetable.batch.bus.dao.BusStopRepository
 import org.zenbot.szolnok.timetable.batch.bus.domain.BusRoute
-import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableResourceProperties
+import org.zenbot.szolnok.timetable.batch.utils.common.properties.TimetableResourceProperties
 
 class RemoveBusRoutesExecutionListener(
     val busRepository: BusRepository,

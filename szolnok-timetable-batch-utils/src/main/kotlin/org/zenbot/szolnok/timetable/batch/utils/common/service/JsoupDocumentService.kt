@@ -1,12 +1,10 @@
-package org.zenbot.szolnok.timetable.batch.utils.service
+package org.zenbot.szolnok.timetable.batch.utils.common.service
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Service
 import java.io.IOException
 
-@Service
 class JsoupDocumentService {
 
     private val log = LoggerFactory.getLogger(JsoupDocumentService::class.java)

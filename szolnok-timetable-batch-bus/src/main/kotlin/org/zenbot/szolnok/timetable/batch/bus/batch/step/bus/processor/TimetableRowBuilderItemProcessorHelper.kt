@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor.JsoupDocumentToTimetableProcessor.Companion.SATURDAY_KEY
 import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor.JsoupDocumentToTimetableProcessor.Companion.SUNDAY_KEY
 import org.zenbot.szolnok.timetable.batch.bus.batch.step.bus.processor.JsoupDocumentToTimetableProcessor.Companion.WEEKDAY_KEY
-import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableSelectorProperties
+import org.zenbot.szolnok.timetable.batch.utils.common.properties.TimetableSelectorProperties
 
 @Component
 class TimetableRowBuilderItemProcessorHelper {

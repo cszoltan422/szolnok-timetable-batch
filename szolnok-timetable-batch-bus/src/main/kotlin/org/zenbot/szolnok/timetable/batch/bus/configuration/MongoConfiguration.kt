@@ -5,4 +5,4 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @Configuration
 @EnableMongoRepositories("org.zenbot.szolnok.timetable.batch.bus.dao")
-open class MongoConfiguration
+class MongoConfiguration

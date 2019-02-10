@@ -1,10 +1,8 @@
-package org.zenbot.szolnok.timetable.batch.utils.batch.step.readurls
+package org.zenbot.szolnok.timetable.batch.utils.common.service
 
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Component
 import java.util.LinkedList
 
-@Component
 class StringResourcesInMemoryStorage {
 
     private val log = LoggerFactory.getLogger(StringResourcesInMemoryStorage::class.java)

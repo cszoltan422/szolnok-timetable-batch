@@ -5,7 +5,7 @@ import org.springframework.batch.item.ItemProcessor
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.batch.bus.domain.Bus
 import org.zenbot.szolnok.timetable.batch.bus.domain.BusStop
-import org.zenbot.szolnok.timetable.batch.utils.domain.Timetable
+import org.zenbot.szolnok.timetable.batch.bus.domain.Timetable
 
 @Component
 class TimetableToBusItemProcessor(private val createBusItemProcessorHelper: CreateBusFromTimetableItemProcessorHelper, private val scheduleBuilderItemProcessorHelper: ScheduleBuilderItemProcessorHelper) : ItemProcessor<Timetable, Bus> {

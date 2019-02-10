@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.utils.batch.step.readurls
+package org.zenbot.szolnok.timetable.batch.utils.common.batch
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -8,8 +8,9 @@ import org.springframework.batch.core.StepContribution
 import org.springframework.batch.core.scope.context.ChunkContext
 import org.springframework.batch.core.step.tasklet.Tasklet
 import org.springframework.batch.repeat.RepeatStatus
-import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableProperties
-import org.zenbot.szolnok.timetable.batch.utils.service.JsoupDocumentService
+import org.zenbot.szolnok.timetable.batch.utils.common.service.StringResourcesInMemoryStorage
+import org.zenbot.szolnok.timetable.batch.utils.common.properties.TimetableProperties
+import org.zenbot.szolnok.timetable.batch.utils.common.service.JsoupDocumentService
 
 class ReadFileResourcesTasklet(
     private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage,

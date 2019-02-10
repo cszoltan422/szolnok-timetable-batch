@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.batch.utils.configuration.properties.TimetableProperties
-import org.zenbot.szolnok.timetable.batch.utils.domain.Timetable
+import org.zenbot.szolnok.timetable.batch.bus.domain.Timetable
+import org.zenbot.szolnok.timetable.batch.utils.common.properties.TimetableProperties
 
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)

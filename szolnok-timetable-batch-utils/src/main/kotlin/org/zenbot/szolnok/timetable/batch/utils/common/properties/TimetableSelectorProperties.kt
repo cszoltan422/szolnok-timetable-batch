@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.batch.utils.configuration.properties
+package org.zenbot.szolnok.timetable.batch.utils.common.properties
 
 class TimetableSelectorProperties(
     var routeNameSelector: String = "",
