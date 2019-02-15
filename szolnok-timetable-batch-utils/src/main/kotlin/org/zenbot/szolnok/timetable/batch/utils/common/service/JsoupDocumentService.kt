@@ -10,6 +10,7 @@ class JsoupDocumentService {
     private val log = LoggerFactory.getLogger(JsoupDocumentService::class.java)
 
     fun getDocument(url: String): Document {
+        log.info("Getting Jsoup Document with url=[$url]")
         var i = 0
         while (i <= 4) {
             try {
