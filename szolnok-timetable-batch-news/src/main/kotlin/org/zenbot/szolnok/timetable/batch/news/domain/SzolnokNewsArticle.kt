@@ -7,5 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class SzolnokNewsArticle(
     @Id var id: String? = null,
     var effectiveDate: String = "",
+    var title: String = "",
+    var detailed: Boolean = false,
     var content: String = ""
 )

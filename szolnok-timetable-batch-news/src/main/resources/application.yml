@@ -1,3 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URL}
 news:
   resource:
     base-url: "https://www.kmkk.hu/"
