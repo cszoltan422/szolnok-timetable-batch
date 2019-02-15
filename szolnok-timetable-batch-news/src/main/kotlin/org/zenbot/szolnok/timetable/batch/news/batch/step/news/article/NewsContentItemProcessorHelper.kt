@@ -34,5 +34,5 @@ class NewsContentItemProcessorHelper(private val jsoupDocumentService: JsoupDocu
 }
 
 private fun Whitelist.addTags(allowedTags: List<String>) {
-    allowedTags.forEach { tag -> this.addTags(tag)}
+    allowedTags.forEach { tag -> this.addTags(tag) }
 }

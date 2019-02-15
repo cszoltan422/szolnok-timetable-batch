@@ -8,9 +8,10 @@ import org.zenbot.szolnok.timetable.batch.news.configuration.properties.NewsProp
 import org.zenbot.szolnok.timetable.batch.news.domain.SzolnokNewsArticle
 
 @Component
-class SzolnokNewsArticelItemProcessor (
-        private val newsProperties: NewsProperties,
-        private val newsContentItemProcessorHelper: NewsContentItemProcessorHelper) : ItemProcessor<Element, SzolnokNewsArticle> {
+class SzolnokNewsArticelItemProcessor(
+    private val newsProperties: NewsProperties,
+    private val newsContentItemProcessorHelper: NewsContentItemProcessorHelper
+) : ItemProcessor<Element, SzolnokNewsArticle> {
 
     private val log = LoggerFactory.getLogger(SzolnokNewsArticelItemProcessor::class.java)
 
