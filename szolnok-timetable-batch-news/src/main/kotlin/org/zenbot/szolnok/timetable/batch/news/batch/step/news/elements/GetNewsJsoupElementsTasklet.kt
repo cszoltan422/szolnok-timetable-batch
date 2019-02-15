@@ -25,7 +25,7 @@ class GetNewsJsoupElementsTasklet(
         val document = jsoupDocumentService.getDocument(newsProperties.resource.baseUrl)
         val elements = document.select(newsProperties.selector.newsElementsSelector)
         elements.forEach { element ->
-            val titleElements = element.select(newsProperties.selector.newsTitleSelector).text()
+            val titleElements = element.select(newsProperties.selector.newsCitySelector).text()
             if (titleElements.equals("SZOLNOK")) {
                 jsoupElementsInMemoryStorage.addElement(element)
             }
