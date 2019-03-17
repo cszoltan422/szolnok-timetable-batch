@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URL}
+      uri: ${MONGODB_BATCH_URL}
 news:
   resource:
     base-url: "https://www.kmkk.hu/"
