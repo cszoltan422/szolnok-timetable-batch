@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.stops.dao.BusStopRepository
-import org.zenbot.szolnok.timetable.backend.batch.stops.domain.BusStopWithBuses
+import org.zenbot.szolnok.timetable.backend.domain.document.stop.BusStopWithBuses
 import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
 
 @Component

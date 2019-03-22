@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.batch.stops.domain
+package org.zenbot.szolnok.timetable.backend.domain.document.stop
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document

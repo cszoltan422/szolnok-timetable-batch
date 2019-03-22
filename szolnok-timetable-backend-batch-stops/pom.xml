@@ -16,6 +16,11 @@
             <artifactId>szolnok-timetable-backend-batch-utils</artifactId>
             <version>0.5-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.zenbot</groupId>
+            <artifactId>szolnok-timetable-backend-domain</artifactId>
+            <version>0.5-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

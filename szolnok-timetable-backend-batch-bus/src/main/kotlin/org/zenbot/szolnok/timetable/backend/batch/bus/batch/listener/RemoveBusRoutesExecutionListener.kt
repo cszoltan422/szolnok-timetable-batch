@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.core.JobExecution
 import org.springframework.batch.core.JobExecutionListener
 import org.zenbot.szolnok.timetable.backend.batch.bus.dao.BusRepository
-import org.zenbot.szolnok.timetable.backend.batch.bus.domain.BusRoute
+import org.zenbot.szolnok.timetable.backend.domain.document.bus.BusRoute
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableResourceProperties
 
 class RemoveBusRoutesExecutionListener(

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.processor.TimetableToBusItemProcessor
 import org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.writer.BusMongoRepositoryItemWriter
-import org.zenbot.szolnok.timetable.backend.batch.bus.domain.Bus
+import org.zenbot.szolnok.timetable.backend.domain.document.bus.Bus
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.UrlResourceToDocumentJsoupProcessor
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.reader.UrlResourceItemReader

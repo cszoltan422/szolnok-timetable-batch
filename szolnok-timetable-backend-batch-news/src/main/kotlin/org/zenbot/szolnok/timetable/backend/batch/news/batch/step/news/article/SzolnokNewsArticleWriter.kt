@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemWriter
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.news.dao.NewsArticleRepository
-import org.zenbot.szolnok.timetable.backend.batch.news.domain.SzolnokNewsArticle
+import org.zenbot.szolnok.timetable.backend.domain.document.news.SzolnokNewsArticle
 
 @Component
 class SzolnokNewsArticleWriter(private val newsArticleRepository: NewsArticleRepository) : ItemWriter<SzolnokNewsArticle> {

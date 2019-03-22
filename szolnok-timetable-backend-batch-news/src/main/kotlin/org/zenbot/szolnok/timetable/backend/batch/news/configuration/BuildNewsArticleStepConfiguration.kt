@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration
 import org.zenbot.szolnok.timetable.backend.batch.news.batch.step.news.article.JsoupElementReader
 import org.zenbot.szolnok.timetable.backend.batch.news.batch.step.news.article.SzolnokNewsArticelItemProcessor
 import org.zenbot.szolnok.timetable.backend.batch.news.batch.step.news.article.SzolnokNewsArticleWriter
-import org.zenbot.szolnok.timetable.backend.batch.news.domain.SzolnokNewsArticle
+import org.zenbot.szolnok.timetable.backend.domain.document.news.SzolnokNewsArticle
 
 @Configuration
 class BuildNewsArticleStepConfiguration(

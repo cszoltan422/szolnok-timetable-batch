@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.batch.news.domain
+package org.zenbot.szolnok.timetable.backend.domain.document.news
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
