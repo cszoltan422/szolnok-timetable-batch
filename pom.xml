@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.zenbot</groupId>
-	<artifactId>szolnok-timetable-batch</artifactId>
+	<artifactId>szolnok-timetable-backend</artifactId>
 	<version>0.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -16,10 +16,10 @@
 	</parent>
 
 	<modules>
-		<module>szolnok-timetable-batch-utils</module>
-		<module>szolnok-timetable-batch-bus</module>
-		<module>szolnok-timetable-batch-stops</module>
-		<module>szolnok-timetable-batch-news</module>
+		<module>szolnok-timetable-backend-batch-utils</module>
+		<module>szolnok-timetable-backend-batch-bus</module>
+		<module>szolnok-timetable-backend-batch-stops</module>
+		<module>szolnok-timetable-backend-batch-news</module>
 	</modules>
 
 	<properties>
