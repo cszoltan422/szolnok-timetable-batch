@@ -20,6 +20,7 @@
 		<module>szolnok-timetable-backend-batch-bus</module>
 		<module>szolnok-timetable-backend-batch-stops</module>
 		<module>szolnok-timetable-backend-batch-news</module>
+		<module>szolnok-timetable-backend-domain</module>
 	</modules>
 
 	<properties>

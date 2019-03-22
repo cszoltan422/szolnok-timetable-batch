@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.bus.domain.Bus
 import org.zenbot.szolnok.timetable.backend.batch.bus.domain.BusStop
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.domain.Timetable
+import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
 
 @Component
 class TimetableToBusItemProcessor(private val createBusItemProcessorHelper: CreateBusFromTimetableItemProcessorHelper, private val scheduleBuilderItemProcessorHelper: ScheduleBuilderItemProcessorHelper) : ItemProcessor<Timetable, Bus> {

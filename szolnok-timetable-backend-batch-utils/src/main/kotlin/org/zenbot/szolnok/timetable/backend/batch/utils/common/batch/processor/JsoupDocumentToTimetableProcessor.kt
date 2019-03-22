@@ -7,7 +7,7 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.h
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.EndBusStopSelectorItemProcessorHelper
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.StartBusStopSelectorItemProcessorHelper
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.TimetableRowBuilderItemProcessorHelper
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.domain.Timetable
+import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 
 class JsoupDocumentToTimetableProcessor(

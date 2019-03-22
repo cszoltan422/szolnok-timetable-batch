@@ -5,7 +5,7 @@ import org.springframework.batch.item.ItemProcessor
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.stops.dao.BusStopRepository
 import org.zenbot.szolnok.timetable.backend.batch.stops.domain.BusStopWithBuses
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.domain.Timetable
+import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
 
 @Component
 class TimetableToBusStopWithBusesItemProcessor(private val busStopRepository: BusStopRepository) : ItemProcessor<Timetable, BusStopWithBuses> {
