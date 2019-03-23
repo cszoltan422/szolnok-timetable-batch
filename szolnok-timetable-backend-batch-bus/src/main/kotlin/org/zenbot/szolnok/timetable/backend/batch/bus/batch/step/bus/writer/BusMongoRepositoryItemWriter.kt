@@ -5,9 +5,13 @@ import org.springframework.batch.item.ItemWriter
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.domain.document.bus.Bus
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
+import org.zenbot.szolnok.timetable.backend.repository.BusRouteRepository
 
 @Component
-class BusMongoRepositoryItemWriter(private val busRepository: BusRepository) : ItemWriter<Bus> {
+class BusMongoRepositoryItemWriter(
+    private val busRepository: BusRepository,
+    private val busRouteRepository: BusRouteRepository
+) : ItemWriter<Bus> {
 
     private val log = LoggerFactory.getLogger(BusMongoRepositoryItemWriter::class.java)
 
@@ -18,6 +22,7 @@ class BusMongoRepositoryItemWriter(private val busRepository: BusRepository) : I
 
         val bus = list[0]
         log.info("Saving bus=[#{}, from={}, to={}] to database", bus.busName, bus.busRoutes[0].startBusStop, bus.busRoutes[0].endBusStop)
+        busRouteRepository.saveAll(bus.busRoutes)
         busRepository.save(bus)
     }
 }

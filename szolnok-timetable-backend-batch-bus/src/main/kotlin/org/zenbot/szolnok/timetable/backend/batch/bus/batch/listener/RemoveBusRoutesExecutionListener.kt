@@ -3,31 +3,21 @@ package org.zenbot.szolnok.timetable.backend.batch.bus.batch.listener
 import org.slf4j.LoggerFactory
 import org.springframework.batch.core.JobExecution
 import org.springframework.batch.core.JobExecutionListener
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableResourceProperties
-import org.zenbot.szolnok.timetable.backend.domain.document.bus.BusRoute
+import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
+import org.zenbot.szolnok.timetable.backend.repository.BusRouteRepository
 
+@Component
 class RemoveBusRoutesExecutionListener(
-    val busRepository: BusRepository,
-    val properties: TimetableResourceProperties
+    private val busRepository: BusRepository,
+    private val busRouteRepository: BusRouteRepository
 ) : JobExecutionListener {
 
     private val log = LoggerFactory.getLogger(RemoveBusRoutesExecutionListener::class.java)
 
     override fun beforeJob(jobExecution: JobExecution) {
-        val routes = busRepository.findAll()
-        if (!properties.selectedBuses.isEmpty()) {
-            log.info("Removing bus routes [{}]", properties.selectedBuses.joinToString(","))
-            routes.forEach { route ->
-                if (properties.selectedBuses.contains(route.busName)) {
-                    route.busRoutes = ArrayList<BusRoute>()
-                }
-            }
-        } else {
-            log.info("Removing all bus routes from database")
-            routes.forEach { route -> route.busRoutes = ArrayList<BusRoute>() }
-        }
-        busRepository.saveAll(routes)
+        busRouteRepository.deleteAll()
+        busRepository.deleteAll()
     }
 
     override fun afterJob(jobExecution: JobExecution) {}
