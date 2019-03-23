@@ -3,8 +3,10 @@ package org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
+import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.JsoupDocumentService
 
+@Component
 class UrlResourceToDocumentJsoupProcessor(private val jsoupDocumentService: JsoupDocumentService) : ItemProcessor<String, Document> {
 
     private val log = LoggerFactory.getLogger(UrlResourceToDocumentJsoupProcessor::class.java)

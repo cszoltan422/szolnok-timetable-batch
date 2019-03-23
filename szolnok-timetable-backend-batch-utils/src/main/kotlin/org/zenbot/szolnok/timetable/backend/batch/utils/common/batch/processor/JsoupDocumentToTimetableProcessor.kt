@@ -3,6 +3,8 @@ package org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
+import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.ActualStopSelectorItemProcessorHelper
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.EndBusStopSelectorItemProcessorHelper
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.StartBusStopSelectorItemProcessorHelper
@@ -10,6 +12,8 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.h
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
 
+@Component
+@EnableConfigurationProperties(TimetableProperties::class)
 class JsoupDocumentToTimetableProcessor(
     private val properties: TimetableProperties,
     private val startBusStopSelectorItemProcessorHelper: StartBusStopSelectorItemProcessorHelper,
