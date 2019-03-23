@@ -7,24 +7,11 @@ import org.zenbot.szolnok.timetable.backend.domain.document.bus.Bus
 class BusTransformer {
 
     fun transform(buses: List<Bus>): List<BusResponse> {
-        val result : MutableList<BusResponse> = ArrayList()
-        buses.forEach{it -> result.add(transformOne(it))}
-        return result
+        return buses.map(this::transformOne)
     }
 
     private fun transformOne(bus: Bus): BusResponse {
-        val result = BusResponse()
-        result.busName = bus.busName
-        val busRoutes : MutableList<BusRouteRespose> = ArrayList()
-        bus.busRoutes.forEach{ it ->
-            run {
-                val busRouteRespose = BusRouteRespose()
-                busRouteRespose.startStopName = it.startBusStop
-                busRouteRespose.endStopName = it.endBusStop
-                busRoutes.add(busRouteRespose)
-            }
-        }
-        result.routes = busRoutes
-        return result
+        val busRoutes = bus.busRoutes.map { BusRouteResponse(it.startBusStop, it.endBusStop) }
+        return BusResponse(bus.busName, busRoutes)
     }
 }
