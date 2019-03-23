@@ -13,23 +13,23 @@ class ScheduleBuilderItemProcessorHelper {
 
     fun buildSchedule(timetable: Timetable, weekdayKey: String): Schedule {
         log.debug("Building schedule for day: [{}]", weekdayKey)
-        val busArrivalsByHour = ArrayList<BusArrival>()
-        for ((key, value) in timetable.timetable) {
-            val arrivals = value[weekdayKey]
-            val arrivalsSplitted = arrivals!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            val busArrivals = ArrayList<BusArrival>()
-            for (arrival in arrivalsSplitted) {
-                if ("" != arrival) {
-                    val busArrival = BusArrival()
-                    busArrival.arrivalHour = key
-                    busArrival.arrivalMinute = if (arrival.isEmpty()) null else Integer.valueOf(arrival)
-                    busArrivals.add(busArrival)
-                }
-            }
-            busArrivalsByHour.addAll(busArrivals)
-        }
-        val schedule = Schedule()
-        schedule.busArrivals = busArrivalsByHour
-        return schedule
+
+        val busArrivalsByHour = timetable.timetable
+                .flatMap { (key, value) -> parseTimetableItem(key, value, weekdayKey) }
+                .toMutableList()
+
+        return Schedule(busArrivals = busArrivalsByHour)
     }
+
+    private fun parseTimetableItem(hour: Int, value: Map<String, String>, weekdayKey: String): List<BusArrival> {
+        val arrivals = value[weekdayKey]
+        val arrivalsSplitted = arrivals!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }
+
+        return arrivalsSplitted
+                .filter { it != "" }
+                .map { createBusArrival(hour, it) }
+    }
+
+    private fun createBusArrival(hour: Int, minute: String?): BusArrival = BusArrival(arrivalHour = hour, arrivalMinute = minute?.toInt())
+
 }
