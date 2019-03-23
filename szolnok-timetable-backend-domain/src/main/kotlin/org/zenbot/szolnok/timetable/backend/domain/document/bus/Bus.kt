@@ -1,35 +1,23 @@
 package org.zenbot.szolnok.timetable.backend.domain.document.bus
 
 import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
 data class Bus(
-    @Id var id: String? = null,
-    var busName: String = "",
+        @Id var id: String? = null,
+        var busName: String = "",
 
-
-    var busRoutes: MutableList<BusRoute> = ArrayList()
+        var busRoutes: MutableList<BusRoute> = ArrayList()
 ) {
 
-    fun getBusRouteByStartStopName(startBusStopName: String): BusRoute {
-        val routeLine = this.busRoutes.stream()
+    fun getBusRouteByStartStopName(startBusStopName: String): BusRoute = this.busRoutes.stream()
                 .filter { line -> line.startBusStop == startBusStopName }
                 .findFirst()
-        if (routeLine.isPresent) {
-            return routeLine.get()
-        } else {
-            val result = BusRoute()
-            result.busStops = ArrayList()
-            return result
-        }
-    }
+                .orElse(BusRoute())
 
-    fun hasNoBusRoute(busRoute: BusRoute): Boolean {
-        return this.busRoutes.stream()
-                .map { line -> line.startBusStop }
-                .filter { startStop -> busRoute.startBusStop == startStop }
-                .count() == 0L
-    }
+    fun hasNoBusRoute(busRoute: BusRoute): Boolean = this.busRoutes.stream()
+            .map { line -> line.startBusStop }
+            .filter { startStop -> busRoute.startBusStop == startStop }
+            .count() == 0L
 }
