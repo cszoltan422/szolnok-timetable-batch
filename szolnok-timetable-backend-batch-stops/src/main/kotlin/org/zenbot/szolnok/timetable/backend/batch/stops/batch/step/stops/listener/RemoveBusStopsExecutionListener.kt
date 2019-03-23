@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.core.JobExecution
 import org.springframework.batch.core.JobExecutionListener
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.backend.batch.stops.dao.BusStopRepository
+import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Component
 class RemoveBusStopsExecutionListener(private val busStopRepository: BusStopRepository) : JobExecutionListener {

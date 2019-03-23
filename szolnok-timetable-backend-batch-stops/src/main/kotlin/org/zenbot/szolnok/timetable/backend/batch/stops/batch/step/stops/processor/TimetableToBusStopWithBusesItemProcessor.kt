@@ -3,9 +3,9 @@ package org.zenbot.szolnok.timetable.backend.batch.stops.batch.step.stops.proces
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.backend.batch.stops.dao.BusStopRepository
-import org.zenbot.szolnok.timetable.backend.domain.document.stop.BusStopWithBuses
 import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
+import org.zenbot.szolnok.timetable.backend.domain.document.stop.BusStopWithBuses
+import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Component
 class TimetableToBusStopWithBusesItemProcessor(private val busStopRepository: BusStopRepository) : ItemProcessor<Timetable, BusStopWithBuses> {

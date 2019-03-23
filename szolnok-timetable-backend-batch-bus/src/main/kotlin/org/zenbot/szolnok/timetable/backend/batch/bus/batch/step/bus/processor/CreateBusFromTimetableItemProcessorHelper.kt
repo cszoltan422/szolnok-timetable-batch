@@ -2,9 +2,9 @@ package org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.processor
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.backend.batch.bus.dao.BusRepository
-import org.zenbot.szolnok.timetable.backend.domain.document.bus.Bus
 import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
+import org.zenbot.szolnok.timetable.backend.domain.document.bus.Bus
+import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 
 @Component
 class CreateBusFromTimetableItemProcessorHelper(private val busRepository: BusRepository) {

@@ -3,8 +3,8 @@ package org.zenbot.szolnok.timetable.backend.batch.news.batch.step.news.article
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemWriter
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.backend.batch.news.dao.NewsArticleRepository
 import org.zenbot.szolnok.timetable.backend.domain.document.news.SzolnokNewsArticle
+import org.zenbot.szolnok.timetable.backend.repository.NewsArticleRepository
 
 @Component
 class SzolnokNewsArticleWriter(private val newsArticleRepository: NewsArticleRepository) : ItemWriter<SzolnokNewsArticle> {

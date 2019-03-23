@@ -3,8 +3,8 @@ package org.zenbot.szolnok.timetable.backend.batch.stops.batch.step.stops.writer
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemWriter
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.backend.batch.stops.dao.BusStopRepository
 import org.zenbot.szolnok.timetable.backend.domain.document.stop.BusStopWithBuses
+import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Component
 class StopsWithBusesMongoItemWriter(private val busStopRepository: BusStopRepository) : ItemWriter<BusStopWithBuses> {

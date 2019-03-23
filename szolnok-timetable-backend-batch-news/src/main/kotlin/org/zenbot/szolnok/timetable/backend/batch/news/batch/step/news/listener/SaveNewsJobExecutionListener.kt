@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.core.JobExecution
 import org.springframework.batch.core.JobExecutionListener
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.backend.batch.news.dao.NewsArticleRepository
+import org.zenbot.szolnok.timetable.backend.repository.NewsArticleRepository
 
 @Component
 class SaveNewsJobExecutionListener(private val newsArticleRepository: NewsArticleRepository) : JobExecutionListener {

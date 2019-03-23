@@ -8,7 +8,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.zenbot.szolnok.timetable.backend.batch.stops.batch.step.stops.listener.RemoveBusStopsExecutionListener
-import org.zenbot.szolnok.timetable.backend.batch.stops.dao.BusStopRepository
+import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Configuration
 @EnableBatchProcessing

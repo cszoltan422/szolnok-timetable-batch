@@ -21,7 +21,8 @@
 		<module>szolnok-timetable-backend-batch-stops</module>
 		<module>szolnok-timetable-backend-batch-news</module>
 		<module>szolnok-timetable-backend-domain</module>
-	</modules>
+        <module>szolnok-timetable-backend-repository</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

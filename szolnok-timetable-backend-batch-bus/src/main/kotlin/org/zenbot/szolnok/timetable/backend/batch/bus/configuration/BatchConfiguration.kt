@@ -9,8 +9,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.zenbot.szolnok.timetable.backend.batch.bus.batch.listener.RemoveBusRoutesExecutionListener
-import org.zenbot.szolnok.timetable.backend.batch.bus.dao.BusRepository
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
+import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 
 @Configuration
 @EnableBatchProcessing
