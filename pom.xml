@@ -22,6 +22,7 @@
 		<module>szolnok-timetable-backend-batch-news</module>
 		<module>szolnok-timetable-backend-domain</module>
         <module>szolnok-timetable-backend-repository</module>
+        <module>szolnok-timetable-backend-api</module>
     </modules>
 
 	<properties>

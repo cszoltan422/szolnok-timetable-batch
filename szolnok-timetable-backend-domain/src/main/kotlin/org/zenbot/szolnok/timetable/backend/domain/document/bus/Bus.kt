@@ -9,7 +9,7 @@ data class Bus(
     @Id var id: String? = null,
     var busName: String = "",
 
-    @DBRef
+
     var busRoutes: MutableList<BusRoute> = ArrayList()
 ) {
 
