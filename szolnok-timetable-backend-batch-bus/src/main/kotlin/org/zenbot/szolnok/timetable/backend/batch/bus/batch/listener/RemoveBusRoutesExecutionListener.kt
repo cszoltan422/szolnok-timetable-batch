@@ -12,8 +12,8 @@ import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)
 class RemoveBusRoutesExecutionListener(
-        val busRepository: BusRepository,
-        val properties: TimetableProperties
+    val busRepository: BusRepository,
+    val properties: TimetableProperties
 ) : JobExecutionListener {
 
     private val log = LoggerFactory.getLogger(RemoveBusRoutesExecutionListener::class.java)
