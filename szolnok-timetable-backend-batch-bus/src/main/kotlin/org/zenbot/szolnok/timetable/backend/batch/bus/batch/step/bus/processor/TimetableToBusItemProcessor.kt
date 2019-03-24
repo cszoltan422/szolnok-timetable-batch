@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor
 import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
 import org.zenbot.szolnok.timetable.backend.domain.document.bus.Bus
+import org.zenbot.szolnok.timetable.backend.domain.document.bus.BusRoute
 import org.zenbot.szolnok.timetable.backend.domain.document.bus.BusStop
 
 @Component
@@ -17,19 +18,12 @@ class TimetableToBusItemProcessor(private val createBusItemProcessorHelper: Crea
     override fun process(timetable: Timetable): Bus {
         log.info("Processing timetable [#{} from={}, stop={}, to={}] to Bus", timetable.busName, timetable.startBusStopName, timetable.activeStopName, timetable.endBusStopName)
 
-        val busStop = BusStop()
         log.debug("Setting bus stop properties for stop=[{}] and bus=[{}]", timetable.activeStopName, timetable.busName)
-        busStop.busStopName = timetable.activeStopName
-        busStop.workDaySchedule = scheduleBuilderItemProcessorHelper.buildSchedule(timetable, JsoupDocumentToTimetableProcessor.WEEKDAY_KEY)
-        busStop.saturdaySchedule = scheduleBuilderItemProcessorHelper.buildSchedule(timetable, JsoupDocumentToTimetableProcessor.SATURDAY_KEY)
-        busStop.sundaySchedule = scheduleBuilderItemProcessorHelper.buildSchedule(timetable, JsoupDocumentToTimetableProcessor.SUNDAY_KEY)
-
+        val busStop = createBusStop(timetable)
         val bus = createBusItemProcessorHelper.createBusFromTimetable(timetable)
+
         log.debug("Fetching bus route from bus=[#{}]", bus.busName)
-        val busRoute = bus.getBusRouteByStartStopName(timetable.startBusStopName)
-        busRoute.startBusStop = timetable.startBusStopName
-        busRoute.endBusStop = timetable.endBusStopName
-        busRoute.addBusStopTimetable(busStop)
+        val busRoute = createBusRoute(bus, timetable, busStop)
 
         if (bus.hasNoBusRoute(busRoute)) {
             bus.busRoutes.add(busRoute)
@@ -38,4 +32,27 @@ class TimetableToBusItemProcessor(private val createBusItemProcessorHelper: Crea
         log.info("Done processing timetable to bus=[#{}]", bus.busName)
         return bus
     }
+
+    private fun createBusStop(timetable: Timetable): BusStop {
+        val busStopName = timetable.activeStopName
+        val workDaySchedule = scheduleBuilderItemProcessorHelper.buildSchedule(timetable, JsoupDocumentToTimetableProcessor.WEEKDAY_KEY)
+        val saturdaySchedule = scheduleBuilderItemProcessorHelper.buildSchedule(timetable, JsoupDocumentToTimetableProcessor.SATURDAY_KEY)
+        val sundaySchedule = scheduleBuilderItemProcessorHelper.buildSchedule(timetable, JsoupDocumentToTimetableProcessor.SUNDAY_KEY)
+
+        return BusStop(
+                busStopName = busStopName,
+                workDaySchedule = workDaySchedule,
+                saturdaySchedule = saturdaySchedule,
+                sundaySchedule = sundaySchedule
+        )
+    }
+
+    private fun createBusRoute(bus: Bus, timetable: Timetable, busStop: BusStop): BusRoute {
+        val busRoute = bus.getBusRouteByStartStopName(timetable.startBusStopName)
+        busRoute.startBusStop = timetable.startBusStopName
+        busRoute.endBusStop = timetable.endBusStopName
+        busRoute.addBusStopTimetable(busStop)
+        return busRoute
+    }
+
 }

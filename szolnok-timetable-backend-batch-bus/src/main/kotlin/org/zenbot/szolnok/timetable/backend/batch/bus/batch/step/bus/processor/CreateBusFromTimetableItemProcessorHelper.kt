@@ -14,14 +14,6 @@ class CreateBusFromTimetableItemProcessorHelper(private val busRepository: BusRe
     fun createBusFromTimetable(timetable: Timetable): Bus {
         log.debug("Fetching bus=[#{}] from database", timetable.busName)
         val bus = busRepository.findByBusName(timetable.busName)
-        val result: Bus
-        if (bus.isPresent) {
-            result = bus.get()
-            result.busName = timetable.busName
-        } else {
-            result = Bus()
-            result.busName = timetable.busName
-        }
-        return result
+        return bus?.copy(busName = timetable.busName) ?: Bus(busName = timetable.busName)
     }
 }
