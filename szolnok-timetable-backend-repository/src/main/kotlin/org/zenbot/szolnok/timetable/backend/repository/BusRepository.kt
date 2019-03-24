@@ -10,8 +10,5 @@ interface BusRepository : MongoRepository<Bus, String> {
     fun findByBusName(busName: String): Optional<Bus>
 
     @Query(fields = "{busName: 1, busRoutes.startBusStop: 1, busRoutes.endBusStop: 1}")
-    fun findAllByBusNameLikeOrderByBusName(busName: String): List<Bus>
-
-    @Query(fields = "{busName: 1, busRoutes.startBusStop: 1, busRoutes.endBusStop: 1}")
-    fun findBusesByBusNameNotNull() : List<Bus>
+    fun findBusesByBusNameNotNull(): List<Bus>
 }
