@@ -1,7 +1,3 @@
-spring:
-  data:
-    mongodb:
-      uri: ${MONGODB_BATCH_URL}
 timetable:
   resource:
     base-url: "https://www.kmkk.hu/"

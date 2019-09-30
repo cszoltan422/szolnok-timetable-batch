@@ -11,7 +11,7 @@ import org.zenbot.szolnok.timetable.backend.batch.stops.batch.step.stops.writer.
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.UrlResourceToDocumentJsoupProcessor
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.reader.UrlResourceItemReader
-import org.zenbot.szolnok.timetable.backend.domain.document.stop.BusStopWithBuses
+import org.zenbot.szolnok.timetable.backend.domain.entity.stop.BusStopWithBusesEntity
 import java.util.Arrays
 
 @Configuration
@@ -24,7 +24,7 @@ class SaveStopsWithBusesStepConfiguration(
     @Bean
     fun saveBusStopsStep(jsoupProcessor: UrlResourceToDocumentJsoupProcessor, jsoupDocumentToTimetableProcessor: JsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor: TimetableToBusStopWithBusesItemProcessor): Step {
         return stepBuilderFactory.get("saveBusStopsStep")
-                .chunk<String, BusStopWithBuses>(1)
+                .chunk<String, BusStopWithBusesEntity>(1)
                 .reader(urlResourceItemReader)
                 .processor(compositeIemProcessor(jsoupProcessor, jsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor))
                 .writer(stopsWithBusesMongoItemWriter)
@@ -32,8 +32,8 @@ class SaveStopsWithBusesStepConfiguration(
     }
 
     @Bean
-    fun compositeIemProcessor(jsoupProcessor: UrlResourceToDocumentJsoupProcessor, jsoupDocumentToTimetableProcessor: JsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor: TimetableToBusStopWithBusesItemProcessor): CompositeItemProcessor<String, BusStopWithBuses> {
-        val compositeItemProcessor = CompositeItemProcessor<String, BusStopWithBuses>()
+    fun compositeIemProcessor(jsoupProcessor: UrlResourceToDocumentJsoupProcessor, jsoupDocumentToTimetableProcessor: JsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor: TimetableToBusStopWithBusesItemProcessor): CompositeItemProcessor<String, BusStopWithBusesEntity> {
+        val compositeItemProcessor = CompositeItemProcessor<String, BusStopWithBusesEntity>()
         compositeItemProcessor.setDelegates(Arrays.asList<ItemProcessor<out Any, out Any>>(jsoupProcessor, jsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor))
         return compositeItemProcessor
     }

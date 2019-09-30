@@ -18,28 +18,28 @@ class JsoupDocumentToTimetableProcessorConfiguration(
     private val stringCleaner: StringCleaner
 ) {
 
-    @Bean
-    fun jsoupDocumentToTimetableProcessor(): JsoupDocumentToTimetableProcessor {
-        return JsoupDocumentToTimetableProcessor(properties, startBusStopSelectorItemProcessorHelper(), endBusStopSelectorItemProcessorHelper(), actualStopSelectorItemProcessorHelper(), timetableRowBuilderItemProcessorHelper())
-    }
-
-    @Bean
-    fun startBusStopSelectorItemProcessorHelper(): StartBusStopSelectorItemProcessorHelper {
-        return StartBusStopSelectorItemProcessorHelper(stringCleaner)
-    }
-
-    @Bean
-    fun actualStopSelectorItemProcessorHelper(): ActualStopSelectorItemProcessorHelper {
-        return ActualStopSelectorItemProcessorHelper(stringCleaner)
-    }
-
-    @Bean
-    fun endBusStopSelectorItemProcessorHelper(): EndBusStopSelectorItemProcessorHelper {
-        return EndBusStopSelectorItemProcessorHelper(stringCleaner)
-    }
-
-    @Bean
-    fun timetableRowBuilderItemProcessorHelper(): TimetableRowBuilderItemProcessorHelper {
-        return TimetableRowBuilderItemProcessorHelper()
-    }
+//    @Bean
+//    fun jsoupDocumentToTimetableProcessor(): JsoupDocumentToTimetableProcessor {
+//        return JsoupDocumentToTimetableProcessor(properties, startBusStopSelectorItemProcessorHelper(), endBusStopSelectorItemProcessorHelper(), actualStopSelectorItemProcessorHelper(), timetableRowBuilderItemProcessorHelper())
+//    }
+//
+//    @Bean
+//    fun startBusStopSelectorItemProcessorHelper(): StartBusStopSelectorItemProcessorHelper {
+//        return StartBusStopSelectorItemProcessorHelper(stringCleaner)
+//    }
+//
+//    @Bean
+//    fun actualStopSelectorItemProcessorHelper(): ActualStopSelectorItemProcessorHelper {
+//        return ActualStopSelectorItemProcessorHelper(stringCleaner)
+//    }
+//
+//    @Bean
+//    fun endBusStopSelectorItemProcessorHelper(): EndBusStopSelectorItemProcessorHelper {
+//        return EndBusStopSelectorItemProcessorHelper(stringCleaner)
+//    }
+//
+//    @Bean
+//    fun timetableRowBuilderItemProcessorHelper(): TimetableRowBuilderItemProcessorHelper {
+//        return TimetableRowBuilderItemProcessorHelper()
+//    }
 }

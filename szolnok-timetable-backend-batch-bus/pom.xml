@@ -7,8 +7,8 @@
         <version>0.5-SNAPSHOT</version>
     </parent>
 
-    <artifactId>szolnok-timetable-backend-batch-bus</artifactId>
-    <name>szolnok-timetable-backend-batch-bus</name>
+    <artifactId>szolnok-timetable-backend-batch-busEntity</artifactId>
+    <name>szolnok-timetable-backend-batch-busEntity</name>
 
     <dependencies>
         <dependency>
@@ -31,7 +31,7 @@
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-        <finalName>szolnok-timetable-backend-batch-bus</finalName>
+        <finalName>szolnok-timetable-backend-batch-busEntity</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
