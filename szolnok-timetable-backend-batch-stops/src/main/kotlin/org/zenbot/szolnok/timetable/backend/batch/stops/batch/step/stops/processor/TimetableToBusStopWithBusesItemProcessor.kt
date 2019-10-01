@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
+import org.zenbot.szolnok.timetable.backend.domain.entity.stop.BusOfBusStopEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.stop.BusStopWithBusesEntity
 import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
@@ -18,13 +19,14 @@ class TimetableToBusStopWithBusesItemProcessor(private val busStopRepository: Bu
         val result: BusStopWithBusesEntity
         if (busStopWithBuses.isPresent) {
             result = busStopWithBuses.get()
-            result.busStopName = timetable.activeStopName
-            result.buses.add(timetable.busName)
         } else {
             result = BusStopWithBusesEntity()
-            result.busStopName = timetable.activeStopName
-            result.buses.add(timetable.busName)
         }
+        val busOfBusStopEntity = BusOfBusStopEntity()
+        busOfBusStopEntity.name = timetable.busName
+
+        result.busStopName = timetable.activeStopName
+        result.buses.add(busOfBusStopEntity)
         return result
     }
 }

@@ -19,8 +19,8 @@ class TimetableToBusItemProcessor(private val createBusItemProcessorHelper: Crea
         log.info("Processing timetable [#{} from={}, stop={}, to={}] to Bus", timetable.busName, timetable.startBusStopName, timetable.activeStopName, timetable.endBusStopName)
 
         log.debug("Setting bus stop properties for stop=[{}] and bus=[{}]", timetable.activeStopName, timetable.busName)
-        val busStop = createBusStop(timetable)
         val bus = createBusItemProcessorHelper.createBusFromTimetable(timetable)
+        val busStop = createBusStop(timetable)
 
         log.debug("Fetching bus route from bus=[#{}]", bus.busName)
         val busRoute = createBusRoute(bus, timetable, busStop)

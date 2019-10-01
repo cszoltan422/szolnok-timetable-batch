@@ -1,41 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>szolnok-timetable-backend</artifactId>
         <groupId>org.zenbot</groupId>
         <version>0.5-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>szolnok-timetable-backend-batch-news</artifactId>
-    <name>szolnok-timetable-backend-batch-news</name>
+    <artifactId>szolnok-timetable-admin</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.zenbot</groupId>
-            <artifactId>szolnok-timetable-backend-repository</artifactId>
+            <artifactId>szolnok-timetable-backend-batch-bus</artifactId>
+            <version>${szolnok-timetable.version}</version>
         </dependency>
         <dependency>
             <groupId>org.zenbot</groupId>
-            <artifactId>szolnok-timetable-backend-batch-utils</artifactId>
+            <artifactId>szolnok-timetable-backend-batch-stops</artifactId>
+            <version>${szolnok-timetable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.zenbot</groupId>
+            <artifactId>szolnok-timetable-backend-batch-news</artifactId>
+            <version>${szolnok-timetable.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-batch</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.batch</groupId>
-            <artifactId>spring-batch-test</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-        <finalName>szolnok-timetable-backend-batch-news</finalName>
+        <finalName>szolnok-timetable-backend-batch-busEntity</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.zenbot.szolnok.timetable.admin.SzolnokTimetableAdminApplication</mainClass>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>

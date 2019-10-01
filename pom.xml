@@ -7,7 +7,7 @@
 	<version>0.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-	<name>szolnok-timetable-batch</name>
+	<name>szolnok-timetable-backend</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -22,6 +22,7 @@
 		<module>szolnok-timetable-backend-batch-news</module>
 		<module>szolnok-timetable-backend-domain</module>
         <module>szolnok-timetable-backend-repository</module>
+        <module>szolnok-timetable-admin</module>
     </modules>
 
 	<properties>
@@ -29,6 +30,10 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<kotlin.version>1.2.71</kotlin.version>
+
+		<jsoup.version>1.11.3</jsoup.version>
+		<mysql-connector-java.version>8.0.17</mysql-connector-java.version>
+		<szolnok-timetable.version>0.5-SNAPSHOT</szolnok-timetable.version>
 
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
@@ -50,56 +55,103 @@
 		</developer>
 	</developers>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-reflect</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-stdlib-jdk8</artifactId>
-		</dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.zenbot</groupId>
+				<artifactId>szolnok-timetable-backend-domain</artifactId>
+				<version>${szolnok-timetable.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.zenbot</groupId>
+				<artifactId>szolnok-timetable-backend-repository</artifactId>
+				<version>${szolnok-timetable.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.zenbot</groupId>
+				<artifactId>szolnok-timetable-backend-batch-utils</artifactId>
+				<version>${szolnok-timetable.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.zenbot</groupId>
+				<artifactId>szolnok-timetable-backend-batch-bus</artifactId>
+				<version>${szolnok-timetable.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.zenbot</groupId>
+				<artifactId>szolnok-timetable-backend-stops</artifactId>
+				<version>${szolnok-timetable.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.zenbot</groupId>
+				<artifactId>szolnok-timetable-backend-news</artifactId>
+				<version>${szolnok-timetable.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-batch</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.11.3</version>
-		</dependency>
+			<dependency>
+				<groupId>org.jetbrains.kotlin</groupId>
+				<artifactId>kotlin-reflect</artifactId>
+				<version>${kotlin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jetbrains.kotlin</groupId>
+				<artifactId>kotlin-stdlib-jdk8</artifactId>
+				<version>${kotlin.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.17</version>
-		</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>2.1.8.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-logging</artifactId>
+				<version>2.1.8.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-batch</artifactId>
+				<version>2.1.8.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>2.1.8.RELEASE</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.batch</groupId>
-			<artifactId>spring-batch-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${jsoup.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql-connector-java.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.4.199</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>2.1.8.RELEASE</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.batch</groupId>
+				<artifactId>spring-batch-test</artifactId>
+				<version>2.1.8.RELEASE</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -184,29 +236,6 @@
 							</goals>
 						</execution>
 					</executions>
-				</plugin>
-				<plugin>
-					<groupId>com.spotify</groupId>
-					<artifactId>dockerfile-maven-plugin</artifactId>
-					<version>1.3.6</version>
-					<executions>
-						<execution>
-							<id>default</id>
-							<goals>
-								<goal>build</goal>
-								<goal>push</goal>
-							</goals>
-						</execution>
-					</executions>
-					<configuration>
-						<repository>cszoltan422/${project.build.finalName}</repository>
-						<tag>latest</tag>
-						<tag>${project.version}</tag>
-						<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
-						<buildArgs>
-							<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-						</buildArgs>
-					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>

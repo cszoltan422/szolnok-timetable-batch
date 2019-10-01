@@ -16,13 +16,13 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringRes
 
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)
-class ReadFileResourcesTasklet(
+class ReadUrlResourcesTasklet(
     private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage,
     private val jsoupDocumentService: JsoupDocumentService,
     private val properties: TimetableProperties
 ) : Tasklet {
 
-    private val log = LoggerFactory.getLogger(ReadFileResourcesTasklet::class.java)
+    private val log = LoggerFactory.getLogger(ReadUrlResourcesTasklet::class.java)
 
     override fun execute(stepContribution: StepContribution, chunkContext: ChunkContext): RepeatStatus {
         log.info("{}", properties.resource.selectedBuses)

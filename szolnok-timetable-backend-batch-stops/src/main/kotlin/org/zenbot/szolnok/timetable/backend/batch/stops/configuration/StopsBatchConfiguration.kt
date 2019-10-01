@@ -5,6 +5,7 @@ import org.springframework.batch.core.JobExecutionListener
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.zenbot.szolnok.timetable.backend.batch.stops.batch.step.stops.listener.RemoveBusStopsExecutionListener
@@ -12,7 +13,7 @@ import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Configuration
 @EnableBatchProcessing
-class BatchConfiguration(
+class StopsBatchConfiguration(
     private val jobBuilderFactory: JobBuilderFactory,
     private val readUrlsStep: Step,
     private val saveBusStopsStep: Step
