@@ -25,8 +25,7 @@ data class BusStopWithBusesEntity(
     var busStopName: String = "",
 
     @OneToMany(
-            cascade = arrayOf(CascadeType.ALL),
-            orphanRemoval = true,
+            cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST),
             fetch = FetchType.EAGER)
     @JoinColumn(name = "bus_of_stop_id")
     var buses: MutableSet<BusOfBusStopEntity> = HashSet()

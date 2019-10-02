@@ -22,21 +22,15 @@ data class BusStopEntity(
     @Column(name = "bus_stop_name")
     var busStopName: String = "",
 
-    @OneToOne(
-            cascade = arrayOf(CascadeType.ALL),
-            orphanRemoval = true)
+    @OneToOne(cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST))
     @JoinColumn(name = "workday_schedule_id")
     var workDayScheduleEntity: ScheduleEntity = ScheduleEntity(),
 
-    @OneToOne(
-            cascade = arrayOf(CascadeType.ALL),
-            orphanRemoval = true)
+    @OneToOne(cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST))
     @JoinColumn(name = "saturday_schedule_id")
     var saturdayScheduleEntity: ScheduleEntity = ScheduleEntity(),
 
-    @OneToOne(
-            cascade = arrayOf(CascadeType.ALL),
-            orphanRemoval = true)
+    @OneToOne(cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST))
     @JoinColumn(name = "sunday_schedule_id")
     var sundayScheduleEntity: ScheduleEntity = ScheduleEntity()
 )

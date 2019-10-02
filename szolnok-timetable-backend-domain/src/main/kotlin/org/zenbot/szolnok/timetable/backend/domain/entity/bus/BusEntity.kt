@@ -23,10 +23,7 @@ data class BusEntity(
     @Column(name = "bus_name")
     var busName: String = "",
 
-    @OneToMany(
-            cascade = arrayOf(CascadeType.ALL),
-            orphanRemoval = true,
-            fetch = FetchType.EAGER)
+    @OneToMany(cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST), fetch = FetchType.EAGER)
     @JoinColumn(name = "bus_id")
     var busRouteEntities: MutableList<BusRouteEntity> = ArrayList()
 ) {

@@ -20,8 +20,7 @@ data class ScheduleEntity(
     var id: Long? = null,
 
     @OneToMany(
-            cascade = arrayOf(CascadeType.ALL),
-            orphanRemoval = true,
+            cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST),
             fetch = FetchType.EAGER)
     @JoinColumn(name = "bus_schedule_id")
     var busArrivalEntities: MutableList<BusArrivalEntity> = ArrayList()
