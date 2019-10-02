@@ -1,9 +1,11 @@
 package org.zenbot.szolnok.timetable.backend.repository
 
-import org.springframework.data.mongodb.repository.MongoRepository
-import org.zenbot.szolnok.timetable.backend.domain.document.bus.Bus
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 
-interface BusRepository : MongoRepository<Bus, String> {
+@Repository
+interface BusRepository : JpaRepository<BusEntity, Long> {
 
-    fun findByBusName(busName: String): Bus?
+    fun findByBusName(busName: String): BusEntity?
 }

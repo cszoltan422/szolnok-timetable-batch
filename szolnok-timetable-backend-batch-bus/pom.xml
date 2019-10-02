@@ -14,29 +14,28 @@
         <dependency>
             <groupId>org.zenbot</groupId>
             <artifactId>szolnok-timetable-backend-repository</artifactId>
-            <version>0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.zenbot</groupId>
             <artifactId>szolnok-timetable-backend-batch-utils</artifactId>
-            <version>0.5-SNAPSHOT</version>
         </dependency>
+
         <dependency>
-            <groupId>org.zenbot</groupId>
-            <artifactId>szolnok-timetable-backend-domain</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-test</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-        <finalName>szolnok-timetable-backend-batch-bus</finalName>
+        <finalName>szolnok-timetable-backend-batch-busEntity</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
@@ -56,10 +55,6 @@
             <plugin>
                 <groupId>com.github.gantsign.maven</groupId>
                 <artifactId>ktlint-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

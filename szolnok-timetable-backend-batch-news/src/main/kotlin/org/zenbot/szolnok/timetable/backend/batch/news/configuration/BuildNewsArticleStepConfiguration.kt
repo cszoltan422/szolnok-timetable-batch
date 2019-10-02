@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration
 import org.zenbot.szolnok.timetable.backend.batch.news.batch.step.news.article.JsoupElementReader
 import org.zenbot.szolnok.timetable.backend.batch.news.batch.step.news.article.SzolnokNewsArticelItemProcessor
 import org.zenbot.szolnok.timetable.backend.batch.news.batch.step.news.article.SzolnokNewsArticleWriter
-import org.zenbot.szolnok.timetable.backend.domain.document.news.SzolnokNewsArticle
+import org.zenbot.szolnok.timetable.backend.domain.entity.news.SzolnokNewsArticleEntity
 
 @Configuration
 class BuildNewsArticleStepConfiguration(
@@ -21,7 +21,7 @@ class BuildNewsArticleStepConfiguration(
     @Bean
     fun buildNewsArticleStep(): Step {
         return stepBuilderFactory.get("buildNewsArticleStep")
-                .chunk<Element, SzolnokNewsArticle>(1)
+                .chunk<Element, SzolnokNewsArticleEntity>(1)
                 .reader(jsoupElementReader)
                 .processor(szolnokNewsArticelItemProcessor)
                 .writer(szolnokNewsArticleWriter)
