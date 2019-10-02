@@ -155,4 +155,18 @@
                                  referencedColumnNames="id" />
     </changeSet>
 
+    <changeSet id="13-create-table-batch-job" author="zoltan_csenyi">
+        <createTable tableName="batch_job">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="start_time" type="timestamp"/>
+            <column name="finish_time" type="timestamp"/>
+            <column name="type" type="varchar(255)"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="parameters" type="varchar(255)"/>
+            <column name="finished" type="bit"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
