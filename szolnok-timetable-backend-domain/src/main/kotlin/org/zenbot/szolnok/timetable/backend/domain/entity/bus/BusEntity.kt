@@ -1,6 +1,8 @@
 package org.zenbot.szolnok.timetable.backend.domain.entity.bus
 
+import org.hibernate.annotations.GenericGenerator
 import javax.persistence.CascadeType
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
@@ -14,14 +16,18 @@ import javax.persistence.Table
 @Table(schema = "szolnok_app", name = "bus")
 data class BusEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     var id: Long? = null,
+
+    @Column(name = "bus_name")
     var busName: String = "",
+
     @OneToMany(
             cascade = arrayOf(CascadeType.ALL),
             orphanRemoval = true,
             fetch = FetchType.EAGER)
-    @JoinColumn(name = "bus_route_id")
+    @JoinColumn(name = "bus_id")
     var busRouteEntities: MutableList<BusRouteEntity> = ArrayList()
 ) {
 

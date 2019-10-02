@@ -3,10 +3,12 @@ package org.zenbot.szolnok.timetable.backend.batch.stops.batch.step.stops.writer
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemWriter
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import org.zenbot.szolnok.timetable.backend.domain.entity.stop.BusStopWithBusesEntity
 import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Component
+@Transactional
 class StopsWithBusesMongoItemWriter(private val busStopRepository: BusStopRepository) : ItemWriter<BusStopWithBusesEntity> {
 
     private val log = LoggerFactory.getLogger(StopsWithBusesMongoItemWriter::class.java)

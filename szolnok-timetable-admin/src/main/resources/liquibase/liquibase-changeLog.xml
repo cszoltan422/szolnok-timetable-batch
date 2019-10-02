@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <preConditions>
+        <runningAs username="root"/>
+    </preConditions>
+    
+    <changeSet id="1-create-table-bus" author="zoltan_csenyi">
+        <createTable tableName="bus">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="bus_name" type="varchar(255)" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="bus" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2-create-table-bus-arrival" author="zoltan_csenyi">
+        <createTable tableName="bus_arrival">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="arrival_hour" type="integer" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="arrival_minute" type="integer" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="low_floor" type="bit" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="bus_schedule_id" type="bigint"  />
+        </createTable>
+        <rollback>
+            <dropTable tableName="bus_arrival" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3-create-table-bus-of-stop" author="zoltan_csenyi">
+        <createTable tableName="bus_of_stop">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="bus_of_stop_id" type="bigint" />
+            <column name="bus_name" type="varchar(255)" />
+        </createTable>
+        <rollback>
+            <dropTable tableName="bus_of_stop" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="4-create-table-bus-route" author="zoltan_csenyi">
+        <createTable tableName="bus_route">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="start_bus_stop" type="varchar(255)" />
+            <column name="end_bus_stop" type="varchar(255)" />
+            <column name="bus_id" type="bigint" />
+        </createTable>
+        <rollback>
+            <dropTable tableName="bus_route" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="5-create-table-bus-schedule" author="zoltan_csenyi">
+        <createTable tableName="bus_schedule">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="bus_schedule" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="6-create-table-bus_stop" author="zoltan_csenyi">
+        <createTable tableName="bus_stop">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="bus_stop_name" type="varchar(255)" />
+            <column name="saturday_schedule_id" type="bigint" />
+            <column name="sunday_schedule_id" type="bigint" />
+            <column name="workday_schedule_id" type="bigint" />
+            <column name="bus_route_id" type="bigint" />
+        </createTable>
+        <rollback>
+            <dropTable tableName="bus_stop" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="7-create-table-bus-stop-buses" author="zoltan_csenyi">
+        <createTable tableName="bus_stop_buses">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="bus_stop_name" type="varchar(255)" />
+        </createTable>
+        <rollback>
+            <dropTable tableName="bus_stop_buses" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="8-create-table-news-article" author="zoltan_csenyi">
+        <createTable tableName="news_article">
+            <column name="id" type="bigint" autoIncrement="true" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="content" type="longtext" />
+            <column name="detailed" type="bit" >
+                <constraints nullable="false" />
+            </column>
+            <column name="effective_date" type="varchar(255)" />
+            <column name="title" type="varchar(255)" />
+        </createTable>
+        <rollback>
+            <dropTable tableName="news_article" />
+        </rollback>
+    </changeSet>
+
+    <changeSet id="9-alter-table-bus-arrival-add-foreign-key" author="">
+        <addForeignKeyConstraint baseTableName="bus_arrival" baseColumnNames="bus_schedule_id" constraintName="bus_arrival_schedule_fk" referencedTableName="bus_schedule"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="10-alter-table-bus-of-stop-add-foreign-key" author="">
+        <addForeignKeyConstraint baseTableName="bus_of_stop" baseColumnNames="bus_of_stop_id" constraintName="bus_of_stop_fk" referencedTableName="bus_stop_buses"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="11-alter-table-bus-route-add-foreign-key" author="">
+        <addForeignKeyConstraint baseTableName="bus_route" baseColumnNames="bus_id" constraintName="bus_route_bus_fk" referencedTableName="bus"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="12-alter-table-bus-stop-add-foreign-keys" author="">
+        <addForeignKeyConstraint baseTableName="bus_stop" baseColumnNames="saturday_schedule_id" constraintName="bus_stop_saturday_fk" referencedTableName="bus_schedule"
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="bus_stop" baseColumnNames="sunday_schedule_id" constraintName="bus_stop_sunday_fk" referencedTableName="bus_schedule"
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="bus_stop" baseColumnNames="workday_schedule_id" constraintName="bus_stop_workday_fk" referencedTableName="bus_schedule"
+                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="bus_stop" baseColumnNames="bus_route_id" constraintName="bus_route_schedule_fk" referencedTableName="bus_route"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+</databaseChangeLog>

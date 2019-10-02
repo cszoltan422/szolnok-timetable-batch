@@ -39,6 +39,8 @@
 		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
 		<maven-findbugs-plugin.version>3.0.4</maven-findbugs-plugin.version>
 		<ktlint-maven-plugin.version>0.9.17</ktlint-maven-plugin.version>
+		<liquibase-core.version>3.4.1</liquibase-core.version>
+		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
 	</properties>
 
 	<scm>
@@ -124,6 +126,17 @@
 				<groupId>org.jsoup</groupId>
 				<artifactId>jsoup</artifactId>
 				<version>${jsoup.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-core</artifactId>
+				<version>${liquibase-core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mattbertolini</groupId>
+				<artifactId>liquibase-slf4j</artifactId>
+				<version>${liquibase-slf4j.version}</version>
 			</dependency>
 
 			<dependency>

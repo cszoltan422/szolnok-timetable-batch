@@ -8,8 +8,8 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.tasklet.Rea
 
 @Configuration
 class ReadUrlsStepConfiguration(
-        private val stepBuilderFactory: StepBuilderFactory,
-        private val readUrlResourcesTasklet: ReadUrlResourcesTasklet
+    private val stepBuilderFactory: StepBuilderFactory,
+    private val readUrlResourcesTasklet: ReadUrlResourcesTasklet
 ) {
 
     @Bean

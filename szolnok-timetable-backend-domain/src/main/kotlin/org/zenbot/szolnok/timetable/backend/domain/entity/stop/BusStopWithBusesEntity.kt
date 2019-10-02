@@ -1,6 +1,8 @@
 package org.zenbot.szolnok.timetable.backend.domain.entity.stop
 
+import org.hibernate.annotations.GenericGenerator
 import javax.persistence.CascadeType
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
@@ -15,9 +17,13 @@ import javax.persistence.Table
 data class BusStopWithBusesEntity(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     var id: Long? = null,
+
+    @Column(name = "bus_stop_name")
     var busStopName: String = "",
+
     @OneToMany(
             cascade = arrayOf(CascadeType.ALL),
             orphanRemoval = true,

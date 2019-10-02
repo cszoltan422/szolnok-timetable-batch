@@ -23,7 +23,7 @@ class TimetableToBusStopWithBusesItemProcessor(private val busStopRepository: Bu
             result = BusStopWithBusesEntity()
         }
         val busOfBusStopEntity = BusOfBusStopEntity()
-        busOfBusStopEntity.name = timetable.busName
+        busOfBusStopEntity.busName = timetable.busName
 
         result.busStopName = timetable.activeStopName
         result.buses.add(busOfBusStopEntity)
