@@ -26,12 +26,12 @@ class RemoveBusRoutesExecutionListener(
             log.info("Removing bus routes [{}]", properties.resource.selectedBuses.joinToString(","))
             routes.forEach { route ->
                 if (properties.resource.selectedBuses.contains(route.busName)) {
-                    route.busRouteEntities = ArrayList<BusRouteEntity>()
+                    busRepository.delete(route)
                 }
             }
         } else {
             log.info("Removing all bus routes from database")
-            routes.forEach { route -> route.busRouteEntities = ArrayList<BusRouteEntity>() }
+            busRepository.deleteAll()
         }
     }
 
