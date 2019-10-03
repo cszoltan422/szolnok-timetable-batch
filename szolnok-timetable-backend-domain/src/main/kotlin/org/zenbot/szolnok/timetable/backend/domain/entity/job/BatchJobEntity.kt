@@ -15,27 +15,26 @@ import javax.persistence.Table
 @Table(schema = "szolnok_app", name = "batch_job")
 data class BatchJobEntity(
 
-        @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-        @GenericGenerator(name = "native", strategy = "native")
-        var id: Long? = null,
+    @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    var id: Long? = null,
 
-        @Column(name = "start_time")
-        var startTime: LocalDateTime = LocalDateTime.now(),
+    @Column(name = "start_time")
+    var startTime: LocalDateTime = LocalDateTime.now(),
 
-        @Column(name = "finish_time")
-        var finishTime: LocalDateTime? = null,
+    @Column(name = "finish_time")
+    var finishTime: LocalDateTime? = null,
 
-        @Column(name = "type")
-        @Enumerated(value = EnumType.STRING)
-        var type: BatchJobType = BatchJobType.UNDEFINED,
+    @Column(name = "type")
+    var type: String = "",
 
-        @Column(name = "status")
-        @Enumerated(value = EnumType.STRING)
-        var status: BatchJobStatus = BatchJobStatus.UNDEFINED,
+    @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
+    var status: BatchJobStatus = BatchJobStatus.UNDEFINED,
 
-        @Column(name = "parameters")
-        var parameters: String = "",
+    @Column(name = "parameters")
+    var parameters: String = "",
 
-        @Column(name = "finished")
-        var finished: Boolean = false
+    @Column(name = "finished")
+    var finished: Boolean = false
 )
