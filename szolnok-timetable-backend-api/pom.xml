@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>szolnok-timetable-admin</artifactId>
+    <artifactId>szolnok-timetable-backend-api</artifactId>
 
     <dependencies>
         <dependency>
@@ -28,10 +28,10 @@
             <version>${szolnok-timetable.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-web</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.liquibase</groupId>
@@ -61,7 +61,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.zenbot.szolnok.timetable.admin.SzolnokTimetableAdminApplication</mainClass>
+                    <mainClass>org.zenbot.szolnok.timetable.backend.api.SzolnokTimetableBackendApiApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

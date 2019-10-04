@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.admin.configuration
+package org.zenbot.szolnok.timetable.backend.api.configuration
 
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 import java.util.Properties
 import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
-
 
 @Configuration
 @EnableTransactionManagement
@@ -43,6 +42,4 @@ class JpaConfiguration {
     fun transactionManager(emf: EntityManagerFactory): JpaTransactionManager {
         return JpaTransactionManager(emf)
     }
-
-
 }

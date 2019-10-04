@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.admin.configuration
+package org.zenbot.szolnok.timetable.backend.api.configuration
 
 import org.springframework.context.annotation.Configuration
 import liquibase.integration.spring.SpringLiquibase
@@ -6,11 +6,10 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import javax.sql.DataSource
 
-
 @Configuration
 class LiquibaseConfiguration(
-        @Qualifier("dataSource")
-        private val dataSource : DataSource
+    @Qualifier("dataSource")
+    private val dataSource: DataSource
 ) {
     @Bean
     fun liquibase(): SpringLiquibase {

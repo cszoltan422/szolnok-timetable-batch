@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.admin.configuration
+package org.zenbot.szolnok.timetable.backend.api.configuration
 
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.jdbc.DataSourceBuilder
@@ -20,7 +20,6 @@ class DataSourceConfiguration {
                 .password("root")
                 .driverClassName("com.mysql.cj.jdbc.Driver")
                 .build()
-
     }
 
     @Bean
