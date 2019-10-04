@@ -21,7 +21,7 @@ class BusRepositoryItemWriter(
         }
 
         val bus = list[0]
-        log.info("Saving bus=[#{}, from={}, to={}] to database", bus.busName, bus.busRouteEntities[0].startBusStop, bus.busRouteEntities[0].endBusStop)
-        busRepository.saveAndFlush(bus)
+        log.info("Saving bus=[#{}] to database", bus.busName)
+        busRepository.save(bus)
     }
 }

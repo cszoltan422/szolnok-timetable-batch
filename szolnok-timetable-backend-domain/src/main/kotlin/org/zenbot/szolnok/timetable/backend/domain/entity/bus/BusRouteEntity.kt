@@ -25,7 +25,7 @@ data class BusRouteEntity(
 
     @Column(name = "end_bus_stop")
     var endBusStop: String = "",
-    @OneToMany(cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST), fetch = FetchType.EAGER)
+    @OneToMany(cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE))
     @JoinColumn(name = "bus_route_id")
     var busStopEntities: MutableList<BusStopEntity> = ArrayList()
 ) {

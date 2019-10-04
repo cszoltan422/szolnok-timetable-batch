@@ -3,6 +3,7 @@ package org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.processor
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor
 import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
@@ -10,6 +11,7 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusRouteEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusStopEntity
 
 @Component
+@Transactional
 class TimetableToBusItemProcessor(private val createBusItemProcessorHelper: CreateBusFromTimetableItemProcessorHelper, private val scheduleBuilderItemProcessorHelper: ScheduleBuilderItemProcessorHelper) : ItemProcessor<Timetable, BusEntity> {
 
     private val log = LoggerFactory.getLogger(TimetableToBusItemProcessor::class.java)
