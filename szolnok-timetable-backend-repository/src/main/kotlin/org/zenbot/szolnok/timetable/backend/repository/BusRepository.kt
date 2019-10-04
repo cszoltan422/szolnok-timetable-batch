@@ -8,4 +8,6 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 interface BusRepository : JpaRepository<BusEntity, Long> {
 
     fun findByBusName(busName: String): BusEntity?
+
+    fun findAllByBusNameContains(query : String): List<BusEntity>
 }
