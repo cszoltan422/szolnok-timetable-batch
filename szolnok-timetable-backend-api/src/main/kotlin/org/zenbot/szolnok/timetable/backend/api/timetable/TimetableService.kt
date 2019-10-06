@@ -1,7 +1,6 @@
 package org.zenbot.szolnok.timetable.backend.api.timetable
 
 import org.springframework.stereotype.Service
-import org.zenbot.szolnok.timetable.backend.api.stops.BusStopsResponse
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusRouteEntity
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 import javax.transaction.Transactional
@@ -9,8 +8,8 @@ import javax.transaction.Transactional
 @Service
 @Transactional
 class TimetableService(
-        private val busRepository: BusRepository,
-        private val timetableTransformer : TimetableTransformer
+    private val busRepository: BusRepository,
+    private val timetableTransformer: TimetableTransformer
 ) {
 
     fun getTimetable(bus: String, startBusStop: String, busStopName: String, occurrence: Int): TimetableResponse {
@@ -32,5 +31,4 @@ class TimetableService(
         }
         return result
     }
-
 }

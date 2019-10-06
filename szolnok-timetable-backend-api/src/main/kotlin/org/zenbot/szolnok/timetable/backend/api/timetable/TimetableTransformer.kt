@@ -7,7 +7,7 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusStopEntity
 
 @Component
 class TimetableTransformer(
-        private val scheduleTransformer : ScheduleTransformer
+    private val scheduleTransformer: ScheduleTransformer
 ) {
     fun empty() =
             TimetableResponse(
@@ -28,7 +28,7 @@ class TimetableTransformer(
                     found = false
             )
 
-    fun transform(bus: BusEntity, busRoute: BusRouteEntity, busStop: BusStopEntity, occurrence: Int) : TimetableResponse {
+    fun transform(bus: BusEntity, busRoute: BusRouteEntity, busStop: BusStopEntity, occurrence: Int): TimetableResponse {
         return TimetableResponse(
                 busName = bus.busName,
                 startStop = busRoute.startBusStop,
@@ -41,5 +41,4 @@ class TimetableTransformer(
                 found = true
         )
     }
-
 }

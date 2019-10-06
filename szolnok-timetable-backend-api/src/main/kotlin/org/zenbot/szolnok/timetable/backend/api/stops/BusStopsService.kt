@@ -8,8 +8,8 @@ import javax.transaction.Transactional
 @Service
 @Transactional
 class BusStopsService(
-        private val busRepository: BusRepository,
-        private val busStopsTransformer: BusStopsTransformer
+    private val busRepository: BusRepository,
+    private val busStopsTransformer: BusStopsTransformer
 ) {
     fun findAllBusStopsOfBus(bus: String): BusStopsResponse {
         val findByBusName = busRepository.findByBusName(bus)
@@ -32,5 +32,4 @@ class BusStopsService(
         }
         return result
     }
-
 }

@@ -15,5 +15,4 @@ class ScheduleTransformer {
         }
         return ScheduleResponse(busArrivals)
     }
-
 }

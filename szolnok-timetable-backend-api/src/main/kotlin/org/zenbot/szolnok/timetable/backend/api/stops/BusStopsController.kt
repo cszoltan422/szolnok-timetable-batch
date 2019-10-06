@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class BusStopsController(
-        private val busStopsService: BusStopsService
+    private val busStopsService: BusStopsService
 ) {
 
     @RequestMapping(value = arrayOf("/api/stops/{bus}"), produces = arrayOf("application/json"), method = arrayOf(RequestMethod.GET))
-    fun getBusStopsOfBus(@PathVariable("bus") bus : String): BusStopsResponse = busStopsService.findAllBusStopsOfBus(bus)
+    fun getBusStopsOfBus(@PathVariable("bus") bus: String): BusStopsResponse = busStopsService.findAllBusStopsOfBus(bus)
 
     @RequestMapping(value = arrayOf("/api/stops/{bus}/{startBusStop}"), produces = arrayOf("application/json"), method = arrayOf(RequestMethod.GET))
-    fun getBusStopsOfBus(@PathVariable("bus") bus : String, @PathVariable("startBusStop") startBusStop: String): BusStopsResponse =
+    fun getBusStopsOfBus(@PathVariable("bus") bus: String, @PathVariable("startBusStop") startBusStop: String): BusStopsResponse =
             busStopsService.findAllBusStopsOfBus(bus, startBusStop)
 }

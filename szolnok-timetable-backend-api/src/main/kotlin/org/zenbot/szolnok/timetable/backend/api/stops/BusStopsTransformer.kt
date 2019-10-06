@@ -25,5 +25,4 @@ class BusStopsTransformer {
                     busStops = emptyList(),
                     found = false
             )
-
 }

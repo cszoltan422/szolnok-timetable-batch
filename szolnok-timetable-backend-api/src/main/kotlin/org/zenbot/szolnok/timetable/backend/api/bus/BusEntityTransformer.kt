@@ -11,5 +11,4 @@ class BusEntityTransformer {
                     startBusStop = busEntity.busRouteEntities[0].startBusStop,
                     endBusStop = busEntity.busRouteEntities[0].endBusStop
             )
-
 }
