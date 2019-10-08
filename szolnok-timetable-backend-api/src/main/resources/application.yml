@@ -22,6 +22,11 @@ spring:
       enabled: false
   main:
     allow-bean-definition-overriding: true
+hibernate:
+  properties:
+    show-sql: true
+    ddl-auto: validate
+    dialect: org.hibernate.dialect.MySQL8Dialect
 timetable:
   resource:
     base-url: "http://archiv.kmkk.hu/"
