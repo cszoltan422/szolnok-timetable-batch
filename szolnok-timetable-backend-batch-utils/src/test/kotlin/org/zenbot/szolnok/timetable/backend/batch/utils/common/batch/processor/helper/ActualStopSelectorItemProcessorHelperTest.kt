@@ -5,13 +5,11 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito.anyString
 import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.verify
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableSelectorProperties
@@ -38,17 +36,17 @@ class ActualStopSelectorItemProcessorHelperTest {
         val timetableSelectorProperties = TimetableSelectorProperties()
         timetableSelectorProperties.actualStopSelector = "selector"
 
-        given(htmlDocument.select(ArgumentMatchers.anyString())).willReturn(elements)
+        given(htmlDocument.select(anyString())).willReturn(elements)
         given(elements.text()).willReturn("(STOP)")
-        given(stringCleaner.clean(ArgumentMatchers.anyString())).willReturn("cleaned")
+        given(stringCleaner.clean(anyString())).willReturn("cleaned")
 
         // WHEN
         val result = testSubject.getActualStop(htmlDocument, timetableSelectorProperties)
 
         // THEN
-        Mockito.verify(htmlDocument).select(timetableSelectorProperties.actualStopSelector)
-        Mockito.verify(elements).text()
-        Mockito.verify(stringCleaner).clean("STOP")
+        verify(htmlDocument).select(timetableSelectorProperties.actualStopSelector)
+        verify(elements).text()
+        verify(stringCleaner).clean("STOP")
 
         assertThat(result).isEqualTo("cleaned")
     }
@@ -61,17 +59,17 @@ class ActualStopSelectorItemProcessorHelperTest {
         val timetableSelectorProperties = TimetableSelectorProperties()
         timetableSelectorProperties.actualStopSelector = "selector"
 
-        given(htmlDocument.select(ArgumentMatchers.anyString())).willReturn(elements)
+        given(htmlDocument.select(anyString())).willReturn(elements)
         given(elements.text()).willReturn("(STOP (VALUE))")
-        given(stringCleaner.clean(ArgumentMatchers.anyString())).willReturn("cleaned")
+        given(stringCleaner.clean(anyString())).willReturn("cleaned")
 
         // WHEN
         val result = testSubject.getActualStop(htmlDocument, timetableSelectorProperties)
 
         // THEN
-        Mockito.verify(htmlDocument).select(timetableSelectorProperties.actualStopSelector)
-        Mockito.verify(elements).text()
-        Mockito.verify(stringCleaner).clean("STOP (VALUE)")
+        verify(htmlDocument).select(timetableSelectorProperties.actualStopSelector)
+        verify(elements).text()
+        verify(stringCleaner).clean("STOP (VALUE)")
 
         assertThat(result).isEqualTo("cleaned")
     }
@@ -84,17 +82,17 @@ class ActualStopSelectorItemProcessorHelperTest {
         val timetableSelectorProperties = TimetableSelectorProperties()
         timetableSelectorProperties.actualStopSelector = "selector"
 
-        given(htmlDocument.select(ArgumentMatchers.anyString())).willReturn(elements)
+        given(htmlDocument.select(anyString())).willReturn(elements)
         given(elements.text()).willReturn("(STOP.))")
-        given(stringCleaner.clean(ArgumentMatchers.anyString())).willReturn("cleaned")
+        given(stringCleaner.clean(anyString())).willReturn("cleaned")
 
         // WHEN
         val result = testSubject.getActualStop(htmlDocument, timetableSelectorProperties)
 
         // THEN
-        Mockito.verify(htmlDocument).select(timetableSelectorProperties.actualStopSelector)
-        Mockito.verify(elements).text()
-        Mockito.verify(stringCleaner).clean("STOP")
+        verify(htmlDocument).select(timetableSelectorProperties.actualStopSelector)
+        verify(elements).text()
+        verify(stringCleaner).clean("STOP")
 
         assertThat(result).isEqualTo("cleaned")
     }
