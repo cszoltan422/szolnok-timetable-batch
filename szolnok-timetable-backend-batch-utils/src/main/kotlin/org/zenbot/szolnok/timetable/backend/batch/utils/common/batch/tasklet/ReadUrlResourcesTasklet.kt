@@ -27,7 +27,8 @@ class ReadUrlResourcesTasklet(
     override fun execute(stepContribution: StepContribution, chunkContext: ChunkContext): RepeatStatus {
         log.info("{}", properties.resource.selectedBuses)
         try {
-            val landingPageHtml = jsoupDocumentService.getDocument(properties.resource.baseUrl + properties.resource.szolnokUrl)
+            val url = properties.resource.baseUrl + properties.resource.szolnokUrl
+            val landingPageHtml = jsoupDocumentService.getDocument(url)
             val busLinks = landingPageHtml.select(properties.selector.routesLinkSelector)
             busLinks.forEach { busLink -> saveBusStopUrlsOfBus(busLink, true) }
         } catch (e: IllegalStateException) {

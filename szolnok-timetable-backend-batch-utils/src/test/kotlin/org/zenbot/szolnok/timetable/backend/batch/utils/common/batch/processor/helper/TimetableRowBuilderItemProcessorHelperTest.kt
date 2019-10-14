@@ -44,8 +44,10 @@ class TimetableRowBuilderItemProcessorHelperTest {
 
         given(htmlDocument.select(anyString())).willReturn(tables)
         given(tables.iterator()).willReturn(elements.iterator())
-        given(htmlTimetableProcessorHelper.processHtmlTable(table1, timetableSelectorProperties)).willReturn(mappedTable1)
-        given(htmlTimetableProcessorHelper.processHtmlTable(table2, timetableSelectorProperties)).willReturn(mappedTable2)
+        given(htmlTimetableProcessorHelper.processHtmlTable(table1, timetableSelectorProperties))
+                .willReturn(mappedTable1)
+        given(htmlTimetableProcessorHelper.processHtmlTable(table2, timetableSelectorProperties))
+                .willReturn(mappedTable2)
 
         // WHEN
         val result = testSubject.getTimetableRows(htmlDocument, timetableSelectorProperties)

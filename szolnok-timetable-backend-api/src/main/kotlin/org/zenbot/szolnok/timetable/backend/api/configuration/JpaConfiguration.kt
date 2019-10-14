@@ -19,7 +19,7 @@ import javax.sql.DataSource
 @EnableJpaRepositories(basePackages = arrayOf("org.zenbot.szolnok.timetable.backend.repository"))
 @EnableConfigurationProperties(HibernateProperties::class)
 class JpaConfiguration(
-        private val hibernateProperties: HibernateProperties
+    private val hibernateProperties: HibernateProperties
 ) {
 
     @Bean

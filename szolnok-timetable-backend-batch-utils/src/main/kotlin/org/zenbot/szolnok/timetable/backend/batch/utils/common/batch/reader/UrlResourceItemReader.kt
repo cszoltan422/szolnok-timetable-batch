@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringResourcesInMemoryStorage
 
 @Component
-class UrlResourceItemReader(private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage) : ItemReader<String> {
+class UrlResourceItemReader(
+    private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage
+) : ItemReader<String> {
 
     private val log = LoggerFactory.getLogger(UrlResourceItemReader::class.java)
 

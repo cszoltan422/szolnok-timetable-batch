@@ -17,7 +17,8 @@ class TimetableRowBuilderItemProcessorHelper(
      * @param selectorProperties The CSS selectors encapsulated in a property object
      * @return a Map of all the arrivals per hour
      */
-    fun getTimetableRows(htmlDocument: Document, selectorProperties: TimetableSelectorProperties): Map<Int, Map<String, String>> {
+    fun getTimetableRows(htmlDocument: Document, selectorProperties: TimetableSelectorProperties):
+            Map<Int, Map<String, String>> {
         val result = HashMap<Int, Map<String, String>>()
         for (table in htmlDocument.select(selectorProperties.timetableSelector)) {
             result.putAll(htmlTimetableProcessorHelper.processHtmlTable(table, selectorProperties))

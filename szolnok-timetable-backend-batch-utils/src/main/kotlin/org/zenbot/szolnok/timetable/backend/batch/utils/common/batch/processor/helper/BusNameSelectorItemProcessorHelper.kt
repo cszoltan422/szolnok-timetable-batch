@@ -18,5 +18,4 @@ class BusNameSelectorItemProcessorHelper {
     fun getBusName(htmlDocument: Document, selector: TimetableSelectorProperties): String {
         return htmlDocument.select(selector.routeNameSelector).text()
     }
-
 }

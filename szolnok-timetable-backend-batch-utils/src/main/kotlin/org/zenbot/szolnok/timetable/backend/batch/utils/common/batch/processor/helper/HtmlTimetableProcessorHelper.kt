@@ -17,7 +17,8 @@ class HtmlTimetableProcessorHelper(
      * @param selectorProperties The CSS selectors encapsulated in a property object
      * @return a Map of all the arrivals per hour
      */
-    fun processHtmlTable(table: Element, selectorProperties: TimetableSelectorProperties): Map<Int, Map<String, String>> {
+    fun processHtmlTable(table: Element, selectorProperties: TimetableSelectorProperties):
+            Map<Int, Map<String, String>> {
         val result = HashMap<Int, Map<String, String>>()
         for (row in table.select(selectorProperties.tableRowSelector)) {
             result.putAll(htmlTimetableRowProcessorHelper.processRow(row, selectorProperties))

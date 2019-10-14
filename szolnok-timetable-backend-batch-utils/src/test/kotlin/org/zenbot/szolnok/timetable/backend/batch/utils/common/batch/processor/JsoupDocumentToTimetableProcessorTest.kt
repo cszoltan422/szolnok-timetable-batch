@@ -5,7 +5,6 @@ import org.jsoup.nodes.Document
 import org.junit.Before
 import org.junit.Test
 import org.mockito.BDDMockito.given
-import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
@@ -61,11 +60,16 @@ class JsoupDocumentToTimetableProcessorTest {
         val selector = TimetableSelectorProperties()
         properties.selector = selector
 
-        given(busNameSelectorItemProcessorHelper.getBusName(htmlDocument, properties.selector)).willReturn("busName")
-        given(startBusStopSelectorItemProcessorHelper.getStartBusStop(htmlDocument, properties.selector)).willReturn("startStop")
-        given(terminalSelectorItemProcessorHelper.getTerminal(htmlDocument, properties.selector)).willReturn("terminal")
-        given(actualStopSelectorItemProcessorHelper.getActualStop(htmlDocument, properties.selector)).willReturn("actual")
-        given(timetableRowBuilderItemProcessorHelper.getTimetableRows(htmlDocument, properties.selector)).willReturn(timetableMap)
+        given(busNameSelectorItemProcessorHelper.getBusName(htmlDocument, properties.selector))
+                .willReturn("busName")
+        given(startBusStopSelectorItemProcessorHelper.getStartBusStop(htmlDocument, properties.selector))
+                .willReturn("startStop")
+        given(terminalSelectorItemProcessorHelper.getTerminal(htmlDocument, properties.selector))
+                .willReturn("terminal")
+        given(actualStopSelectorItemProcessorHelper.getActualStop(htmlDocument, properties.selector))
+                .willReturn("actual")
+        given(timetableRowBuilderItemProcessorHelper.getTimetableRows(htmlDocument, properties.selector))
+                .willReturn(timetableMap)
 
         // WHEN
         val result = testSubject.process(htmlDocument)
@@ -84,5 +88,4 @@ class JsoupDocumentToTimetableProcessorTest {
                 .hasFieldOrPropertyWithValue("activeStopName", "actual")
                 .hasFieldOrPropertyWithValue("timetable", mutableMapOf(1 to mapOf("weekday" to "1,2")))
     }
-
 }

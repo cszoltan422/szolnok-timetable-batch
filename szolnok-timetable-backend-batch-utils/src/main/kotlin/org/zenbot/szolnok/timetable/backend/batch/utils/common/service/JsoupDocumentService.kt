@@ -13,17 +13,22 @@ class JsoupDocumentService {
 
     fun getDocument(url: String): Document {
         log.info("Getting Jsoup Document with url=[$url]")
-        var i = 0
-        while (i <= 4) {
+        var i = INITIAL_RETRY_COUNT
+        while (i <= MAX_RETRY_COUNT) {
             try {
                 return Jsoup.connect(url).get()
             } catch (e: IOException) {
                 log.debug("Read timed out [{}]", url)
-                log.debug("Retry last operation for the [{}] time", i + 1)
+                log.debug("Retry last operation for the [{}] time", i)
             }
 
             i++
         }
         throw IllegalStateException("Cannot fetch document=[$url]")
+    }
+
+    companion object {
+        val MAX_RETRY_COUNT = 4
+        val INITIAL_RETRY_COUNT = 0
     }
 }

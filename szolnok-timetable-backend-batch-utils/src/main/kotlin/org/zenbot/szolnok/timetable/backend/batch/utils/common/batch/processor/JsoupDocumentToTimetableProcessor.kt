@@ -19,12 +19,12 @@ import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)
 class JsoupDocumentToTimetableProcessor(
-        private val properties: TimetableProperties,
-        private val busNameSelectorItemProcessorHelper: BusNameSelectorItemProcessorHelper,
-        private val startBusStopSelectorItemProcessorHelper: StartBusStopSelectorItemProcessorHelper,
-        private val terminalSelectorItemProcessorHelper: TerminalSelectorItemProcessorHelper,
-        private val actualStopSelectorItemProcessorHelper: ActualStopSelectorItemProcessorHelper,
-        private val timetableRowBuilderItemProcessorHelper: TimetableRowBuilderItemProcessorHelper
+    private val properties: TimetableProperties,
+    private val busNameSelectorItemProcessorHelper: BusNameSelectorItemProcessorHelper,
+    private val startBusStopSelectorItemProcessorHelper: StartBusStopSelectorItemProcessorHelper,
+    private val terminalSelectorItemProcessorHelper: TerminalSelectorItemProcessorHelper,
+    private val actualStopSelectorItemProcessorHelper: ActualStopSelectorItemProcessorHelper,
+    private val timetableRowBuilderItemProcessorHelper: TimetableRowBuilderItemProcessorHelper
 ) : ItemProcessor<Document, Timetable> {
 
     private val log = LoggerFactory.getLogger(JsoupDocumentToTimetableProcessor::class.java)
@@ -47,7 +47,9 @@ class JsoupDocumentToTimetableProcessor(
         timetable.activeStopName = actualStop
         timetableRows.forEach { hour, values -> timetable.addRow(hour, values) }
 
-        log.info("Process html with busName [#{}] and timetable for [{}] stop", timetable.busName, timetable.activeStopName)
+        log.info("Process html with busName [#{}] and timetable for [{}] stop",
+                timetable.busName,
+                timetable.activeStopName)
         return timetable
     }
 
