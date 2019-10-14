@@ -18,7 +18,7 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.util.StringCleane
 class ActualStopSelectorItemProcessorHelperTest {
 
     @InjectMocks
-    private lateinit var testSubject : ActualStopSelectorItemProcessorHelper
+    private lateinit var testSubject: ActualStopSelectorItemProcessorHelper
 
     @Mock
     private lateinit var stringCleaner: StringCleaner
