@@ -31,17 +31,28 @@
 		<java.version>1.8</java.version>
 		<kotlin.version>1.2.71</kotlin.version>
 
+		<szolnok-timetable.version>0.5-SNAPSHOT</szolnok-timetable.version>
+		<spring-boot.version>2.1.8.RELEASE</spring-boot.version>
 		<jsoup.version>1.11.3</jsoup.version>
 		<mysql-connector-java.version>8.0.17</mysql-connector-java.version>
-		<szolnok-timetable.version>0.5-SNAPSHOT</szolnok-timetable.version>
+		<h2.version>1.4.199</h2.version>
+		<liquibase-core.version>3.4.1</liquibase-core.version>
+		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
+		<mockito-all.version>1.10.19</mockito-all.version>
 
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
 		<maven-findbugs-plugin.version>3.0.4</maven-findbugs-plugin.version>
 		<ktlint-maven-plugin.version>0.9.17</ktlint-maven-plugin.version>
-		<liquibase-core.version>3.4.1</liquibase-core.version>
-		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
-		<mockito-all.version>1.10.19</mockito-all.version>
+		<detekt-maven-plugin.version>1.0.0</detekt-maven-plugin.version>
+		<maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+		<maven-failsafe-plugin.version>2.22.1</maven-failsafe-plugin.version>
+		<jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
+		<jacoco-line-coverage-minimum>0.9</jacoco-line-coverage-minimum>
+		<jacoco-branch-coverage-minimum>0.9</jacoco-branch-coverage-minimum>
+		<jacoco-class-coverage-minimum>0.99</jacoco-class-coverage-minimum>
+		<jacoco-method-coverage-minimum>0.99</jacoco-method-coverage-minimum>
+		<pitest-maven.version>1.1.10</pitest-maven.version>
 	</properties>
 
 	<scm>
@@ -105,27 +116,27 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-jpa</artifactId>
-				<version>2.1.8.RELEASE</version>
+				<version>${spring-boot.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-logging</artifactId>
-				<version>2.1.8.RELEASE</version>
+				<version>${spring-boot.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-batch</artifactId>
-				<version>2.1.8.RELEASE</version>
+				<version>${spring-boot.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
-				<version>2.1.8.RELEASE</version>
+				<version>${spring-boot.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-actuator</artifactId>
-				<version>2.1.8.RELEASE</version>
+				<version>${spring-boot.version}</version>
 			</dependency>
 
 			<dependency>
@@ -153,20 +164,20 @@
 			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
-				<version>1.4.199</version>
+				<version>${h2.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
-				<version>2.1.8.RELEASE</version>
+				<version>${spring-boot.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.batch</groupId>
 				<artifactId>spring-batch-test</artifactId>
-				<version>2.1.8.RELEASE</version>
+				<version>${spring-boot.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -175,7 +186,6 @@
 				<version>${mockito-all.version}</version>
 				<scope>test</scope>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 
@@ -249,18 +259,55 @@
 				<plugin>
 					<groupId>com.github.ozsie</groupId>
 					<artifactId>detekt-maven-plugin</artifactId>
-					<version>1.0.0</version>
+					<version>${detekt-maven-plugin.version}</version>
 					<executions>
 						<execution>
 							<phase>verify</phase>
 							<goals><goal>check</goal></goals>
+							<configuration>
+								<report>
+									<report>txt:${project.build.directory}/detekt/detekt.txt</report>
+									<report>xml:${project.build.directory}/detekt/detekt.xml</report>
+								</report>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<configuration>
+						<excludes>
+							<exclude>**/*IntegrationTest.java</exclude>
+							<exclude>**/*IntegrationTest.kt</exclude>
+							<exclude>**/*IntegrationTest.class</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<includes>
+							<include>**/*IntegrationTest.class</include>
+						</includes>
+						<runOrder>alphabetical</runOrder>
+					</configuration>
+				</plugin>
+				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.8.3</version>
+					<version>${jacoco-maven-plugin.version}</version>
 					<executions>
 						<execution>
 							<id>default-prepare-agent</id>
@@ -281,37 +328,77 @@
 								<goal>report</goal>
 							</goals>
 						</execution>
+						<execution>
+							<id>jacoco-check</id>
+							<goals>
+								<goal>check</goal>
+							</goals>
+							<configuration>
+								<rules>
+									<rule>
+										<limits>
+											<limit>
+												<counter>LINE</counter>
+												<value>COVEREDRATIO</value>
+												<minimum>${jacoco-line-coverage-minimum}</minimum>
+											</limit>
+											<limit>
+												<counter>BRANCH</counter>
+												<value>COVEREDRATIO</value>
+												<minimum>${jacoco-branch-coverage-minimum}</minimum>
+											</limit>
+											<limit>
+												<counter>CLASS</counter>
+												<value>COVEREDRATIO</value>
+												<minimum>${jacoco-class-coverage-minimum}</minimum>
+											</limit>
+											<limit>
+												<counter>METHOD</counter>
+												<value>COVEREDRATIO</value>
+												<minimum>${jacoco-method-coverage-minimum}</minimum>
+											</limit>
+										</limits>
+									</rule>
+								</rules>
+							</configuration>
+						</execution>
 					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.1</version>
 					<configuration>
 						<excludes>
-							<exclude>**/*IntegrationTest.java</exclude>
-							<exclude>**/*IntegrationTest.kt</exclude>
-							<exclude>**/*IntegrationTest.class</exclude>
+							<exclude>**/*Configuration.*</exclude>
+							<exclude>**/*Properties.*</exclude>
 						</excludes>
 					</configuration>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>2.22.1</version>
+					<groupId>org.pitest</groupId>
+					<artifactId>pitest-maven</artifactId>
+					<version>${pitest-maven.version}</version>
 					<executions>
 						<execution>
 							<goals>
-								<goal>integration-test</goal>
-								<goal>verify</goal>
+								<goal>mutationCoverage</goal>
 							</goals>
+							<phase>verify</phase>
 						</execution>
 					</executions>
 					<configuration>
-						<includes>
-							<include>**/*IntegrationTest.class</include>
-						</includes>
-						<runOrder>alphabetical</runOrder>
+						<targetClasses>
+							<param>org.zenbot.szolnok.timetable.backend*</param>
+						</targetClasses>
+						<targetTests>
+							<param>org.zenbot.szolnok.timetable.backend*</param>
+						</targetTests>
+						<excludedClasses>
+							<param>*.configuration.*Configuration</param>
+							<param>*.domain.*</param>
+							<param>*.properties.*</param>
+						</excludedClasses>
+						<excludedMethods>
+							<excludedMethod>equals</excludedMethod>
+							<excludedMethod>hashCode</excludedMethod>
+							<excludedMethod>toString</excludedMethod>
+						</excludedMethods>
 					</configuration>
 				</plugin>
 			</plugins>
