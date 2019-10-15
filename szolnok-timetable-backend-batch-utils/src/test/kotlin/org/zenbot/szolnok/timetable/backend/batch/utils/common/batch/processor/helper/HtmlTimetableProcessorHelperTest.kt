@@ -5,9 +5,9 @@ import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
-import org.mockito.Matchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.verify

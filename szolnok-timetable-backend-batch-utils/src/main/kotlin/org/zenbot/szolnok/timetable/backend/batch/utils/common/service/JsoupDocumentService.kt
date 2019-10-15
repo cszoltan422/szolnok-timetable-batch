@@ -6,11 +6,21 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.io.IOException
 
+/**
+ * Reads a certain URL and return the HTML page. Reads the urls in a retry manner, maximum 4 times
+ */
 @Component
 class JsoupDocumentService {
 
     private val log = LoggerFactory.getLogger(JsoupDocumentService::class.java)
 
+    /**
+     * Reads the url from the internet and returns the parsed HTML page.
+     * Retries the read 4 times before throwing an exception.
+     * @param url The url of the html page
+     * @return The html page parsed
+     * @throws IllegalStateException if the retries fail
+     */
     fun getDocument(url: String): Document {
         log.info("Getting Jsoup Document with url=[$url]")
         var i = INITIAL_RETRY_COUNT

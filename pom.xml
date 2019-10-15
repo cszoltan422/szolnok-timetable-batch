@@ -53,6 +53,7 @@
 		<jacoco-class-coverage-minimum>0.99</jacoco-class-coverage-minimum>
 		<jacoco-method-coverage-minimum>0.99</jacoco-method-coverage-minimum>
 		<pitest-maven.version>1.1.10</pitest-maven.version>
+		<powermock.version>2.0.0</powermock.version>
 	</properties>
 
 	<scm>
@@ -184,6 +185,18 @@
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-all</artifactId>
 				<version>${mockito-all.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4</artifactId>
+				<version>${powermock.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-mockito2</artifactId>
+				<version>${powermock.version}</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>
@@ -365,6 +378,7 @@
 					</executions>
 					<configuration>
 						<excludes>
+							<exclude>**/*$*</exclude>
 							<exclude>**/*Configuration.*</exclude>
 							<exclude>**/*Properties.*</exclude>
 						</excludes>

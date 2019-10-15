@@ -5,6 +5,9 @@ import org.springframework.batch.item.ItemReader
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringResourcesInMemoryStorage
 
+/**
+ * Reader object to read the URL from in memory storage for later processing
+ */
 @Component
 class UrlResourceItemReader(
     private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage
@@ -12,6 +15,10 @@ class UrlResourceItemReader(
 
     private val log = LoggerFactory.getLogger(UrlResourceItemReader::class.java)
 
+    /**
+     * @return the next item from the StringResourcesInMemoryStorage
+     *
+     */
     override fun read(): String? {
         log.info("Reading next item from [UrlResouceInMemoryStorage]")
         return stringResourcesInMemoryStorage.get()
