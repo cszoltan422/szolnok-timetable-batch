@@ -112,23 +112,6 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="8-create-table-news-article" author="zoltan_csenyi">
-        <createTable tableName="news_article">
-            <column name="id" type="bigint" autoIncrement="true" >
-                <constraints primaryKey="true" nullable="false" />
-            </column>
-            <column name="content" type="longtext" />
-            <column name="detailed" type="bit" >
-                <constraints nullable="false" />
-            </column>
-            <column name="effective_date" type="varchar(255)" />
-            <column name="title" type="varchar(255)" />
-        </createTable>
-        <rollback>
-            <dropTable tableName="news_article" />
-        </rollback>
-    </changeSet>
-
     <changeSet id="9-alter-table-bus-arrival-add-foreign-key" author="">
         <addForeignKeyConstraint baseTableName="bus_arrival" baseColumnNames="bus_schedule_id" constraintName="bus_arrival_schedule_fk" referencedTableName="bus_schedule"
                                  referencedColumnNames="id" />

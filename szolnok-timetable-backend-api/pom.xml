@@ -24,11 +24,6 @@
             <artifactId>szolnok-timetable-backend-batch-stops</artifactId>
             <version>${szolnok-timetable.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.zenbot</groupId>
-            <artifactId>szolnok-timetable-backend-batch-news</artifactId>
-            <version>${szolnok-timetable.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

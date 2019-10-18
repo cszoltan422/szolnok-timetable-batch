@@ -22,7 +22,6 @@ class TimetableService(
             for (busStop in busStops) {
                 if (busStop.busStopName.equals(busStopName)) {
                     foundOccurrences++
-
                     if (foundOccurrences == occurrence) {
                         result = timetableTransformer.transform(findByBusName, busRouteByStartStopName, busStop, occurrence)
                     }

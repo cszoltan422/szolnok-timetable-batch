@@ -19,7 +19,6 @@
 		<module>szolnok-timetable-backend-batch-utils</module>
 		<module>szolnok-timetable-backend-batch-bus</module>
 		<module>szolnok-timetable-backend-batch-stops</module>
-		<module>szolnok-timetable-backend-batch-news</module>
 		<module>szolnok-timetable-backend-domain</module>
         <module>szolnok-timetable-backend-repository</module>
         <module>szolnok-timetable-backend-api</module>
@@ -95,11 +94,6 @@
 			<dependency>
 				<groupId>org.zenbot</groupId>
 				<artifactId>szolnok-timetable-backend-stops</artifactId>
-				<version>${szolnok-timetable.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.zenbot</groupId>
-				<artifactId>szolnok-timetable-backend-news</artifactId>
 				<version>${szolnok-timetable.version}</version>
 			</dependency>
 

@@ -5,6 +5,5 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @ComponentScan(basePackages = arrayOf("org.zenbot.szolnok.timetable.backend.batch.bus",
-        "org.zenbot.szolnok.timetable.backend.batch.stops",
-        "org.zenbot.szolnok.timetable.backend.batch.news"))
+        "org.zenbot.szolnok.timetable.backend.batch.stops"))
 class BatchJobsConfiguration
