@@ -26,7 +26,7 @@ hibernate:
   properties:
     url: "jdbc:mysql://localhost/szolnok_app?serverTimezone=Europe/Budapest"
     username: "root"
-    password: "root"
+    password: "ENC(c6gkUMdWdiVlteje1bRqCw==)"
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     show-sql: "true"
     ddl-auto: "validate"
@@ -48,3 +48,6 @@ timetable:
     href-selector: "href"
     stations-selector: ".stations tr td a"
     other-route-selector: "center > table:nth-child(3) > tbody > tr > td > center > a:nth-child(2)"
+jasypt:
+  encryptor:
+    password: ${master_password}

@@ -32,12 +32,14 @@
 
 		<szolnok-timetable.version>0.5-SNAPSHOT</szolnok-timetable.version>
 		<spring-boot.version>2.1.8.RELEASE</spring-boot.version>
+		<jasypt-spring-boot-starter.version>2.1.2</jasypt-spring-boot-starter.version>
 		<jsoup.version>1.11.3</jsoup.version>
 		<mysql-connector-java.version>8.0.17</mysql-connector-java.version>
 		<h2.version>1.4.199</h2.version>
 		<liquibase-core.version>3.4.1</liquibase-core.version>
 		<liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
 		<mockito-all.version>1.10.19</mockito-all.version>
+		<powermock.version>2.0.0</powermock.version>
 
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 		<maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
@@ -52,7 +54,6 @@
 		<jacoco-class-coverage-minimum>0.99</jacoco-class-coverage-minimum>
 		<jacoco-method-coverage-minimum>0.99</jacoco-method-coverage-minimum>
 		<pitest-maven.version>1.1.10</pitest-maven.version>
-		<powermock.version>2.0.0</powermock.version>
 	</properties>
 
 	<scm>
@@ -132,6 +133,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-actuator</artifactId>
 				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.ulisesbocchio</groupId>
+				<artifactId>jasypt-spring-boot-starter</artifactId>
+				<version>${jasypt-spring-boot-starter.version}</version>
 			</dependency>
 
 			<dependency>
