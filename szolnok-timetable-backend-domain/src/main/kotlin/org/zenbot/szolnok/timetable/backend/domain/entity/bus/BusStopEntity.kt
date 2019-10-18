@@ -16,7 +16,7 @@ import javax.persistence.Table
 data class BusStopEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-@GenericGenerator(name = "native", strategy = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     var id: Long? = null,
 
     @Column(name = "bus_stop_name")

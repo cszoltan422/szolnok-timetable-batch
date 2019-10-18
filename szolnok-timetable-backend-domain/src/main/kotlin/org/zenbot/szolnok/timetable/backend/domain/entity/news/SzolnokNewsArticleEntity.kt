@@ -13,7 +13,8 @@ import javax.persistence.Table
 @Table(schema = "szolnok_app", name = "news_article")
 data class SzolnokNewsArticleEntity(
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     var id: Long? = null,
 

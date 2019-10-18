@@ -23,8 +23,7 @@ data class BusStopWithBusesEntity(
     @Column(name = "bus_stop_name")
     var busStopName: String = "",
 
-    @OneToMany(
-            cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST))
+    @OneToMany(cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST))
     @JoinColumn(name = "bus_of_stop_id")
     var buses: MutableSet<BusOfBusStopEntity> = HashSet()
 )

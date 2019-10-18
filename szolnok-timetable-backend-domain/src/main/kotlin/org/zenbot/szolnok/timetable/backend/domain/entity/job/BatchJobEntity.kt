@@ -15,7 +15,8 @@ import javax.persistence.Table
 @Table(schema = "szolnok_app", name = "batch_job")
 data class BatchJobEntity(
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     var id: Long? = null,
 
