@@ -22,19 +22,35 @@ class SaveStopsWithBusesStepConfiguration(
 ) {
 
     @Bean
-    fun saveBusStopsStep(jsoupProcessor: UrlResourceToDocumentJsoupProcessor, jsoupDocumentToTimetableProcessor: JsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor: TimetableToBusStopWithBusesItemProcessor): Step {
+    fun saveBusStopsStep(
+            jsoupProcessor: UrlResourceToDocumentJsoupProcessor,
+            jsoupDocumentToTimetableProcessor: JsoupDocumentToTimetableProcessor,
+            timetableToBusStopWithBusesItemProcessor: TimetableToBusStopWithBusesItemProcessor
+    ): Step {
         return stepBuilderFactory.get("saveBusStopsStep")
                 .chunk<String, BusStopWithBusesEntity>(1)
                 .reader(urlResourceItemReader)
-                .processor(compositeIemProcessor(jsoupProcessor, jsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor))
+                .processor(compositeIemProcessor(
+                        jsoupProcessor,
+                        jsoupDocumentToTimetableProcessor,
+                        timetableToBusStopWithBusesItemProcessor
+                ))
                 .writer(stopsWithBusesMongoItemWriter)
                 .build()
     }
 
     @Bean
-    fun compositeIemProcessor(jsoupProcessor: UrlResourceToDocumentJsoupProcessor, jsoupDocumentToTimetableProcessor: JsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor: TimetableToBusStopWithBusesItemProcessor): CompositeItemProcessor<String, BusStopWithBusesEntity> {
+    fun compositeIemProcessor(
+            jsoupProcessor: UrlResourceToDocumentJsoupProcessor,
+            jsoupDocumentToTimetableProcessor: JsoupDocumentToTimetableProcessor,
+            timetableToBusStopWithBusesItemProcessor: TimetableToBusStopWithBusesItemProcessor
+    ): CompositeItemProcessor<String, BusStopWithBusesEntity> {
         val compositeItemProcessor = CompositeItemProcessor<String, BusStopWithBusesEntity>()
-        compositeItemProcessor.setDelegates(Arrays.asList<ItemProcessor<out Any, out Any>>(jsoupProcessor, jsoupDocumentToTimetableProcessor, timetableToBusStopWithBusesItemProcessor))
+        compositeItemProcessor.setDelegates(listOf(
+                jsoupProcessor,
+                jsoupDocumentToTimetableProcessor,
+                timetableToBusStopWithBusesItemProcessor
+        ))
         return compositeItemProcessor
     }
 }

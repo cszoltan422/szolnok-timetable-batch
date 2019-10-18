@@ -9,7 +9,9 @@ import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Component
 @Transactional
-class StopsWithBusesMongoItemWriter(private val busStopRepository: BusStopRepository) : ItemWriter<BusStopWithBusesEntity> {
+class StopsWithBusesMongoItemWriter(
+        private val busStopRepository: BusStopRepository
+) : ItemWriter<BusStopWithBusesEntity> {
 
     private val log = LoggerFactory.getLogger(StopsWithBusesMongoItemWriter::class.java)
 
