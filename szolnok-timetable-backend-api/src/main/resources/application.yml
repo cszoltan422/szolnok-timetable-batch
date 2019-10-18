@@ -24,9 +24,13 @@ spring:
     allow-bean-definition-overriding: true
 hibernate:
   properties:
-    show-sql: true
-    ddl-auto: validate
-    dialect: org.hibernate.dialect.MySQL8Dialect
+    url: "jdbc:mysql://localhost/szolnok_app?serverTimezone=Europe/Budapest"
+    username: "root"
+    password: "root"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    show-sql: "true"
+    ddl-auto: "validate"
+    dialect: "org.hibernate.dialect.MySQL8Dialect"
 timetable:
   resource:
     base-url: "http://archiv.kmkk.hu/"
