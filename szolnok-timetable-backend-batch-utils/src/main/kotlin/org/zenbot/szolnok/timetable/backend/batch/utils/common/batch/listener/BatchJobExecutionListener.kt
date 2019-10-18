@@ -20,7 +20,7 @@ class BatchJobExecutionListener(
     private val properties: TimetableProperties
 ) : JobExecutionListener {
 
-    private val log = LoggerFactory.getLogger(RemoveBusRoutesExecutionListener::class.java)
+    private val log = LoggerFactory.getLogger(BatchJobExecutionListener::class.java)
 
     override fun afterJob(jobExecution: JobExecution) {
         val id = jobExecution.executionContext.getLong("batchJobEntityId")
