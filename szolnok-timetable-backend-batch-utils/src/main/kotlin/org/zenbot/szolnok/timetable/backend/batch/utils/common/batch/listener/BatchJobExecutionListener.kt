@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.batch.bus.batch.listener
+package org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener
 
 import org.slf4j.LoggerFactory
 import org.springframework.batch.core.JobExecution
@@ -17,7 +17,7 @@ import java.time.LocalDateTime
 @EnableConfigurationProperties(TimetableProperties::class)
 class BatchJobExecutionListener(
     private val batchJobRepository: BatchJobRepository,
-    val properties: TimetableProperties
+    private val properties: TimetableProperties
 ) : JobExecutionListener {
 
     private val log = LoggerFactory.getLogger(RemoveBusRoutesExecutionListener::class.java)
