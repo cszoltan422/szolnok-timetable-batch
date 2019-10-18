@@ -4,7 +4,7 @@ import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.tasklet.ReadUrlResourcesTasklet
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.tasklet.ReadBusStopUrlResourcesTasklet
 
 /**
  * Configuration class to configure the step to read all the bus stop's timetable
@@ -12,7 +12,7 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.tasklet.Rea
 @Configuration
 class ReadUrlsStepConfiguration(
     private val stepBuilderFactory: StepBuilderFactory,
-    private val readUrlResourcesTasklet: ReadUrlResourcesTasklet
+    private val readBusStopUrlResourcesTasklet: ReadBusStopUrlResourcesTasklet
 ) {
 
     /**
@@ -21,7 +21,7 @@ class ReadUrlsStepConfiguration(
     @Bean
     fun readUrlsStep(): Step {
         return stepBuilderFactory.get("readUrlsStep")
-                .tasklet(readUrlResourcesTasklet)
+                .tasklet(readBusStopUrlResourcesTasklet)
                 .build()
     }
 }
