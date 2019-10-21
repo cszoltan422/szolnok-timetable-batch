@@ -38,7 +38,7 @@
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-        <finalName>szolnok-timetable-backend-batch-busEntity</finalName>
+        <finalName>szolnok-timetable-backend-batch-bus</finalName>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>

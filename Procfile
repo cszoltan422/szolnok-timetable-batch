@@ -1,0 +1,1 @@
+java -jar szolnok-timetable-backend-api/target/szolnok-timetable-backend-batch-api.jar
