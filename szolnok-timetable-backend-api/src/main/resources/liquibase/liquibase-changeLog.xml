@@ -6,10 +6,6 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-
-    <preConditions>
-        <runningAs username="root"/>
-    </preConditions>
     
     <changeSet id="1-create-table-bus" author="zoltan_csenyi">
         <createTable tableName="bus">
