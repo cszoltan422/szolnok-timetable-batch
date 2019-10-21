@@ -15,11 +15,11 @@ import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 @Configuration
 @EnableBatchProcessing
 class StopsBatchConfiguration(
-        private val jobBuilderFactory: JobBuilderFactory,
-        private val removeBusStopsExecutionListener: RemoveBusStopsExecutionListener,
-        private val batchJobExecutionListener: BatchJobExecutionListener,
-        private val readUrlsStep: Step,
-        private val saveBusStopsStep: Step
+    private val jobBuilderFactory: JobBuilderFactory,
+    private val removeBusStopsExecutionListener: RemoveBusStopsExecutionListener,
+    private val batchJobExecutionListener: BatchJobExecutionListener,
+    private val readUrlsStep: Step,
+    private val saveBusStopsStep: Step
 ) {
 
     @Bean

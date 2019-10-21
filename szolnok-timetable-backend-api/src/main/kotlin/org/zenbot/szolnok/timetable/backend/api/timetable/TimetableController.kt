@@ -11,7 +11,11 @@ class TimetableController(
     private val timetableService: TimetableService
 ) {
 
-    @RequestMapping(value = arrayOf("/api/timetable/{bus}/{startBusStop}/{busStop}"), produces = arrayOf("application/json"), method = arrayOf(RequestMethod.GET))
+    @RequestMapping(
+            value = arrayOf("/api/timetable/{bus}/{startBusStop}/{busStop}"),
+            produces = arrayOf("application/json"),
+            method = arrayOf(RequestMethod.GET)
+    )
     fun getTimetable(
         @PathVariable("bus") bus: String,
         @PathVariable("startBusStop") startBusStop: String,

@@ -14,7 +14,7 @@ import javax.sql.DataSource
 @Configuration
 @EnableConfigurationProperties(HibernateProperties::class)
 class DataSourceConfiguration(
-        private val properties: HibernateProperties
+    private val properties: HibernateProperties
 ) {
 
     @Bean

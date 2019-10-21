@@ -23,7 +23,8 @@ class JpaConfiguration(
 ) {
 
     @Bean
-    fun entityManagerFactory(@Qualifier("dataSource") dataSource: DataSource): LocalContainerEntityManagerFactoryBean {
+    fun entityManagerFactory(@Qualifier("dataSource") dataSource: DataSource):
+            LocalContainerEntityManagerFactoryBean {
         val em = LocalContainerEntityManagerFactoryBean()
         em.dataSource = dataSource
         em.setPackagesToScan(*arrayOf("org.zenbot.szolnok.timetable.backend.domain.entity"))

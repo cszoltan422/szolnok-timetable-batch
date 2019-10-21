@@ -13,5 +13,6 @@ import javax.sql.DataSource
 class BatchJobsConfiguration {
 
     @Bean
-    fun defaultBatchConfigurer(@Qualifier("embeddedDataSource") embeddedDataSource: DataSource) = DefaultBatchConfigurer(embeddedDataSource)
+    fun defaultBatchConfigurer(@Qualifier("embeddedDataSource") embeddedDataSource: DataSource) =
+            DefaultBatchConfigurer(embeddedDataSource)
 }

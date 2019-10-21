@@ -10,10 +10,21 @@ class BusStopsController(
     private val busStopsService: BusStopsService
 ) {
 
-    @RequestMapping(value = arrayOf("/api/stops/{bus}"), produces = arrayOf("application/json"), method = arrayOf(RequestMethod.GET))
-    fun getBusStopsOfBus(@PathVariable("bus") bus: String): BusStopsResponse = busStopsService.findAllBusStopsOfBus(bus)
+    @RequestMapping(
+            value = arrayOf("/api/stops/{bus}"),
+            produces = arrayOf("application/json"),
+            method = arrayOf(RequestMethod.GET)
+    )
+    fun getBusStopsOfBus(@PathVariable("bus") bus: String): BusStopsResponse =
+            busStopsService.findAllBusStopsOfBus(bus)
 
-    @RequestMapping(value = arrayOf("/api/stops/{bus}/{startBusStop}"), produces = arrayOf("application/json"), method = arrayOf(RequestMethod.GET))
-    fun getBusStopsOfBus(@PathVariable("bus") bus: String, @PathVariable("startBusStop") startBusStop: String): BusStopsResponse =
+    @RequestMapping(
+            value = arrayOf("/api/stops/{bus}/{startBusStop}"),
+            produces = arrayOf("application/json"),
+            method = arrayOf(RequestMethod.GET))
+    fun getBusStopsOfBus(
+        @PathVariable("bus") bus: String,
+        @PathVariable("startBusStop") startBusStop: String
+    ): BusStopsResponse =
             busStopsService.findAllBusStopsOfBus(bus, startBusStop)
 }

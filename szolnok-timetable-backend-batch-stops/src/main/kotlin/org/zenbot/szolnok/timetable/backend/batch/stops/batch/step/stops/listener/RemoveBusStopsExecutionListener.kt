@@ -8,7 +8,7 @@ import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Component
 class RemoveBusStopsExecutionListener(
-        private val busStopRepository: BusStopRepository
+    private val busStopRepository: BusStopRepository
 ) : JobExecutionListenerSupport() {
 
     private val log = LoggerFactory.getLogger(RemoveBusStopsExecutionListener::class.java)

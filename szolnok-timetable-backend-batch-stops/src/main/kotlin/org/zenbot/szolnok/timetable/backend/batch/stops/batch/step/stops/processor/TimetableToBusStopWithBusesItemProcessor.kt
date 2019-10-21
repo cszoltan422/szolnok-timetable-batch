@@ -10,7 +10,7 @@ import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Component
 class TimetableToBusStopWithBusesItemProcessor(
-        private val busStopRepository: BusStopRepository
+    private val busStopRepository: BusStopRepository
 ) : ItemProcessor<Timetable, BusStopWithBusesEntity> {
 
     private val log = LoggerFactory.getLogger(TimetableToBusStopWithBusesItemProcessor::class.java)
