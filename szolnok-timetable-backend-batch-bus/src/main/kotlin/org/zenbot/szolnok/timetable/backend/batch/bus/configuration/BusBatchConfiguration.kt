@@ -26,21 +26,17 @@ class BusBatchConfiguration(
 
     @Bean
     fun szolnokBusesJob(): Job {
-        return jobBuilderFactory
-                .get("szolnokBusesJob")
-                .listener(compositeListener())
-                .start(readUrlsStep)
-                .next(saveBusStep)
-                .build()
-    }
-
-    @Bean
-    fun compositeListener(): JobExecutionListener {
         val compositeJobExecutionListener = CompositeJobExecutionListener()
         val listeners = ArrayList<JobExecutionListener>()
         listeners.add(0, batchJobExecutionListener)
         listeners.add(1, removeBusRoutesExecutionListener)
         compositeJobExecutionListener.setListeners(listeners)
-        return compositeJobExecutionListener
+
+        return jobBuilderFactory
+                .get("szolnokBusesJob")
+                .listener(compositeJobExecutionListener)
+                .start(readUrlsStep)
+                .next(saveBusStep)
+                .build()
     }
 }
