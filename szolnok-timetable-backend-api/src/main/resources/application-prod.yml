@@ -9,3 +9,7 @@ hibernate:
     show-sql: "false"
     ddl-auto: "validate"
     dialect: "org.hibernate.dialect.MySQL8Dialect"
+admin:
+  user:
+    username: "ENC(eqCSu76eUpZ3OPu0J8fXDa3tfalh8joMZyxYvPiW1NA=)"
+    password: "ENC(0kHSDKSZaLmGpfpuw2nbNOzvnesm2bi3XMZoWyrCBGU=)"

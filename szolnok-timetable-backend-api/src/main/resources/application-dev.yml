@@ -7,3 +7,7 @@ hibernate:
     show-sql: "true"
     ddl-auto: "validate"
     dialect: "org.hibernate.dialect.MySQL8Dialect"
+admin:
+  user:
+    username: user
+    password: password
