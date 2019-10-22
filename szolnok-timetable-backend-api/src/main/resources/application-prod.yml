@@ -1,0 +1,9 @@
+hibernate:
+  properties:
+    url: "jdbc:mysql://szolnok-app-do-user-3384757-0.db.ondigitalocean.com:25060/szolnok_app?ssl-mode=REQUIRED"
+    username: "ENC(yKjCchWtJSlhiQDmy9zKoQ==)"
+    password: "ENC(BiHg3OygIdsZL9Jg5AENbgEOraXlzJTK2DXqmaft+Js=)"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    show-sql: "true"
+    ddl-auto: "validate"
+    dialect: "org.hibernate.dialect.MySQL8Dialect"
