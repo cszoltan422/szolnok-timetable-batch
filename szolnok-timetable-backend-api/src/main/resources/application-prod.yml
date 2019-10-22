@@ -6,6 +6,6 @@ hibernate:
     username: "ENC(yKjCchWtJSlhiQDmy9zKoQ==)"
     password: "ENC(BiHg3OygIdsZL9Jg5AENbgEOraXlzJTK2DXqmaft+Js=)"
     driver-class-name: "com.mysql.cj.jdbc.Driver"
-    show-sql: "true"
+    show-sql: "false"
     ddl-auto: "validate"
     dialect: "org.hibernate.dialect.MySQL8Dialect"
