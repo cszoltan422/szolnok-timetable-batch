@@ -1,3 +1,5 @@
+server:
+  port: ${PORT:8080}
 hibernate:
   properties:
     url: "jdbc:mysql://szolnok-app-do-user-3384757-0.db.ondigitalocean.com:25060/szolnok_app?ssl-mode=REQUIRED"
