@@ -56,6 +56,9 @@
 		<jacoco-class-coverage-minimum>0.99</jacoco-class-coverage-minimum>
 		<jacoco-method-coverage-minimum>0.99</jacoco-method-coverage-minimum>
 		<pitest-maven.version>1.1.10</pitest-maven.version>
+		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+		<frontend-maven-plugin.nodeVersion>v10.11.0</frontend-maven-plugin.nodeVersion>
+		<frontend-maven-plugin.npmVersion>6.4.1</frontend-maven-plugin.npmVersion>
 	</properties>
 
 	<scm>
@@ -264,6 +267,41 @@
 							<version>${kotlin.version}</version>
 						</dependency>
 					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>${frontend-maven-plugin.version}</version>
+					<configuration>
+						<installDirectory>target</installDirectory>
+					</configuration>
+					<executions>
+						<execution>
+							<id>install node and npm</id>
+							<goals>
+								<goal>install-node-and-npm</goal>
+							</goals>
+							<configuration>
+								<nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
+								<npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm install</id>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<configuration>
+								<arguments>install</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>webpack build</id>
+							<goals>
+								<goal>webpack</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
