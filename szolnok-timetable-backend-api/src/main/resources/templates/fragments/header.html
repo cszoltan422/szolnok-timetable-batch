@@ -21,7 +21,7 @@
                     <a class="nav-link" th:href="@{/}" >Home <span class="sr-only"></span></a>
                 </li>
             </ul>
-            <a class="nav-link navbar-right" sec:authentication="isAuthenticated()" th:href="@{/logout}">
+            <a class="nav-link navbar-right logout" sec:authentication="isAuthenticated()" th:href="@{/logout}">
                 <span class="glyphicon glyphicon-log-in"></span> Logout
             </a>
         </div>
