@@ -14,13 +14,14 @@ import org.mockito.BDDMockito.verify
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
+import org.springframework.batch.core.BatchStatus
 import org.springframework.batch.core.JobExecution
 import org.springframework.batch.core.JobInstance
+import org.springframework.batch.core.JobParameters
 import org.springframework.batch.item.ExecutionContext
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableSelectorProperties
 import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
-import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobStatus
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import java.time.LocalDateTime
 import java.util.Optional
@@ -40,20 +41,23 @@ class BatchJobExecutionListenerTest {
         properties = TimetableProperties()
         properties.selector = TimetableSelectorProperties()
 
-        testSubject = BatchJobExecutionListener(batchJobRepository, properties)
+        testSubject = BatchJobExecutionListener(batchJobRepository)
     }
 
     @Test
     fun `beforeJob should save a new batchJob and add zero as id to the executionContext if the save returned null`() {
         // GIVEN
         val jobExecution = mock(JobExecution::class.java)
+        val jobParameters = mock(JobParameters::class.java)
         val executionContext = mock(ExecutionContext::class.java)
         val jobInstance = mock(JobInstance::class.java)
-        properties.resource.selectedBuses = emptyList()
 
         val argumentCaptor = ArgumentCaptor.forClass(BatchJobEntity::class.java)
 
+        given(jobExecution.status).willReturn(BatchStatus.STARTED)
         given(jobExecution.jobInstance).willReturn(jobInstance)
+        given(jobExecution.jobParameters).willReturn(jobParameters)
+        given(jobParameters.getString(anyString(), anyString())).willReturn("1,2")
         given(jobInstance.jobName).willReturn("jobName")
         given(jobExecution.executionContext).willReturn(executionContext)
         given(batchJobRepository.saveAndFlush(any(BatchJobEntity::class.java))).willReturn(BatchJobEntity())
@@ -62,6 +66,8 @@ class BatchJobExecutionListenerTest {
         testSubject.beforeJob(jobExecution)
 
         // THEN
+        verify(jobExecution).jobParameters
+        verify(jobParameters).getString("selectedBuses", "")
         verify(jobExecution, times(2)).jobInstance
         verify(jobInstance, times(2)).jobName
         verify(jobExecution).executionContext
@@ -70,9 +76,9 @@ class BatchJobExecutionListenerTest {
         verify(batchJobRepository).saveAndFlush(argumentCaptor.capture())
 
         assertThat(argumentCaptor.value.startTime).isBeforeOrEqualTo(LocalDateTime.now())
-        assertThat(argumentCaptor.value.status).isEqualTo(BatchJobStatus.STARTED)
+        assertThat(argumentCaptor.value.status).isEqualTo(BatchStatus.STARTED)
         assertThat(argumentCaptor.value.type).isEqualTo("jobName")
-        assertThat(argumentCaptor.value.parameters).isEqualTo("[]")
+        assertThat(argumentCaptor.value.parameters).isEqualTo("[1, 2]")
         assertThat(argumentCaptor.value.finished).isFalse()
     }
 
@@ -80,12 +86,15 @@ class BatchJobExecutionListenerTest {
     fun `beforeJob should save a new batchJob and add the id to the executionContext`() {
         // GIVEN
         val jobExecution = mock(JobExecution::class.java)
+        val jobParameters = mock(JobParameters::class.java)
         val executionContext = mock(ExecutionContext::class.java)
         val jobInstance = mock(JobInstance::class.java)
-        properties.resource.selectedBuses = emptyList()
 
         val argumentCaptor = ArgumentCaptor.forClass(BatchJobEntity::class.java)
 
+        given(jobExecution.status).willReturn(BatchStatus.STARTED)
+        given(jobExecution.jobParameters).willReturn(jobParameters)
+        given(jobParameters.getString(anyString(), anyString())).willReturn("1,2")
         given(jobExecution.jobInstance).willReturn(jobInstance)
         given(jobInstance.jobName).willReturn("jobName")
         given(jobExecution.executionContext).willReturn(executionContext)
@@ -95,6 +104,8 @@ class BatchJobExecutionListenerTest {
         testSubject.beforeJob(jobExecution)
 
         // THEN
+        verify(jobExecution).jobParameters
+        verify(jobParameters).getString("selectedBuses", "")
         verify(jobExecution, times(2)).jobInstance
         verify(jobInstance, times(2)).jobName
         verify(jobExecution).executionContext
@@ -103,9 +114,9 @@ class BatchJobExecutionListenerTest {
         verify(batchJobRepository).saveAndFlush(argumentCaptor.capture())
 
         assertThat(argumentCaptor.value.startTime).isBeforeOrEqualTo(LocalDateTime.now())
-        assertThat(argumentCaptor.value.status).isEqualTo(BatchJobStatus.STARTED)
+        assertThat(argumentCaptor.value.status).isEqualTo(BatchStatus.STARTED)
         assertThat(argumentCaptor.value.type).isEqualTo("jobName")
-        assertThat(argumentCaptor.value.parameters).isEqualTo("[]")
+        assertThat(argumentCaptor.value.parameters).isEqualTo("[1, 2]")
         assertThat(argumentCaptor.value.finished).isFalse()
     }
 
@@ -136,6 +147,7 @@ class BatchJobExecutionListenerTest {
         val executionContext = mock(ExecutionContext::class.java)
         val entity = BatchJobEntity()
 
+        given(jobExecution.status).willReturn(BatchStatus.COMPLETED)
         given(jobExecution.executionContext).willReturn(executionContext)
         given(executionContext.getLong(anyString())).willReturn(0L)
         given(batchJobRepository.findById(anyLong())).willReturn(Optional.of(entity))
@@ -149,7 +161,7 @@ class BatchJobExecutionListenerTest {
         verify(batchJobRepository).findById(0L)
         verify(batchJobRepository).save(entity)
         assertThat(entity.finished).isTrue()
-        assertThat(entity.status).isEqualTo(BatchJobStatus.FINISHED)
+        assertThat(entity.status).isEqualTo(BatchStatus.COMPLETED)
         assertThat(entity.finishTime).isBeforeOrEqualTo(LocalDateTime.now())
     }
 }

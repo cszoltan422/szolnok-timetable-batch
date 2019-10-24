@@ -1,34 +1,30 @@
 package org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener
 
 import org.slf4j.LoggerFactory
+import org.springframework.batch.core.BatchStatus
 import org.springframework.batch.core.JobExecution
 import org.springframework.batch.core.JobExecutionListener
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
-import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobStatus
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import java.time.LocalDateTime
 
 @Component
 @Transactional
-@EnableConfigurationProperties(TimetableProperties::class)
 class BatchJobExecutionListener(
-    private val batchJobRepository: BatchJobRepository,
-    private val properties: TimetableProperties
+    private val batchJobRepository: BatchJobRepository
 ) : JobExecutionListener {
 
     private val log = LoggerFactory.getLogger(BatchJobExecutionListener::class.java)
 
     override fun afterJob(jobExecution: JobExecution) {
-        val id = jobExecution.executionContext.getLong("batchJobEntityId")
+        val id = jobExecution.executionContext.getLong(BATCH_JOB_ENTITY_ID_KEY)
         val batchJob = batchJobRepository.findById(id)
         if (batchJob.isPresent) {
             val job = batchJob.get()
             job.finishTime = LocalDateTime.now()
-            job.status = BatchJobStatus.FINISHED
+            job.status = jobExecution.status
             job.finished = true
 
             log.info("Batch Job finished [" + job.id + "]")
@@ -38,16 +34,27 @@ class BatchJobExecutionListener(
 
     override fun beforeJob(jobExecution: JobExecution) {
         log.info("Save new Batch Job into database for name [" + jobExecution.jobInstance.jobName + "]")
-
+        val selectedBuses = jobExecution
+                .jobParameters
+                .getString(SELECTED_BUSES_JOB_PARAMETER_KEY, DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE)
+                .split(SELECTED_BUSES_SPLIT_BY)
         val batchJob = BatchJobEntity()
         batchJob.startTime = LocalDateTime.now()
-        batchJob.status = BatchJobStatus.STARTED
+        batchJob.status = BatchStatus.STARTED
         batchJob.type = jobExecution.jobInstance.jobName
-        batchJob.parameters = properties.resource.selectedBuses.joinToString(prefix = "[", postfix = "]")
+        batchJob.parameters = selectedBuses.joinToString(prefix = "[", postfix = "]")
         batchJob.finished = false
 
         val saved = batchJobRepository.saveAndFlush(batchJob)
 
-        jobExecution.executionContext.putLong("batchJobEntityId", saved.id ?: 0)
+        jobExecution.executionContext.putLong(BATCH_JOB_ENTITY_ID_KEY, saved.id ?: DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
+    }
+
+    companion object {
+        val DEFAULT_BATCH_JOB_ENTITY_ID_VALUE = 0L
+        val DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE = ""
+        val BATCH_JOB_ENTITY_ID_KEY = "batchJobEntityId"
+        val SELECTED_BUSES_JOB_PARAMETER_KEY = "selectedBuses"
+        val SELECTED_BUSES_SPLIT_BY = ","
     }
 }

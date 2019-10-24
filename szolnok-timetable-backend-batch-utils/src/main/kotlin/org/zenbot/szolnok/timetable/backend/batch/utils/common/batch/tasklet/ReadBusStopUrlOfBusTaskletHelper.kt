@@ -20,10 +20,10 @@ class ReadBusStopUrlOfBusTaskletHelper(
 
     private val log = LoggerFactory.getLogger(ReadBusStopUrlResourcesTasklet::class.java)
 
-    fun saveBusStopUrlsOfBus(busLink: Element) {
+    fun saveBusStopUrlsOfBus(busLink: Element, selectedBuses: String) {
         val busHtmlFile = fetchHtmlForLink(busLink)
         val routeName = busNameSelectorItemProcessorHelper.getBusName(busHtmlFile, properties.selector)
-        if (shouldProcessBus(routeName)) {
+        if (shouldProcessBus(routeName, selectedBuses)) {
             log.info("Save urls for bus=[{}]", busHtmlFile.location())
             saveBusStopUrls(busHtmlFile)
             val otherRoutesLink = selectOtherRoute(busHtmlFile)
@@ -54,6 +54,6 @@ class ReadBusStopUrlOfBusTaskletHelper(
     private fun selectOtherRoute(busHtmlFile: Document) =
             busHtmlFile.select(properties.selector.otherRouteSelector)
 
-    private fun shouldProcessBus(routeName: String) =
-            properties.resource.selectedBuses.isEmpty() || properties.resource.selectedBuses.contains(routeName)
+    private fun shouldProcessBus(routeName: String, selectedBuses: String) =
+            selectedBuses.isEmpty() || selectedBuses.contains(routeName)
 }

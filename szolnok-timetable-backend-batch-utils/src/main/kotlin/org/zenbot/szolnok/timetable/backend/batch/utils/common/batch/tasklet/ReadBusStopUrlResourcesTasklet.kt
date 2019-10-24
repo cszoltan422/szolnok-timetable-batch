@@ -9,6 +9,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet
 import org.springframework.batch.repeat.RepeatStatus
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.JsoupDocumentService
 
@@ -26,11 +27,16 @@ class ReadBusStopUrlResourcesTasklet(
     private val log = LoggerFactory.getLogger(ReadBusStopUrlResourcesTasklet::class.java)
 
     override fun execute(stepContribution: StepContribution, chunkContext: ChunkContext): RepeatStatus {
-        log.info("{}", properties.resource.selectedBuses)
+        val jobExecution = chunkContext.stepContext.stepExecution.jobExecution
+        val selectedBuses = jobExecution
+                .jobParameters
+                .getString(BatchJobExecutionListener.SELECTED_BUSES_JOB_PARAMETER_KEY,
+                        BatchJobExecutionListener.DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE)
+        log.info("{}", selectedBuses)
         try {
             val landingPageHtml = fetchLandingPage()
             val busLinks = selectBusesLinks(landingPageHtml)
-            saveAllBusStopsForBus(busLinks)
+            saveAllBusStopsForBus(busLinks, selectedBuses)
         } catch (e: IllegalStateException) {
             log.error("Could not resolve url=[{}]", properties.resource.baseUrl)
         }
@@ -38,8 +44,8 @@ class ReadBusStopUrlResourcesTasklet(
         return RepeatStatus.FINISHED
     }
 
-    private fun saveAllBusStopsForBus(busLinks: Elements) {
-        busLinks.forEach { busLink -> readBusStopUrlOfBusTaskletHelper.saveBusStopUrlsOfBus(busLink) }
+    private fun saveAllBusStopsForBus(busLinks: Elements, selectedBuses: String) {
+        busLinks.forEach { busLink -> readBusStopUrlOfBusTaskletHelper.saveBusStopUrlsOfBus(busLink, selectedBuses) }
     }
 
     private fun selectBusesLinks(landingPageHtml: Document) =

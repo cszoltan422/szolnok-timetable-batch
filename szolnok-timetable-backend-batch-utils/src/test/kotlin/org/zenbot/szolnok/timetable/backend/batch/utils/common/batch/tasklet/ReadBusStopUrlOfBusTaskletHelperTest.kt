@@ -57,8 +57,6 @@ class ReadBusStopUrlOfBusTaskletHelperTest {
     @Test
     fun `saveBusStopUrlsOfBus should not save the bus stop links if selected buses not contain the current bus`() {
         // GIVEN
-        properties.resource.selectedBuses = listOf("1")
-
         val busLink = mock(Element::class.java)
         val busHtml = mock(Document::class.java)
 
@@ -67,7 +65,7 @@ class ReadBusStopUrlOfBusTaskletHelperTest {
         given(busNameSelectorItemProcessorHelper.getBusName(busHtml, properties.selector)).willReturn("2")
 
         // WHEN
-        testSubject.saveBusStopUrlsOfBus(busLink)
+        testSubject.saveBusStopUrlsOfBus(busLink, "1")
 
         // THEN
         verify(busLink).attr("hrefSelector")
@@ -80,8 +78,6 @@ class ReadBusStopUrlOfBusTaskletHelperTest {
     @Test
     fun `saveBusStopUrlsOfBus save the bus stop links if selected buses are empty`() {
         // GIVEN
-        properties.resource.selectedBuses = listOf()
-
         val busLink = mock(Element::class.java)
         val busHtml = mock(Document::class.java)
         val busStopLinks = mock(Elements::class.java)
@@ -112,7 +108,7 @@ class ReadBusStopUrlOfBusTaskletHelperTest {
         given(otherRouteStop.attr(anyString())).willReturn("otherRouteStopLink")
 
         // WHEN
-        testSubject.saveBusStopUrlsOfBus(busLink)
+        testSubject.saveBusStopUrlsOfBus(busLink, "")
 
         // THEN
         verify(busLink).attr("hrefSelector")
@@ -137,8 +133,6 @@ class ReadBusStopUrlOfBusTaskletHelperTest {
     @Test
     fun `saveBusStopUrlsOfBus save the bus stop links if selected buses contains the given bus`() {
         // GIVEN
-        properties.resource.selectedBuses = listOf("2")
-
         val busLink = mock(Element::class.java)
         val busHtml = mock(Document::class.java)
         val busStopLinks = mock(Elements::class.java)
@@ -169,7 +163,7 @@ class ReadBusStopUrlOfBusTaskletHelperTest {
         given(otherRouteStop.attr(anyString())).willReturn("otherRouteStopLink")
 
         // WHEN
-        testSubject.saveBusStopUrlsOfBus(busLink)
+        testSubject.saveBusStopUrlsOfBus(busLink, "2")
 
         // THEN
         verify(busLink).attr("hrefSelector")

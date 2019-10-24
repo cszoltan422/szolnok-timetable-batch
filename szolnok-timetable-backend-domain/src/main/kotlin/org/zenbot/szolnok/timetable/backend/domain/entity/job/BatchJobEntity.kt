@@ -1,6 +1,7 @@
 package org.zenbot.szolnok.timetable.backend.domain.entity.job
 
 import org.hibernate.annotations.GenericGenerator
+import org.springframework.batch.core.BatchStatus
 import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -31,7 +32,7 @@ data class BatchJobEntity(
 
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
-    var status: BatchJobStatus = BatchJobStatus.UNDEFINED,
+    var status: BatchStatus = BatchStatus.UNKNOWN,
 
     @Column(name = "parameters")
     var parameters: String = "",
