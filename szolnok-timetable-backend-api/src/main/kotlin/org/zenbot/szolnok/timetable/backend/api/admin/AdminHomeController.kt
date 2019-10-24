@@ -9,7 +9,7 @@ class AdminHomeController {
 
     @RequestMapping("/")
     fun homepage(): ModelAndView {
-        val modelAndView = ModelAndView("/index")
+        val modelAndView = ModelAndView("index")
         return modelAndView
     }
 }

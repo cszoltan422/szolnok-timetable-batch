@@ -9,6 +9,6 @@ class LoginController {
 
     @RequestMapping("/login")
     fun loginpage(): ModelAndView {
-        return ModelAndView("/login")
+        return ModelAndView("login")
     }
 }
