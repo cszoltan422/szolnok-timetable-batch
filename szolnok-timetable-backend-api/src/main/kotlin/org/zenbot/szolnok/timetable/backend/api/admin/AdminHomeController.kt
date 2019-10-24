@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView
 class AdminHomeController {
 
     @RequestMapping("/")
-    fun homepage() : ModelAndView {
+    fun homepage(): ModelAndView {
         val modelAndView = ModelAndView("/index")
         return modelAndView
     }

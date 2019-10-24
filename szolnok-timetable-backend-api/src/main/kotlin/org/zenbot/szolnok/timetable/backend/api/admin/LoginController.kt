@@ -1,6 +1,5 @@
 package org.zenbot.szolnok.timetable.backend.api.admin
 
-import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
@@ -9,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView
 class LoginController {
 
     @RequestMapping("/login")
-    fun loginpage() : ModelAndView {
+    fun loginpage(): ModelAndView {
         return ModelAndView("/login")
     }
 }

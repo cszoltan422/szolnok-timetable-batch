@@ -11,12 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.zenbot.szolnok.timetable.backend.api.configuration.properties.AdminUserProperties
 
-
 @Configuration
 @EnableWebSecurity
 @EnableConfigurationProperties(AdminUserProperties::class)
 class WebSecurityConfiguration(
-        private val adminUserProperties: AdminUserProperties
+    private val adminUserProperties: AdminUserProperties
 ) : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
@@ -58,10 +57,8 @@ class WebSecurityConfiguration(
                 .rememberMe()
     }
 
-
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
-
 }

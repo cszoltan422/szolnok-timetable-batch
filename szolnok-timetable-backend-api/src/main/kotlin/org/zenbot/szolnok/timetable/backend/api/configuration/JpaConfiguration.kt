@@ -27,7 +27,7 @@ class JpaConfiguration(
             LocalContainerEntityManagerFactoryBean {
         val em = LocalContainerEntityManagerFactoryBean()
         em.dataSource = dataSource
-        em.setPackagesToScan(*arrayOf("org.zenbot.szolnok.timetable.backend.domain.entity"))
+        em.setPackagesToScan("org.zenbot.szolnok.timetable.backend.domain.entity")
 
         val vendorAdapter = HibernateJpaVendorAdapter()
         em.jpaVendorAdapter = vendorAdapter
