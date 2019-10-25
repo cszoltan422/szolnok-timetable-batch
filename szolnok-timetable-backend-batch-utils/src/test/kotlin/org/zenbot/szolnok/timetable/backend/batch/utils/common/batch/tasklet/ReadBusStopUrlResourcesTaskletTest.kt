@@ -79,6 +79,7 @@ class ReadBusStopUrlResourcesTaskletTest {
         testSubject.execute(stepContribution, chunkContext)
 
         // THEN
+        verify(stringResourcesInMemoryStorage).clear()
         verify(chunkContext).stepContext
         verify(stepContext).stepExecution
         verify(stepExecution).jobExecution
@@ -116,6 +117,7 @@ class ReadBusStopUrlResourcesTaskletTest {
         testSubject.execute(stepContribution, chunkContext)
 
         // THEN
+        verify(stringResourcesInMemoryStorage).clear()
         verify(chunkContext).stepContext
         verify(stepContext).stepExecution
         verify(stepExecution).jobExecution

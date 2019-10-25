@@ -10,5 +10,5 @@ interface BatchJobRepository : JpaRepository<BatchJobEntity, Long> {
 
     fun findTop5ByOrderByStartTimeDesc(): List<BatchJobEntity>
 
-    fun findAllByTypeAndStatusAndFinishedFalse(type: String, status: BatchStatus) : List<BatchJobEntity>
+    fun findAllByTypeAndStatusAndFinishedFalse(type: String, status: BatchStatus): List<BatchJobEntity>
 }

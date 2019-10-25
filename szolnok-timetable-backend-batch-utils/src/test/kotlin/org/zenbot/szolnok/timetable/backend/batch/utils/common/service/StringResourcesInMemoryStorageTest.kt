@@ -32,4 +32,16 @@ class StringResourcesInMemoryStorageTest {
         assertThat(get2).isNotNull().isSameAs(url2)
         assertThat(get3).isNull()
     }
+
+    @Test
+    fun `clear should clear the urls`() {
+        testSubject.addUrl("URL1")
+        testSubject.addUrl("URL2")
+
+        // WHEN
+        testSubject.clear()
+
+        // THEN
+        assertThat(testSubject.get()).isNull()
+    }
 }

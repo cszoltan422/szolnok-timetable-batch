@@ -10,9 +10,9 @@ import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 
 @Service
 class BatchJobLauncherService(
-        private val batchJobRepository: BatchJobRepository,
-        private val jobLauncher: JobLauncher,
-        private val batchJobMap: Map<String, Job>
+    private val batchJobRepository: BatchJobRepository,
+    private val jobLauncher: JobLauncher,
+    private val batchJobMap: Map<String, Job>
 ) {
     fun launch(launchJobRequest: LaunchJobRequest): LauchBatchJobResponse {
         val job = batchJobMap.get(launchJobRequest.jobType)
@@ -37,7 +37,6 @@ class BatchJobLauncherService(
     private fun jobAlreadyRunning(launchJobRequest: LaunchJobRequest) =
         batchJobRepository.findAllByTypeAndStatusAndFinishedFalse(launchJobRequest.jobType, BatchStatus.STARTED)
                 .isNotEmpty()
-
 
     private fun launchJob(job: Job, launchJobRequest: LaunchJobRequest) {
         Thread(Runnable {

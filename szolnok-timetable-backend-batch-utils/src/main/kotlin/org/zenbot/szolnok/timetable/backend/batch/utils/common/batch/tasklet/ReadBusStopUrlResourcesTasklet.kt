@@ -20,10 +20,10 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringRes
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)
 class ReadBusStopUrlResourcesTasklet(
-        private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage,
-        private val readBusStopUrlOfBusTaskletHelper: ReadBusStopUrlOfBusTaskletHelper,
-        private val jsoupDocumentService: JsoupDocumentService,
-        private val properties: TimetableProperties
+    private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage,
+    private val readBusStopUrlOfBusTaskletHelper: ReadBusStopUrlOfBusTaskletHelper,
+    private val jsoupDocumentService: JsoupDocumentService,
+    private val properties: TimetableProperties
 ) : Tasklet {
 
     private val log = LoggerFactory.getLogger(ReadBusStopUrlResourcesTasklet::class.java)
