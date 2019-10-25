@@ -6,10 +6,7 @@ const Alert = require('react-bootstrap').Alert;
 const Button = require('react-bootstrap').Button;
 const client = require('../client');
 
-const alertConfig = {
-    success: 'The job was successfully launched!',
-    warning: 'Something went wrong!'
-};
+const successAlertMessage = 'The job was successfully launched!';
 
 class LaunchBatchJobFormContent extends React.Component{
 
@@ -18,7 +15,8 @@ class LaunchBatchJobFormContent extends React.Component{
 
         this.state = {
             showAlert: false,
-            alertType: "success"
+            alertType: "success",
+            alertMessage: ""
         };
 
         this.launchJob = this.launchJob.bind(this);
@@ -42,15 +40,16 @@ class LaunchBatchJobFormContent extends React.Component{
             }
         }).done(response => {
             this.setState({
-                showAlert: response.entity.success,
-                alertType: response.entity.success ? "success" : "warning"
+                showAlert: true,
+                alertType: response.entity.success ? "success" : "warning",
+                alertMessage: response.entity.success ? successAlertMessage  : response.entity.message
             })
         });
 
     }
 
     render() {
-        const alertText = alertConfig[this.state.alertType];
+        const alertText = this.state.alertMessage;
         return (
             <div>
                 <Alert onClose={() => this.setShow(false)} show={this.state.showAlert} variant={this.state.alertType} dismissible>
