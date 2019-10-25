@@ -41,6 +41,10 @@ class BatchJobsController(
                                         BatchJobExecutionListener.SELECTED_BUSES_JOB_PARAMETER_KEY,
                                         launchJobRequest.parameters
                                 )
+                                .addLong(
+                                        "timestamp",
+                                        System.currentTimeMillis()
+                                )
                                 .toJobParameters()
                 )
             }).start()
