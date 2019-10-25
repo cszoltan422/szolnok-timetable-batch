@@ -37,4 +37,12 @@ class StringResourcesInMemoryStorage {
         urls.removeAt(0)
         return url
     }
+
+    /**
+     * Clears the url list for new processing
+     */
+    fun clear() {
+        log.info("Resetting URL list")
+        urls.clear()
+    }
 }

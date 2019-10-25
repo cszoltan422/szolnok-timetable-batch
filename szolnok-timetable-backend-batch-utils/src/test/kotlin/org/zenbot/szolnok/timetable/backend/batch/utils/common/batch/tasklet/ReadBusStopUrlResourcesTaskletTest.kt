@@ -22,6 +22,7 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.Timeta
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableResourceProperties
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableSelectorProperties
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.JsoupDocumentService
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringResourcesInMemoryStorage
 
 class ReadBusStopUrlResourcesTaskletTest {
 
@@ -29,6 +30,9 @@ class ReadBusStopUrlResourcesTaskletTest {
 
     @Mock
     private lateinit var readBusStopUrlOfBusTaskletHelper: ReadBusStopUrlOfBusTaskletHelper
+
+    @Mock
+    private lateinit var stringResourcesInMemoryStorage: StringResourcesInMemoryStorage
 
     @Mock
     private lateinit var jsoupDocumentService: JsoupDocumentService
@@ -48,6 +52,7 @@ class ReadBusStopUrlResourcesTaskletTest {
         properties.resource = resourcePropeties
 
         testSubject = ReadBusStopUrlResourcesTasklet(
+                stringResourcesInMemoryStorage,
                 readBusStopUrlOfBusTaskletHelper,
                 jsoupDocumentService,
                 properties)

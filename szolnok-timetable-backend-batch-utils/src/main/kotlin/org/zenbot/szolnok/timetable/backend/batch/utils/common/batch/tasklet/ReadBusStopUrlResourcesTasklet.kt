@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.JsoupDocumentService
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringResourcesInMemoryStorage
 
 /**
  * Reads all the bus stop's URL into an inmemory storage for later processing
@@ -19,14 +20,16 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.JsoupDocu
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)
 class ReadBusStopUrlResourcesTasklet(
-    private val readBusStopUrlOfBusTaskletHelper: ReadBusStopUrlOfBusTaskletHelper,
-    private val jsoupDocumentService: JsoupDocumentService,
-    private val properties: TimetableProperties
+        private val stringResourcesInMemoryStorage: StringResourcesInMemoryStorage,
+        private val readBusStopUrlOfBusTaskletHelper: ReadBusStopUrlOfBusTaskletHelper,
+        private val jsoupDocumentService: JsoupDocumentService,
+        private val properties: TimetableProperties
 ) : Tasklet {
 
     private val log = LoggerFactory.getLogger(ReadBusStopUrlResourcesTasklet::class.java)
 
     override fun execute(stepContribution: StepContribution, chunkContext: ChunkContext): RepeatStatus {
+        stringResourcesInMemoryStorage.clear()
         val jobExecution = chunkContext.stepContext.stepExecution.jobExecution
         val selectedBuses = jobExecution
                 .jobParameters
