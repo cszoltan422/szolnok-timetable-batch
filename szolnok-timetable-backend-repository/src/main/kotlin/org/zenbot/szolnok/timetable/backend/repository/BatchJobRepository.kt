@@ -5,4 +5,7 @@ import org.springframework.stereotype.Repository
 import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
 
 @Repository
-interface BatchJobRepository : JpaRepository<BatchJobEntity, Long>
+interface BatchJobRepository : JpaRepository<BatchJobEntity, Long> {
+
+    fun findTop10ByOrderByStartTimeDesc(): List<BatchJobEntity>
+}

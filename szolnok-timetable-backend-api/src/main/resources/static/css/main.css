@@ -12,6 +12,11 @@ div.navbar-header,
     border-color: #80ccc4;
 }
 
+.btn-primary:hover {
+    background-color: #609c95;
+    border-color: #609c95;
+}
+
 .logout {
     color: #37474f;
     font-weight: 700;
@@ -20,4 +25,40 @@ div.navbar-header,
 .logout:hover,
 .nav-link:hover {
     color: white !important;
+}
+
+.main-load-spinner {
+    text-align: center!important;
+}
+
+.main-load-spinner .spinner-border {
+    width: 5rem;
+    height: 5rem;
+    margin: 3rem!important;
+}
+
+.batch-jobs-table,
+.launch-batch-job {
+    padding: 2rem 4rem;
+}
+
+.batch-jobs-table-content,
+.launch-batch-job-content {
+    padding: 1rem;
+    border: .2rem solid #c4c4c4;
+    border-radius: 8px 8px 8px 8px;
+    background-color: #f0f0f0;
+}
+
+.batch-jobs-table-content table {
+    background-color: #fff;
+}
+
+.badge.badge-secondary {
+    margin-bottom: 1.5rem;
+}
+
+.batch-jobs-table tr.bg-success.progress-bar-striped,
+.batch-jobs-table tr.bg-danger.progress-bar-striped {
+    color: #ffffff;
 }
