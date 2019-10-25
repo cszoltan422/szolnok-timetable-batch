@@ -7,5 +7,5 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
 @Repository
 interface BatchJobRepository : JpaRepository<BatchJobEntity, Long> {
 
-    fun findTop10ByOrderByStartTimeDesc(): List<BatchJobEntity>
+    fun findTop5ByOrderByStartTimeDesc(): List<BatchJobEntity>
 }

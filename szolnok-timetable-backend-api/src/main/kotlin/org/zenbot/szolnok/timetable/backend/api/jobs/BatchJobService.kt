@@ -9,6 +9,6 @@ class BatchJobService(
     private val batchJobEntityTransformer: BatchJobEntityTransformer
 ) {
     fun findRecentJobs() =
-            batchJobRepository.findTop10ByOrderByStartTimeDesc()
+            batchJobRepository.findTop5ByOrderByStartTimeDesc()
                     .map { job -> batchJobEntityTransformer.transform(job) }
 }
