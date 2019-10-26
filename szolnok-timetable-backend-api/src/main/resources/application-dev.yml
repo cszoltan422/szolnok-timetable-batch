@@ -10,7 +10,7 @@ hibernate:
     password:
     driver-class-name: "org.h2.Driver"
     show-sql: "true"
-    ddl-auto: "update"
+    ddl-auto: "validate"
     dialect: "org.hibernate.dialect.H2Dialect"
 admin:
   user:
