@@ -6,6 +6,7 @@ import org.springframework.batch.core.listener.JobExecutionListenerSupport
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
+import org.zenbot.szolnok.timetable.backend.domain.entity.bus.TargetState
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 
 @Component
@@ -21,9 +22,10 @@ class RemoveBusRoutesExecutionListener(
                 .jobParameters
                 .getString(BatchJobExecutionListener.SELECTED_BUSES_JOB_PARAMETER_KEY,
                         BatchJobExecutionListener.DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE)
+
         if (!selectedBuses.isEmpty()) {
             val selectedBusesSplitted = selectedBuses.split(BatchJobExecutionListener.SELECTED_BUSES_SPLIT_BY)
-            val routes = busRepository.findAll()
+            val routes = busRepository.findAllByTargetState(TargetState.BATCH)
             log.info("Removing bus routes [{}]", selectedBuses)
             routes.forEach { route ->
                 if (selectedBusesSplitted.contains(route.busName)) {
@@ -32,7 +34,7 @@ class RemoveBusRoutesExecutionListener(
             }
         } else {
             log.info("Removing all bus routes from database")
-            busRepository.deleteAll()
+            busRepository.deleteAllByTargetState(TargetState.BATCH)
         }
     }
 }

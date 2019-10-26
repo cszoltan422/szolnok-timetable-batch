@@ -1,6 +1,7 @@
 package org.zenbot.szolnok.timetable.backend.api.bus
 
 import org.springframework.stereotype.Service
+import org.zenbot.szolnok.timetable.backend.domain.entity.bus.TargetState
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 import javax.transaction.Transactional
 
@@ -11,6 +12,6 @@ class BusService(
     private val busEntityTransformer: BusEntityTransformer
 ) {
     fun findAll(query: String): List<BusResponse> =
-            busRepository.findAllByBusNameContains(query)
+            busRepository.findAllByBusNameContainsAndTargetState(query, TargetState.PRODUCTION)
                     .map { busEntity -> busEntityTransformer.transform(busEntity) }
 }

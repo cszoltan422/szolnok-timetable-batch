@@ -15,6 +15,7 @@ import org.springframework.batch.core.JobParameters
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableResourceProperties
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
+import org.zenbot.szolnok.timetable.backend.domain.entity.bus.TargetState
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 
 class RemoveBusRoutesExecutionListenerTest {
@@ -61,7 +62,7 @@ class RemoveBusRoutesExecutionListenerTest {
         // GIVEN
         val jobExecution = mock(JobExecution::class.java)
         val jobParameters = mock(JobParameters::class.java)
-        val buses = mutableListOf(BusEntity(busName = "2"))
+        val buses = mutableListOf(BusEntity(busName = "2", targetState = TargetState.BATCH))
 
         given(jobExecution.jobParameters).willReturn(jobParameters)
         given(jobParameters.getString(anyString(), anyString())).willReturn("1")
@@ -83,7 +84,7 @@ class RemoveBusRoutesExecutionListenerTest {
         // GIVEN
         val jobExecution = mock(JobExecution::class.java)
         val jobParameters = mock(JobParameters::class.java)
-        val bus = BusEntity(busName = "1")
+        val bus = BusEntity(busName = "1", targetState = TargetState.BATCH)
         val buses = mutableListOf(bus)
 
         given(jobExecution.jobParameters).willReturn(jobParameters)

@@ -37,13 +37,13 @@ class BatchJobExecutionListener(
         val selectedBuses = jobExecution
                 .jobParameters
                 .getString(SELECTED_BUSES_JOB_PARAMETER_KEY, DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE)
-                .split(SELECTED_BUSES_SPLIT_BY)
         val batchJob = BatchJobEntity()
         batchJob.startTime = LocalDateTime.now()
         batchJob.status = BatchStatus.STARTED
         batchJob.type = jobExecution.jobInstance.jobName
-        batchJob.parameters = selectedBuses.joinToString(prefix = "[", postfix = "]")
+        batchJob.parameters = HashSet(selectedBuses.split(","))
         batchJob.finished = false
+        batchJob.promotable = true
 
         val saved = batchJobRepository.saveAndFlush(batchJob)
 
