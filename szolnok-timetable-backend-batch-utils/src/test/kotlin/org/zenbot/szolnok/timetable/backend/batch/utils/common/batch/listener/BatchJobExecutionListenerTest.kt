@@ -78,7 +78,7 @@ class BatchJobExecutionListenerTest {
         assertThat(argumentCaptor.value.startTime).isBeforeOrEqualTo(LocalDateTime.now())
         assertThat(argumentCaptor.value.status).isEqualTo(BatchStatus.STARTED)
         assertThat(argumentCaptor.value.type).isEqualTo("jobName")
-        assertThat(argumentCaptor.value.parameters).isEqualTo("[1, 2]")
+        assertThat(argumentCaptor.value.parameters).isEqualTo(hashSetOf("1", "2"))
         assertThat(argumentCaptor.value.finished).isFalse()
     }
 
@@ -116,7 +116,7 @@ class BatchJobExecutionListenerTest {
         assertThat(argumentCaptor.value.startTime).isBeforeOrEqualTo(LocalDateTime.now())
         assertThat(argumentCaptor.value.status).isEqualTo(BatchStatus.STARTED)
         assertThat(argumentCaptor.value.type).isEqualTo("jobName")
-        assertThat(argumentCaptor.value.parameters).isEqualTo("[1, 2]")
+        assertThat(argumentCaptor.value.parameters).isEqualTo(hashSetOf("1", "2"))
         assertThat(argumentCaptor.value.finished).isFalse()
     }
 

@@ -23,7 +23,7 @@ class ReadBusStopUrlOfBusTaskletHelper(
     fun saveBusStopUrlsOfBus(busLink: Element, selectedBuses: String) {
         val busHtmlFile = fetchHtmlForLink(busLink)
         val routeName = busNameSelectorItemProcessorHelper.getBusName(busHtmlFile, properties.selector)
-        if (shouldProcessBus(routeName, selectedBuses.split(","))) {
+        if (selectedBuses.isEmpty() || shouldProcessBus(routeName, selectedBuses.split(","))) {
             log.info("Save urls for bus=[{}]", busHtmlFile.location())
             saveBusStopUrls(busHtmlFile)
             val otherRoutesLink = selectOtherRoute(busHtmlFile)

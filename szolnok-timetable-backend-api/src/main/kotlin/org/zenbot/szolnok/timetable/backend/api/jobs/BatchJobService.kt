@@ -10,9 +10,9 @@ import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 @Service
 @Transactional
 class BatchJobService(
-        private val busRepository: BusRepository,
-        private val batchJobRepository: BatchJobRepository,
-        private val batchJobEntityTransformer: BatchJobEntityTransformer
+    private val busRepository: BusRepository,
+    private val batchJobRepository: BatchJobRepository,
+    private val batchJobEntityTransformer: BatchJobEntityTransformer
 ) {
     fun findRecentJobs() =
             batchJobRepository.findTop5ByOrderByStartTimeDesc()
@@ -20,7 +20,7 @@ class BatchJobService(
 
     fun promoteToProduction(id: Long) {
         val batchJob = batchJobRepository.findById(id)
-        batchJob.ifPresent{
+        batchJob.ifPresent {
             if (!it.promotedToProd) {
                 changeTargetStateOfBuses(it, TargetState.PRODUCTION, TargetState.PURGATORY)
                 changeTargetStateOfBuses(it, TargetState.BATCH, TargetState.PRODUCTION)
@@ -31,12 +31,12 @@ class BatchJobService(
     }
 
     private fun changeTargetStateOfBuses(
-            batchJobEntity: BatchJobEntity,
-            currentState: TargetState,
-            futureState: TargetState
+        batchJobEntity: BatchJobEntity,
+        currentState: TargetState,
+        futureState: TargetState
     ) {
         busRepository.findAllByBatchJobEntityAndTargetState(batchJobEntity, currentState)
-                .forEach{
+                .forEach {
                     it.targetState = futureState
                     busRepository.saveAndFlush(it)
                 }

@@ -52,9 +52,9 @@ class RemoveBusRoutesExecutionListenerTest {
         // THEN
         verify(jobExecution).jobParameters
         verify(jobParameters).getString("selectedBuses", "")
-        verify(busRepository).deleteAll()
+        verify(busRepository).deleteAllByTargetState(TargetState.BATCH)
         verify(busRepository, never()).delete(any(BusEntity::class.java))
-        verify(busRepository, never()).findAll()
+        verify(busRepository, never()).findAllByTargetState(TargetState.BATCH)
     }
 
     @Test
@@ -66,7 +66,7 @@ class RemoveBusRoutesExecutionListenerTest {
 
         given(jobExecution.jobParameters).willReturn(jobParameters)
         given(jobParameters.getString(anyString(), anyString())).willReturn("1")
-        given(busRepository.findAll()).willReturn(buses)
+        given(busRepository.findAllByTargetState(TargetState.BATCH)).willReturn(buses)
 
         // WHEN
         testSubject.beforeJob(jobExecution)
@@ -74,8 +74,8 @@ class RemoveBusRoutesExecutionListenerTest {
         // THEN
         verify(jobExecution).jobParameters
         verify(jobParameters).getString("selectedBuses", "")
-        verify(busRepository).findAll()
-        verify(busRepository, never()).deleteAll()
+        verify(busRepository).findAllByTargetState(TargetState.BATCH)
+        verify(busRepository, never()).deleteAllByTargetState(TargetState.BATCH)
         verify(busRepository, never()).delete(any(BusEntity::class.java))
     }
 
@@ -89,7 +89,7 @@ class RemoveBusRoutesExecutionListenerTest {
 
         given(jobExecution.jobParameters).willReturn(jobParameters)
         given(jobParameters.getString(anyString(), anyString())).willReturn("1")
-        given(busRepository.findAll()).willReturn(buses)
+        given(busRepository.findAllByTargetState(TargetState.BATCH)).willReturn(buses)
 
         // WHEN
         testSubject.beforeJob(jobExecution)
@@ -97,8 +97,8 @@ class RemoveBusRoutesExecutionListenerTest {
         // THEN
         verify(jobExecution).jobParameters
         verify(jobParameters).getString("selectedBuses", "")
-        verify(busRepository).findAll()
+        verify(busRepository).findAllByTargetState(TargetState.BATCH)
         verify(busRepository).delete(bus)
-        verify(busRepository, never()).deleteAll()
+        verify(busRepository, never()).deleteAllByTargetState(TargetState.BATCH)
     }
 }

@@ -27,7 +27,7 @@ class JsoupDocumentService {
         while (i <= MAX_RETRY_COUNT) {
             try {
                 val connection = Jsoup.connect(url)
-                connection.timeout(300000)
+                connection.timeout(CONNECT_TIMEOUT)
                 return connection.get()
             } catch (e: IOException) {
                 log.debug("Read timed out [{}]", url)
@@ -41,6 +41,7 @@ class JsoupDocumentService {
 
     companion object {
         val MAX_RETRY_COUNT = 4
+        val CONNECT_TIMEOUT = 300000
         val INITIAL_RETRY_COUNT = 0
     }
 }

@@ -15,7 +15,7 @@ class BatchJobEntityTransformer {
                     finishTime = formatTime(job.finishTime),
                     finished = job.finished,
                     status = job.status,
-                    parameters = job.parameters.joinToString(separator = ",", prefix = "[",postfix = "]"),
+                    parameters = job.parameters.joinToString(separator = ",", prefix = "[", postfix = "]"),
                     promoted = job.promotedToProd,
                     promotable = job.promotable
         )

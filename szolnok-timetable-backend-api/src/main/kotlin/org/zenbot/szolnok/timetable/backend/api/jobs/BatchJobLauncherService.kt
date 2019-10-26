@@ -33,7 +33,7 @@ class BatchJobLauncherService(
             val paramsSet = HashSet(launchJobRequest.parameters.split(","))
             batchJobRepository.findAllByTypeAndFinishedTrueAndPromotableTrue(
                     launchJobRequest.jobType
-            ).forEach{
+            ).forEach {
                 if (it.parameters.equals(paramsSet)) {
                     it.promotable = false
                     batchJobRepository.saveAndFlush(it)
