@@ -6,9 +6,9 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    
+
     <changeSet id="1-create-table-bus" author="zoltan_csenyi">
-        <createTable tableName="bus">
+        <createTable tableName="bus" schemaName="szolnok_app">
             <column name="id" type="bigint" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -22,7 +22,7 @@
     </changeSet>
 
     <changeSet id="2-create-table-bus-arrival" author="zoltan_csenyi">
-        <createTable tableName="bus_arrival">
+        <createTable tableName="bus_arrival" schemaName="szolnok_app">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -43,7 +43,7 @@
     </changeSet>
 
     <changeSet id="3-create-table-bus-of-stop" author="zoltan_csenyi">
-        <createTable tableName="bus_of_stop">
+        <createTable tableName="bus_of_stop" schemaName="szolnok_app">
             <column name="id" type="bigint" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -56,7 +56,7 @@
     </changeSet>
 
     <changeSet id="4-create-table-bus-route" author="zoltan_csenyi">
-        <createTable tableName="bus_route">
+        <createTable tableName="bus_route" schemaName="szolnok_app">
             <column name="id" type="bigint" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -70,7 +70,7 @@
     </changeSet>
 
     <changeSet id="5-create-table-bus-schedule" author="zoltan_csenyi">
-        <createTable tableName="bus_schedule">
+        <createTable tableName="bus_schedule" schemaName="szolnok_app">
             <column name="id" type="bigint" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -81,7 +81,7 @@
     </changeSet>
 
     <changeSet id="6-create-table-bus_stop" author="zoltan_csenyi">
-        <createTable tableName="bus_stop">
+        <createTable tableName="bus_stop" schemaName="szolnok_app">
             <column name="id" type="bigint" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -97,7 +97,7 @@
     </changeSet>
 
     <changeSet id="7-create-table-bus-stop-buses" author="zoltan_csenyi">
-        <createTable tableName="bus_stop_buses">
+        <createTable tableName="bus_stop_buses" schemaName="szolnok_app">
             <column name="id" type="bigint" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -109,33 +109,33 @@
     </changeSet>
 
     <changeSet id="9-alter-table-bus-arrival-add-foreign-key" author="">
-        <addForeignKeyConstraint baseTableName="bus_arrival" baseColumnNames="bus_schedule_id" constraintName="bus_arrival_schedule_fk" referencedTableName="bus_schedule"
-                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="bus_arrival" baseTableSchemaName="szolnok_app" baseColumnNames="bus_schedule_id" constraintName="bus_arrival_schedule_fk" referencedTableName="bus_schedule"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
     </changeSet>
 
     <changeSet id="10-alter-table-bus-of-stop-add-foreign-key" author="">
-        <addForeignKeyConstraint baseTableName="bus_of_stop" baseColumnNames="bus_of_stop_id" constraintName="bus_of_stop_fk" referencedTableName="bus_stop_buses"
-                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="bus_of_stop" baseTableSchemaName="szolnok_app" baseColumnNames="bus_of_stop_id" constraintName="bus_of_stop_fk" referencedTableName="bus_stop_buses"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
     </changeSet>
 
     <changeSet id="11-alter-table-bus-route-add-foreign-key" author="">
-        <addForeignKeyConstraint baseTableName="bus_route" baseColumnNames="bus_id" constraintName="bus_route_bus_fk" referencedTableName="bus"
-                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="bus_route" baseTableSchemaName="szolnok_app" baseColumnNames="bus_id" constraintName="bus_route_bus_fk" referencedTableName="bus"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
     </changeSet>
 
     <changeSet id="12-alter-table-bus-stop-add-foreign-keys" author="">
-        <addForeignKeyConstraint baseTableName="bus_stop" baseColumnNames="saturday_schedule_id" constraintName="bus_stop_saturday_fk" referencedTableName="bus_schedule"
-                                 referencedColumnNames="id" />
-        <addForeignKeyConstraint baseTableName="bus_stop" baseColumnNames="sunday_schedule_id" constraintName="bus_stop_sunday_fk" referencedTableName="bus_schedule"
-                                 referencedColumnNames="id" />
-        <addForeignKeyConstraint baseTableName="bus_stop" baseColumnNames="workday_schedule_id" constraintName="bus_stop_workday_fk" referencedTableName="bus_schedule"
-                                 referencedColumnNames="id" />
-        <addForeignKeyConstraint baseTableName="bus_stop" baseColumnNames="bus_route_id" constraintName="bus_route_schedule_fk" referencedTableName="bus_route"
-                                 referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="bus_stop" baseTableSchemaName="szolnok_app" baseColumnNames="saturday_schedule_id" constraintName="bus_stop_saturday_fk" referencedTableName="bus_schedule"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
+        <addForeignKeyConstraint baseTableName="bus_stop" baseTableSchemaName="szolnok_app" baseColumnNames="sunday_schedule_id" constraintName="bus_stop_sunday_fk" referencedTableName="bus_schedule"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
+        <addForeignKeyConstraint baseTableName="bus_stop" baseTableSchemaName="szolnok_app" baseColumnNames="workday_schedule_id" constraintName="bus_stop_workday_fk" referencedTableName="bus_schedule"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
+        <addForeignKeyConstraint baseTableName="bus_stop" baseTableSchemaName="szolnok_app" baseColumnNames="bus_route_id" constraintName="bus_route_schedule_fk" referencedTableName="bus_route"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
     </changeSet>
 
     <changeSet id="13-create-table-batch-job" author="zoltan_csenyi">
-        <createTable tableName="batch_job">
+        <createTable tableName="batch_job" schemaName="szolnok_app">
             <column name="id" type="bigint" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -146,6 +146,45 @@
             <column name="parameters" type="varchar(255)"/>
             <column name="finished" type="bit"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="14-alter-table-bus-add-column-target-state" author="zoltan_csenyi">
+        <addColumn tableName="bus" schemaName="szolnok_app">
+            <column name="target_state" type="varchar(255)" defaultValue="BATCH">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="15-alter-table-bus-add-column-batch-job-id" author="zoltan_csenyi">
+        <addColumn tableName="bus" schemaName="szolnok_app">
+            <column name="batch_job_id" type="bigint" />
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="bus" baseTableSchemaName="szolnok_app" baseColumnNames="batch_job_id" constraintName="bus_batch_job_id_fk" referencedTableName="batch_job"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
+    </changeSet>
+
+    <changeSet id="16-alter-table-batch-job-add-column-promote" author="zoltan_csenyi">
+        <addColumn tableName="batch_job" schemaName="szolnok_app">
+            <column name="promoted" type="bit" />
+            <column name="promotable" type="bit" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="17-alter-table-batch-job-drop-columns-parameters" author="zoltan_csenyi">
+        <dropColumn tableName="batch_job" schemaName="szolnok_app" columnName="parameters" />
+    </changeSet>
+
+    <changeSet id="18-create-table-batch-job-parameters" author="zoltan_csenyi">
+        <createTable tableName="batch_job_parameters" schemaName="szolnok_app">
+            <column name="batch_job_id" type="bigint" />
+            <column name="parameter" type="varchar(255)" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="19-add-foreign-key-batch-job-parameters" author="zoltan_csenyi">
+        <addForeignKeyConstraint baseTableName="batch_job_parameters" baseTableSchemaName="szolnok_app" baseColumnNames="batch_job_id" constraintName="batch_job_id_parameter_fk" referencedTableName="batch_job"
+                                 referencedColumnNames="id" referencedTableSchemaName="szolnok_app" />
     </changeSet>
 
 </databaseChangeLog>
