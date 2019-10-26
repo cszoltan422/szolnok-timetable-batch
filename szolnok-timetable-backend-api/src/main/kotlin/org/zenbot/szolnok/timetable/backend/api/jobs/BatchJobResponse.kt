@@ -10,6 +10,8 @@ data class BatchJobResponse(
     val finishTime: String,
     val finished: Boolean,
     val status: BatchStatus,
-    val parameters: String
+    val parameters: String,
+    val promoted: Boolean,
+    val promotable: Boolean
 
 )
