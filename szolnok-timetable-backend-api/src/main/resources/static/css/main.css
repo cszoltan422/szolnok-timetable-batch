@@ -62,3 +62,17 @@ div.navbar-header,
 .batch-jobs-table tr.bg-danger.progress-bar-striped {
     color: #ffffff;
 }
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.toast.show {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -70px;
+    margin-top: -50px;
+}

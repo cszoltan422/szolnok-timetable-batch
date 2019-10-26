@@ -19,6 +19,7 @@ class BatchJobListTableHeader extends React.Component {
                 <th>Finish Time</th>
                 <th>Finished</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
         )
