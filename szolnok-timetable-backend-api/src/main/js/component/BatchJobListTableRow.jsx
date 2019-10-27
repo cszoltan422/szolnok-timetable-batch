@@ -47,9 +47,9 @@ class BatchJobListTableRow extends React.Component {
     }
 
     render() {
-        let {rowClass, actionButton} = this.getLayoutConfig();
-        return (
-            <div>
+        let toRender;
+        if (this.state.showAlert) {
+            toRender =
                 <Toast show={this.state.showAlert} onClose={() => this.setShow(false)}>
                     <Toast.Header>
                         <img className="rounded mr-2" alt="" />
@@ -58,6 +58,9 @@ class BatchJobListTableRow extends React.Component {
                     </Toast.Header>
                     <Toast.Body>Batch process was successfully promoted to Production!</Toast.Body>
                 </Toast>
+        } else {
+            let {rowClass, actionButton} = this.getLayoutConfig();
+            toRender =
                 <tr key={this.props.job.id}
                     className={rowClass}>
                     <td>{this.props.job.id}</td>
@@ -69,8 +72,8 @@ class BatchJobListTableRow extends React.Component {
                     <td>{this.props.job.status}</td>
                     <td>{actionButton}</td>
                 </tr>
-            </div>
-        )
+        }
+        return toRender;
     }
 
     getLayoutConfig() {
