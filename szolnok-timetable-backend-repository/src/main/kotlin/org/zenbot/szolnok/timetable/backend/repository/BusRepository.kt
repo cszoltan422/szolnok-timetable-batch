@@ -15,6 +15,8 @@ interface BusRepository : JpaRepository<BusEntity, Long> {
 
     fun findAllByBusNameContainsAndTargetState(query: String, targetState: TargetState): List<BusEntity>
 
+    fun findAllByBusNameInAndTargetState(busNames: Set<String>, targetState: TargetState): List<BusEntity>
+
     fun findAllByTargetState(targetState: TargetState): List<BusEntity>
 
     fun deleteAllByTargetState(targetState: TargetState)
