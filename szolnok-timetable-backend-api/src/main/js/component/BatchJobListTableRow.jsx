@@ -3,6 +3,7 @@
 const React = require('react');
 const Button = require('react-bootstrap').Button;
 const Toast = require('react-bootstrap').Toast;
+const Badge = require('react-bootstrap').Badge;
 const client = require('../client');
 
 class BatchJobListTableRow extends React.Component {
@@ -64,7 +65,12 @@ class BatchJobListTableRow extends React.Component {
                 <tr key={this.props.job.id}
                     className={rowClass}>
                     <td>{this.props.job.id}</td>
-                    <td>{this.props.job.type}</td>
+                    <td>
+                        {this.props.job.type}
+                        <span className="promoted-job-badge">
+                            <Badge className={this.props.job.promoted ? "show" : "hide"} variant="primary">Promoted</Badge>
+                        </span>
+                    </td>
                     <td>{this.props.job.parameters}</td>
                     <td>{this.props.job.startTime}</td>
                     <td>{this.props.job.finishTime}</td>

@@ -76,3 +76,16 @@ div.navbar-header,
     margin-left: -70px;
     margin-top: -50px;
 }
+
+.promoted-job-badge {
+    margin-left: 1rem;
+}
+
+.promoted-job-badge .badge.badge-primary {
+    background-color: #80ccc4;
+    border-color: #80ccc4;
+}
+
+.badge.hide {
+    display: none;
+}
