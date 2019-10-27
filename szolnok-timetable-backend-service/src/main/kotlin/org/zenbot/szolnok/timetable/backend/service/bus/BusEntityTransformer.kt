@@ -10,6 +10,7 @@ class BusEntityTransformer {
             BusResponse(
                     busName = busEntity.busName,
                     startBusStop = busEntity.busRouteEntities[0].startBusStop,
-                    endBusStop = busEntity.busRouteEntities[0].endBusStop
+                    endBusStop = busEntity.busRouteEntities[0].endBusStop,
+                    batchJobId = busEntity.batchJobEntity?.id ?: 0L
             )
 }
