@@ -103,6 +103,11 @@
 				<artifactId>szolnok-timetable-backend-stops</artifactId>
 				<version>${szolnok-timetable.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.zenbot</groupId>
+				<artifactId>szolnok-timetable-backend-service</artifactId>
+				<version>${szolnok-timetable.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.jetbrains.kotlin</groupId>
@@ -128,6 +133,11 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-batch</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-aop</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
 			<dependency>
