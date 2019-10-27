@@ -1,6 +1,7 @@
-package org.zenbot.szolnok.timetable.backend.api.jobs
+package org.zenbot.szolnok.timetable.backend.service.jobs
 
 import org.springframework.stereotype.Component
+import org.zenbot.szolnok.timetable.backend.domain.api.jobs.BatchJobResponse
 import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -18,7 +19,7 @@ class BatchJobEntityTransformer {
                     parameters = job.parameters.joinToString(separator = ",", prefix = "[", postfix = "]"),
                     promoted = job.promotedToProd,
                     promotable = job.promotable
-        )
+            )
 
     fun formatTime(time: LocalDateTime?): String {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")

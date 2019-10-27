@@ -1,6 +1,7 @@
-package org.zenbot.szolnok.timetable.backend.api.stops
+package org.zenbot.szolnok.timetable.backend.service.stops
 
 import org.springframework.stereotype.Component
+import org.zenbot.szolnok.timetable.backend.domain.api.stops.BusStopsResponse
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusRouteEntity
 

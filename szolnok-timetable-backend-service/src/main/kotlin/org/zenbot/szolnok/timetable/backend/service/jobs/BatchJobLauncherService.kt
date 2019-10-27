@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.api.jobs
+package org.zenbot.szolnok.timetable.backend.service.jobs
 
 import org.springframework.batch.core.BatchStatus
 import org.springframework.batch.core.Job
@@ -7,6 +7,8 @@ import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
+import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LauchBatchJobResponse
+import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LaunchJobRequest
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 
 @Service

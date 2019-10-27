@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.api.stops
+package org.zenbot.szolnok.timetable.backend.domain.api.stops
 
 data class BusStopsResponse(
     val busName: String,

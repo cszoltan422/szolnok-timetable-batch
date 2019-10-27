@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.api.jobs
+package org.zenbot.szolnok.timetable.backend.domain.api.jobs
 
 import org.springframework.batch.core.BatchStatus
 

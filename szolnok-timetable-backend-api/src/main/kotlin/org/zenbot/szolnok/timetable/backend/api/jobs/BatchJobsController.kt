@@ -5,11 +5,16 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
+import org.zenbot.szolnok.timetable.backend.domain.api.jobs.BatchJobResponse
+import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LauchBatchJobResponse
+import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LaunchJobRequest
+import org.zenbot.szolnok.timetable.backend.service.jobs.BatchJobLauncherService
+import org.zenbot.szolnok.timetable.backend.service.jobs.BatchJobService
 
 @RestController
 class BatchJobsController(
-    private val batchJobService: BatchJobService,
-    private val batchJobLauncherService: BatchJobLauncherService
+        private val batchJobService: BatchJobService,
+        private val batchJobLauncherService: BatchJobLauncherService
 ) {
 
     @RequestMapping(

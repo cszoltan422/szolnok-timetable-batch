@@ -16,12 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.zenbot</groupId>
-            <artifactId>szolnok-timetable-backend-batch-bus</artifactId>
-            <version>${szolnok-timetable.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.zenbot</groupId>
-            <artifactId>szolnok-timetable-backend-batch-stops</artifactId>
+            <artifactId>szolnok-timetable-backend-service</artifactId>
             <version>${szolnok-timetable.version}</version>
         </dependency>
 

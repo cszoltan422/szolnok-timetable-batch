@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.ActualStopSelectorItemProcessorHelper
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.BusNameSelectorItemProcessorHelper
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.TerminalSelectorItemProcessorHelper
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.StartBusStopSelectorItemProcessorHelper
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.TerminalSelectorItemProcessorHelper
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.helper.TimetableRowBuilderItemProcessorHelper
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 import org.zenbot.szolnok.timetable.backend.domain.batch.Timetable

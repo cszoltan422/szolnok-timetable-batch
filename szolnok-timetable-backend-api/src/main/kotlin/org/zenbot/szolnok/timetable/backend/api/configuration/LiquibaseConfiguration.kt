@@ -1,9 +1,9 @@
 package org.zenbot.szolnok.timetable.backend.api.configuration
 
-import org.springframework.context.annotation.Configuration
 import liquibase.integration.spring.SpringLiquibase
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import javax.sql.DataSource
 
 @Configuration

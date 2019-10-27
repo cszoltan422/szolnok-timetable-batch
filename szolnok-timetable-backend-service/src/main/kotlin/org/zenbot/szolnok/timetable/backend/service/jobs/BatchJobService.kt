@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.api.jobs
+package org.zenbot.szolnok.timetable.backend.service.jobs
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -24,7 +24,7 @@ class BatchJobService(
             if (!it.promotedToProd) {
                 val promotableBuses = busRepository.findAllByBatchJobEntityAndTargetState(it, TargetState.BATCH)
                 val currentProductionBuses = busRepository.findAllByBusNameInAndTargetState(
-                        promotableBuses.map {it.busName}.toSet(),
+                        promotableBuses.map { it.busName }.toSet(),
                         TargetState.PRODUCTION
                 )
                 changeTargetStateOfBuses(currentProductionBuses, TargetState.PURGATORY)
@@ -36,8 +36,8 @@ class BatchJobService(
     }
 
     private fun changeTargetStateOfBuses(
-            buses: List<BusEntity>,
-            futureState: TargetState
+        buses: List<BusEntity>,
+        futureState: TargetState
     ) {
         buses.forEach {
             it.targetState = futureState

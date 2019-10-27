@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.zenbot.szolnok.timetable.backend.domain.api.timetable.TimetableResponse
+import org.zenbot.szolnok.timetable.backend.service.timetable.TimetableService
 
 @RestController
 class TimetableController(

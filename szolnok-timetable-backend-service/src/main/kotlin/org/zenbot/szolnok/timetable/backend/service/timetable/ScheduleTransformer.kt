@@ -1,6 +1,8 @@
-package org.zenbot.szolnok.timetable.backend.api.timetable
+package org.zenbot.szolnok.timetable.backend.service.timetable
 
 import org.springframework.stereotype.Component
+import org.zenbot.szolnok.timetable.backend.domain.api.timetable.BusArrivalResponse
+import org.zenbot.szolnok.timetable.backend.domain.api.timetable.ScheduleResponse
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.ScheduleEntity
 
 @Component

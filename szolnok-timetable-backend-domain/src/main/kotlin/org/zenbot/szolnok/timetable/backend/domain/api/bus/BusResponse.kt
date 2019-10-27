@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.api.bus
+package org.zenbot.szolnok.timetable.backend.domain.api.bus
 
 data class BusResponse(
     val busName: String,
