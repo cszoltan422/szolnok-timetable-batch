@@ -27,8 +27,8 @@ class BatchJobService(
                         promotableBuses.map {it.busName}.toSet(),
                         TargetState.PRODUCTION
                 )
-                changeTargetStateOfBuses(currentProductionBuses, TargetState.PRODUCTION, TargetState.PURGATORY)
-                changeTargetStateOfBuses(promotableBuses, TargetState.BATCH, TargetState.PRODUCTION)
+                changeTargetStateOfBuses(currentProductionBuses, TargetState.PURGATORY)
+                changeTargetStateOfBuses(promotableBuses, TargetState.PRODUCTION)
                 it.promotedToProd = true
                 batchJobRepository.saveAndFlush(it)
             }
@@ -37,7 +37,6 @@ class BatchJobService(
 
     private fun changeTargetStateOfBuses(
             buses: List<BusEntity>,
-            currentState: TargetState,
             futureState: TargetState
     ) {
         buses.forEach {
