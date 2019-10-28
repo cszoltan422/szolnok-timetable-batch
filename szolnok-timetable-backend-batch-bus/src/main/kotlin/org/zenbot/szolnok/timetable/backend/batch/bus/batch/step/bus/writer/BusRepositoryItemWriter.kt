@@ -7,11 +7,11 @@ import org.springframework.batch.core.annotation.BeforeStep
 import org.springframework.batch.core.configuration.annotation.StepScope
 import org.springframework.batch.item.ItemWriter
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
-import javax.transaction.Transactional
 
 @Component
 @StepScope
