@@ -19,7 +19,7 @@ class BatchJobExecutionListener(
     private val log = LoggerFactory.getLogger(BatchJobExecutionListener::class.java)
 
     override fun afterJob(jobExecution: JobExecution) {
-        val id = jobExecution.executionContext.getLong(BATCH_JOB_ENTITY_ID_KEY)
+        val id = jobExecution.executionContext.getLong(BATCH_JOB_ENTITY_ID_KEY, DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
         val batchJob = batchJobRepository.findById(id)
         if (batchJob.isPresent) {
             val job = batchJob.get()

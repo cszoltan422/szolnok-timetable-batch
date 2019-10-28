@@ -38,7 +38,7 @@ class BusRepositoryItemWriter(
 
         val batchJobId = jobExecution.executionContext.getLong(
                 BatchJobExecutionListener.BATCH_JOB_ENTITY_ID_KEY,
-                0L)
+                BatchJobExecutionListener.DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
         val batchJob = batchJobRepository.findById(batchJobId)
         batchJob.ifPresent { bus.batchJobEntity = it }
 
