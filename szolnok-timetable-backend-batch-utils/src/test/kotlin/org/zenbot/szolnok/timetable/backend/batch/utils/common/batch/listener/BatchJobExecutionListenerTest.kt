@@ -127,7 +127,7 @@ class BatchJobExecutionListenerTest {
         val executionContext = mock(ExecutionContext::class.java)
 
         given(jobExecution.executionContext).willReturn(executionContext)
-        given(executionContext.getLong(anyString())).willReturn(0L)
+        given(executionContext.getLong(anyString(), anyLong())).willReturn(0L)
         given(batchJobRepository.findById(anyLong())).willReturn(Optional.empty())
 
         // WHEN
@@ -135,7 +135,7 @@ class BatchJobExecutionListenerTest {
 
         // THEN
         verify(jobExecution).executionContext
-        verify(executionContext).getLong("batchJobEntityId")
+        verify(executionContext).getLong("batchJobEntityId", 0L)
         verify(batchJobRepository).findById(0L)
         verify(batchJobRepository, never()).save(any(BatchJobEntity::class.java))
     }
@@ -149,16 +149,16 @@ class BatchJobExecutionListenerTest {
 
         given(jobExecution.status).willReturn(BatchStatus.COMPLETED)
         given(jobExecution.executionContext).willReturn(executionContext)
-        given(executionContext.getLong(anyString())).willReturn(0L)
+        given(executionContext.getLong(anyString(), anyLong())).willReturn(1L)
         given(batchJobRepository.findById(anyLong())).willReturn(Optional.of(entity))
 
         // WHEN
-        testSubject.afterJob(jobExecution)
+        testSubject.afterJob(jobExecution)X
 
         // THEN
         verify(jobExecution).executionContext
-        verify(executionContext).getLong("batchJobEntityId")
-        verify(batchJobRepository).findById(0L)
+        verify(executionContext).getLong("batchJobEntityId", 0L)
+        verify(batchJobRepository).findById(1L)
         verify(batchJobRepository).save(entity)
         assertThat(entity.finished).isTrue()
         assertThat(entity.status).isEqualTo(BatchStatus.COMPLETED)
