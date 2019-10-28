@@ -9,7 +9,7 @@ import org.zenbot.szolnok.timetable.backend.service.bus.BusService
 
 @RestController
 class BatchTargetStateBusController(
-        private val busService: BusService
+    private val busService: BusService
 ) {
     @RequestMapping(
             value = arrayOf("/admin/api/bus/"),

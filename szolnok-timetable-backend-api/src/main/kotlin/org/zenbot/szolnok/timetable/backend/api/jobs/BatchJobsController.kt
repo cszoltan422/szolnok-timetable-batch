@@ -13,8 +13,8 @@ import org.zenbot.szolnok.timetable.backend.service.jobs.BatchJobService
 
 @RestController
 class BatchJobsController(
-        private val batchJobService: BatchJobService,
-        private val batchJobLauncherService: BatchJobLauncherService
+    private val batchJobService: BatchJobService,
+    private val batchJobLauncherService: BatchJobLauncherService
 ) {
 
     @RequestMapping(

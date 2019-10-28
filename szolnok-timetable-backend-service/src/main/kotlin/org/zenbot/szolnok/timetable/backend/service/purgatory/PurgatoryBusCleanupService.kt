@@ -10,12 +10,11 @@ import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 
 @Aspect
 @Service
-class PurgatoryBusCleanupService (
-        private val busRepository: BusRepository
+class PurgatoryBusCleanupService(
+    private val busRepository: BusRepository
 ) {
 
     private val log = LoggerFactory.getLogger(PurgatoryBusCleanupService::class.java)
-
 
     @After("promoteToProduction()")
     fun cleanUpPurgatoryBuses() {
@@ -27,6 +26,5 @@ class PurgatoryBusCleanupService (
             "org.zenbot.szolnok.timetable.backend.service.jobs.BatchJobService.promoteToProduction(..)" +
             ")")
     private fun promoteToProduction() {
-
     }
 }
