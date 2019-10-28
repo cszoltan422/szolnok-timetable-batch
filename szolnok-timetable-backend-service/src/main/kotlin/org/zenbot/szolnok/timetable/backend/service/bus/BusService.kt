@@ -12,7 +12,7 @@ class BusService(
     private val busRepository: BusRepository,
     private val busEntityTransformer: BusEntityTransformer
 ) {
-    fun findAll(query: String): List<BusResponse> =
-            busRepository.findAllByBusNameContainsAndTargetState(query, TargetState.PRODUCTION)
+    fun findAllByTargetState(query: String, targetState: TargetState): List<BusResponse> =
+            busRepository.findAllByBusNameContainsAndTargetState(query, targetState)
                     .map { busEntity -> busEntityTransformer.transform(busEntity) }
 }
