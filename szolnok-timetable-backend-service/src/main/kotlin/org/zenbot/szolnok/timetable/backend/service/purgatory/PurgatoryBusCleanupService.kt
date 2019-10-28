@@ -23,7 +23,9 @@ class PurgatoryBusCleanupService (
         busRepository.deleteAllByTargetState(TargetState.PURGATORY)
     }
 
-    @Pointcut("execution (* org.zenbot.szolnok.timetable.backend.service.jobs.BatchJobService.promoteToProduction(..))")
+    @Pointcut("execution (* " +
+            "org.zenbot.szolnok.timetable.backend.service.jobs.BatchJobService.promoteToProduction(..)" +
+            ")")
     private fun promoteToProduction() {
 
     }
