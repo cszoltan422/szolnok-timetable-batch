@@ -153,7 +153,7 @@ class BatchJobExecutionListenerTest {
         given(batchJobRepository.findById(anyLong())).willReturn(Optional.of(entity))
 
         // WHEN
-        testSubject.afterJob(jobExecution)X
+        testSubject.afterJob(jobExecution)
 
         // THEN
         verify(jobExecution).executionContext
