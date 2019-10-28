@@ -1,40 +1,40 @@
 'use strict';
 
 const React = require('react');
-const Table = require("react-bootstrap").Table;
-const Spinner = require("react-bootstrap").Spinner;
-const Badge = require("react-bootstrap").Badge;
-const BatchJobListTableHeader = require("./BatchJobListTableHeader");
-const BatchJobListTableRow = require("./BatchJobListTableRow");
 const client = require('../client');
+const Table = require("react-bootstrap").Table;
+const Badge = require("react-bootstrap").Badge;
+const Spinner = require("react-bootstrap").Spinner;
+const BatchTargetStateBusesTableRow = require('./BatchTargetStateBusesTableRow');
+const BatchTargetStateBusesTableHeader = require('./BatchTargetStateBusesTableHeader');
 
-class BatchJobListTable extends React.Component {
+class BatchTargetStateBusesTable extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            jobList: [],
+            buses: [],
             fetched: false
         };
 
-        this.fetchJobs = this.fetchJobs.bind(this);
+        this.fetchBatchBuses = this.fetchBatchBuses.bind(this);
     }
 
     componentDidMount() {
-        this.fetchJobs();
+        this.fetchBatchBuses();
         setInterval(() => {
-            this.fetchJobs();
+            this.fetchBatchBuses();
         }, 3000);
     }
 
-    fetchJobs() {
+    fetchBatchBuses() {
         client({
             method: 'GET',
-            path: '/admin/api/jobs/recent',
+            path: '/admin/api/bus/',
             headers: {'Accept': 'application/json'}
         }).done(response => {
             this.setState({
-                jobList: response.entity,
+                buses: response.entity,
                 fetched: true
             })
         });
@@ -44,16 +44,16 @@ class BatchJobListTable extends React.Component {
         let toRender;
         if (this.state.fetched) {
             toRender =
-                <div className="batch-jobs-table">
-                    <div className="batch-jobs-table-content">
+                <div className="batch-target-state-buses-table">
+                    <div className="batch-target-state-buses-table-content">
                         <h2>
-                            <Badge variant="secondary">Recent Jobs</Badge>
+                            <Badge variant="secondary">Buses in Batch Target State</Badge>
                         </h2>
                         <Table striped bordered hover>
-                            <BatchJobListTableHeader />
+                            <BatchTargetStateBusesTableHeader />
                             <tbody>
-                            {this.state.jobList.map(job => (
-                                <BatchJobListTableRow job={job}/>
+                            {this.state.buses.map(bus => (
+                                <BatchTargetStateBusesTableRow bus={bus}/>
                             ))}
                             </tbody>
                         </Table>
@@ -70,6 +70,7 @@ class BatchJobListTable extends React.Component {
 
         return toRender
     }
+
 }
 
-module.exports = BatchJobListTable;
+module.exports = BatchTargetStateBusesTable;

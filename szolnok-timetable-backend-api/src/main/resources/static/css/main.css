@@ -38,19 +38,22 @@ div.navbar-header,
 }
 
 .batch-jobs-table,
-.launch-batch-job {
+.launch-batch-job,
+.batch-target-state-buses-table {
     padding: 2rem 4rem;
 }
 
 .batch-jobs-table-content,
-.launch-batch-job-content {
+.launch-batch-job-content,
+.batch-target-state-buses-table-content {
     padding: 1rem;
     border: .2rem solid #c4c4c4;
     border-radius: 8px 8px 8px 8px;
     background-color: #f0f0f0;
 }
 
-.batch-jobs-table-content table {
+.batch-jobs-table-content table,
+.batch-target-state-buses-table-content table {
     background-color: #fff;
 }
 
