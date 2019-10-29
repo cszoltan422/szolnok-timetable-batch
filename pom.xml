@@ -365,6 +365,7 @@
 									<report>txt:${project.build.directory}/detekt/detekt.txt</report>
 									<report>xml:${project.build.directory}/detekt/detekt.xml</report>
 								</report>
+								<config>support/codequality/detekt-config.yml</config>
 							</configuration>
 						</execution>
 					</executions>

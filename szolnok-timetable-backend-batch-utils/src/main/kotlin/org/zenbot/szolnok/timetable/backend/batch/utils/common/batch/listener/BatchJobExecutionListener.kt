@@ -10,6 +10,9 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import java.time.LocalDateTime
 
+/**
+ * Batch Job execution listener component that saves a new  [BatchJobEntity]
+ */
 @Component
 @Transactional
 class BatchJobExecutionListener(
@@ -18,6 +21,11 @@ class BatchJobExecutionListener(
 
     private val log = LoggerFactory.getLogger(BatchJobExecutionListener::class.java)
 
+    /**
+     * Marks the [BatchJobEntity] finished for the current jobId in the execution context.
+     *  @param jobExecution The context of the currently executing job
+     *
+     */
     override fun afterJob(jobExecution: JobExecution) {
         val id = jobExecution.executionContext.getLong(BATCH_JOB_ENTITY_ID_KEY, DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
         val batchJob = batchJobRepository.findById(id)
@@ -32,6 +40,11 @@ class BatchJobExecutionListener(
         }
     }
 
+    /**
+     * Creates a new [BatchJobEntity], saves to the database and saves it's id to the current execution context
+     *  @param jobExecution The context of the currently executing job
+     *
+     */
     override fun beforeJob(jobExecution: JobExecution) {
         log.info("Save new Batch Job into database for name [" + jobExecution.jobInstance.jobName + "]")
         val selectedBuses = jobExecution

@@ -10,6 +10,9 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.Timeta
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.JsoupDocumentService
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringResourcesInMemoryStorage
 
+/**
+ * Reads all the urls for a bus represented by hyperlink and saves into [StringResourcesInMemoryStorage]
+ */
 @Component
 class ReadBusStopUrlOfBusTaskletHelper(
     private val busNameSelectorItemProcessorHelper: BusNameSelectorItemProcessorHelper,
@@ -20,6 +23,11 @@ class ReadBusStopUrlOfBusTaskletHelper(
 
     private val log = LoggerFactory.getLogger(ReadBusStopUrlResourcesTasklet::class.java)
 
+    /**
+     * Saves all the busStop urls of a bus represented by hyperlink and saves into [StringResourcesInMemoryStorage]
+     * @param busLink The link of the bus ta save it's every busStop
+     * @param selectedBuses List of buses to process in the current context. Strings delimited by a comma: ,
+     */
     fun saveBusStopUrlsOfBus(busLink: Element, selectedBuses: String) {
         val busHtmlFile = fetchHtmlForLink(busLink)
         val routeName = busNameSelectorItemProcessorHelper.getBusName(busHtmlFile, properties.selector)

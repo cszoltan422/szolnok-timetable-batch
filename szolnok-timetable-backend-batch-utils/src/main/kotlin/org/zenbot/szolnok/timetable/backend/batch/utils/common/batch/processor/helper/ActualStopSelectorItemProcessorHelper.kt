@@ -47,7 +47,7 @@ class ActualStopSelectorItemProcessorHelper(private val stringCleaner: StringCle
 
     private fun removeParentheses(actualStop: String) =
             actualStop.subSequence(actualStop.indexOf(OPEN_PARENTHESES) + 1,
-                actualStop.indexOf(CLOSE_PARENTHESES)) as String
+                actualStop.indexOf(CLOSE_PARENTHESES)).toString()
 
     private fun getHtmlText(selectorProperties: TimetableSelectorProperties, htmlDocument: Document): String {
         val actualStopSelector = selectorProperties.actualStopSelector

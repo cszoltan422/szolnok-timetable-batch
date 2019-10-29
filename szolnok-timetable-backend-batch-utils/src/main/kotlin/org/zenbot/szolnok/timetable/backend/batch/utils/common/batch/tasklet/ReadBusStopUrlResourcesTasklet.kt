@@ -15,7 +15,7 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.JsoupDocu
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringResourcesInMemoryStorage
 
 /**
- * Reads all the bus stop's URL into an inmemory storage for later processing
+ * Reads all the bus stop's URL from the internet and writes those into an inmemory storage for later processing
  */
 @Component
 @EnableConfigurationProperties(TimetableProperties::class)
@@ -28,6 +28,11 @@ class ReadBusStopUrlResourcesTasklet(
 
     private val log = LoggerFactory.getLogger(ReadBusStopUrlResourcesTasklet::class.java)
 
+    /**
+     * Reads all the bus stop's URL from the internet and writes those into an inmemory storage for later processing
+     * @param stepContribution stepContribution
+     * @param chunkContext chunkContext
+     */
     override fun execute(stepContribution: StepContribution, chunkContext: ChunkContext): RepeatStatus {
         stringResourcesInMemoryStorage.clear()
         val jobExecution = chunkContext.stepContext.stepExecution.jobExecution

@@ -1,6 +1,6 @@
 package org.zenbot.szolnok.timetable.backend.batch.utils.common.properties
 
-class TimetableSelectorProperties(
+data class TimetableSelectorProperties(
     var routeNameSelector: String = "",
     var fromSelector: String = "",
     var actualStopSelector: String = "",

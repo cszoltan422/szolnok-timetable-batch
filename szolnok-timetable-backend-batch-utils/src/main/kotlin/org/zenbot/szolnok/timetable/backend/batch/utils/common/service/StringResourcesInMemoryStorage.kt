@@ -29,13 +29,15 @@ class StringResourcesInMemoryStorage {
      * @return null if no items present. The first item in the list otherwise and removes from the list.
      */
     fun get(): String? {
+        val result: String?
         if (urls.size == 0) {
             log.info("Urls are empty! Returning null")
-            return null
+            result = null
+        } else {
+            result = urls[0]
+            urls.removeAt(0)
         }
-        val url = urls[0]
-        urls.removeAt(0)
-        return url
+        return result
     }
 
     /**
