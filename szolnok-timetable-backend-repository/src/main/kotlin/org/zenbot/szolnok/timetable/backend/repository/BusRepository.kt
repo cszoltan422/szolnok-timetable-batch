@@ -11,9 +11,11 @@ interface BusRepository : JpaRepository<BusEntity, Long> {
 
     fun findByBusNameAndTargetState(busName: String, targetState: TargetState): BusEntity?
 
-    fun findAllByBatchJobEntityAndTargetState(batchJobEntity: BatchJobEntity, targetState: TargetState): List<BusEntity>
+    fun findAllByBatchJobEntityAndTargetState(batchJobEntity: BatchJobEntity, targetState: TargetState):
+            List<BusEntity>
 
-    fun findAllByBusNameContainsAndTargetState(query: String, targetState: TargetState): List<BusEntity>
+    fun findAllByBusNameContainsAndTargetStateAndBatchJobEntityFinishedTrue(query: String, targetState: TargetState):
+            List<BusEntity>
 
     fun findAllByBusNameInAndTargetState(busNames: Set<String>, targetState: TargetState): List<BusEntity>
 

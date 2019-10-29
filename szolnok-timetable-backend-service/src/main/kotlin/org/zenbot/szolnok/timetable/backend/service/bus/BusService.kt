@@ -13,6 +13,6 @@ class BusService(
     private val busEntityTransformer: BusEntityTransformer
 ) {
     fun findAllByTargetState(query: String, targetState: TargetState): List<BusResponse> =
-            busRepository.findAllByBusNameContainsAndTargetState(query, targetState)
+            busRepository.findAllByBusNameContainsAndTargetStateAndBatchJobEntityFinishedTrue(query, targetState)
                     .map { busEntity -> busEntityTransformer.transform(busEntity) }
 }
