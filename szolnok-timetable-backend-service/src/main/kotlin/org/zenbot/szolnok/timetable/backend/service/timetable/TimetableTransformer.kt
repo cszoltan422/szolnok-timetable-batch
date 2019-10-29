@@ -7,10 +7,18 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusRouteEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusStopEntity
 
+/**
+ * Transforms a [BusEntity], [BusRouteEntity], [BusStopEntity] into a [TimetableResponse]
+ */
 @Component
 class TimetableTransformer(
     private val scheduleTransformer: ScheduleTransformer
 ) {
+
+    /**
+     * Creates an empty [TimetableResponse]
+     * @return an empty [TimetableResponse]
+     */
     fun empty() =
             TimetableResponse(
                     busName = "",
@@ -30,7 +38,20 @@ class TimetableTransformer(
                     found = false
             )
 
-    fun transform(bus: BusEntity, busRoute: BusRouteEntity, busStop: BusStopEntity, occurrence: Int): TimetableResponse {
+    /**
+     * Transforms a [BusEntity], [BusRouteEntity], [BusStopEntity] into a [TimetableResponse]
+     * @param bus The bus to use in the transformation
+     * @param busRoute The route to use in the transformation
+     * @param busStop The busStop to use in the transformation
+     * @param occurrence The occurrence of the busStop in the current route
+     * @return a [TimetableResponse] from the parameters
+     */
+    fun transform(
+        bus: BusEntity,
+        busRoute: BusRouteEntity,
+        busStop: BusStopEntity,
+        occurrence: Int
+    ): TimetableResponse {
         return TimetableResponse(
                 busName = bus.busName,
                 startStop = busRoute.startBusStop,

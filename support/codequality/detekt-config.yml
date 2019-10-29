@@ -27,14 +27,14 @@ comments:
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true
-    excludes: "**/domain/**,**/repository/**,**/configuration/**,**/properties/**"
+    excludes: "**/domain/**,**/repository/**,**/configuration/**,**/properties/**,**/*.Exception.kt"
     searchInInnerInterface: true
   UndocumentedPublicFunction:
     active: true
-    excludes: "**/domain/**,**/repository/**,**/configuration/**,**/properties/**"
+    excludes: "**/domain/**,**/repository/**,**/configuration/**,**/properties/**,**/*.Exception.kt"
   UndocumentedPublicProperty:
     active: true
-    excludes: "**/domain/**,**/repository/**,**/configuration/**,**/properties/**"
+    excludes: "**/domain/**,**/repository/**,**/configuration/**,**/properties/**,**/*.Exception.kt"
 
 complexity:
   active: true

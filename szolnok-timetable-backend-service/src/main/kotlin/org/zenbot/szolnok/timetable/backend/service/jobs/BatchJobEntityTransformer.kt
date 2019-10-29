@@ -6,8 +6,17 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+/**
+ * Transforms a [BatchJobEntity] into a [BatchJobResponse]
+ */
 @Component
 class BatchJobEntityTransformer {
+
+    /**
+     * Transforms a [BatchJobEntity] into a [BatchJobResponse]
+     * @param job The job to transform
+     * @return a transformed [BatchJobResponse] from the job
+     */
     fun transform(job: BatchJobEntity) =
             BatchJobResponse(
                     id = job.id,
@@ -21,7 +30,7 @@ class BatchJobEntityTransformer {
                     promotable = job.promotable
             )
 
-    fun formatTime(time: LocalDateTime?): String {
+    private fun formatTime(time: LocalDateTime?): String {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val result: String
         if (time != null) {

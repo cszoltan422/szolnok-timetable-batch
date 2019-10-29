@@ -4,8 +4,17 @@ import org.springframework.stereotype.Component
 import org.zenbot.szolnok.timetable.backend.domain.api.bus.BusResponse
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 
+/**
+ * Class to transform a [BusEntity] into a [BusResponse]
+ */
 @Component
 class BusEntityTransformer {
+
+    /**
+     * Transforms a [BusEntity] into a [BusResponse]
+     * @param busEntity The [BusEntity] to transform
+     * @return a [BusResponse] created from the entity
+     */
     fun transform(busEntity: BusEntity): BusResponse =
             BusResponse(
                     busName = busEntity.busName,

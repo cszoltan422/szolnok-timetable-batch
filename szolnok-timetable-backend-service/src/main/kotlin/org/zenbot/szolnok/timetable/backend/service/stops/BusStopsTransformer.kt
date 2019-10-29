@@ -5,8 +5,18 @@ import org.zenbot.szolnok.timetable.backend.domain.api.stops.BusStopsResponse
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusRouteEntity
 
+/**
+ * Transforms a [BusRouteEntity] into a [BusStopsResponse]
+ */
 @Component
 class BusStopsTransformer {
+
+    /**
+     * Transforms a [BusRouteEntity] into a [BusStopsResponse]
+     * @param bus The bus to use in the transformation
+     * @param route The route to use in the transformation
+     * @return [BusStopsResponse] transformed from the bus and route
+     */
     fun transform(bus: BusEntity, route: BusRouteEntity): BusStopsResponse =
             BusStopsResponse(
                     busName = bus.busName,
@@ -17,6 +27,10 @@ class BusStopsTransformer {
                     found = true
             )
 
+    /**
+     * Creates an empty [BusStopsResponse]
+     * @return an empty [BusStopsResponse]
+     */
     fun empty() =
             BusStopsResponse(
                     busName = "",
