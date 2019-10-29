@@ -22,4 +22,6 @@ interface BusRepository : JpaRepository<BusEntity, Long> {
     fun findAllByTargetState(targetState: TargetState): List<BusEntity>
 
     fun deleteAllByTargetState(targetState: TargetState)
+
+    fun deleteByBusNameAndTargetState(busName: String, targetState: TargetState)
 }

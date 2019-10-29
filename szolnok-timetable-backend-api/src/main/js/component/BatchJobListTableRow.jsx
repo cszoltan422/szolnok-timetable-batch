@@ -25,8 +25,6 @@ class BatchJobListTableRow extends React.Component {
     }
 
     promote(item, id) {
-        console.log(item);
-        console.log(id);
         if (this.state.disableButtons) {
             return;
         }
