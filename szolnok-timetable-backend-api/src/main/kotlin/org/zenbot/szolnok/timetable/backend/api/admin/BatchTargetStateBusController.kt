@@ -29,7 +29,7 @@ class BatchTargetStateBusController(
             method = arrayOf(RequestMethod.POST)
     )
     fun removeBusFromBatchTargetState(@PathVariable("bus") bus: String): ResponseEntity<String> {
-        var response: ResponseEntity<String>;
+        var response: ResponseEntity<String>
         try {
             busService.removeBusFromBatchTargetState(bus)
             response = ResponseEntity.ok("Successfully deleted!")
