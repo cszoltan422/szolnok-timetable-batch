@@ -10,6 +10,9 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusRouteEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusStopEntity
 
+/**
+ * Creates a [BusEntity] from a given [Timetable] to save into the database
+ */
 @Component
 @Transactional
 class TimetableToBusItemProcessor(
@@ -19,6 +22,11 @@ class TimetableToBusItemProcessor(
 
     private val log = LoggerFactory.getLogger(TimetableToBusItemProcessor::class.java)
 
+    /**
+     * Creates a [BusEntity] from a given [Timetable] to save into the database
+     * @param timetable The current timetable to process
+     * @return a [BusEntity] created from the [Timetable] parameter
+     */
     @Throws(Exception::class)
     override fun process(timetable: Timetable): BusEntity {
         log.info("Processing timetable [#{} from={}, stop={}, to={}] to Bus",
@@ -27,19 +35,24 @@ class TimetableToBusItemProcessor(
                 timetable.activeStopName,
                 timetable.endBusStopName)
 
-        log.debug("Setting bus stop properties for stop=[{}] and bus=[{}]", timetable.activeStopName, timetable.busName)
         val bus = createBusItemProcessorHelper.createBusFromTimetable(timetable)
         val busStop = createBusStop(timetable)
-
-        log.debug("Fetching bus route from bus=[#{}]", bus.busName)
-        val busRoute = createBusRoute(bus, timetable, busStop)
-
-        if (bus.hasNoBusRoute(busRoute)) {
-            bus.busRouteEntities.add(busRoute)
-        }
+        val busRoute = createOrGetBusRoute(bus, timetable)
+        addBusStopToRoute(busRoute, busStop)
+        addRouteIfNotPresent(bus, busRoute)
 
         log.info("Done processing timetable to bus=[#{}]", bus.busName)
         return bus
+    }
+
+    private fun addRouteIfNotPresent(bus: BusEntity, busRoute: BusRouteEntity) {
+        if (bus.hasNoBusRoute(busRoute)) {
+            bus.busRouteEntities.add(busRoute)
+        }
+    }
+
+    private fun addBusStopToRoute(busRoute: BusRouteEntity, busStop: BusStopEntity) {
+        busRoute.busStopEntities.add(busStop)
     }
 
     private fun createBusStop(timetable: Timetable): BusStopEntity {
@@ -61,15 +74,11 @@ class TimetableToBusItemProcessor(
         )
     }
 
-    private fun createBusRoute(
-        busEntity: BusEntity,
-        timetable: Timetable,
-        busStopEntity: BusStopEntity
-    ): BusRouteEntity {
+    private fun createOrGetBusRoute(busEntity: BusEntity, timetable: Timetable):
+            BusRouteEntity {
         val busRoute = busEntity.getBusRouteByStartStopName(timetable.startBusStopName)
         busRoute.startBusStop = timetable.startBusStopName
         busRoute.endBusStop = timetable.endBusStopName
-        busRoute.addBusStopTimetable(busStopEntity)
         return busRoute
     }
 }

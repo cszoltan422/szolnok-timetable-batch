@@ -27,9 +27,4 @@ data class BusRouteEntity(
     @OneToMany(cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE))
     @JoinColumn(name = "bus_route_id")
     var busStopEntities: MutableList<BusStopEntity> = ArrayList()
-) {
-
-    fun addBusStopTimetable(busStopEntity: BusStopEntity) {
-        busStopEntities.add(busStopEntity)
-    }
-}
+)

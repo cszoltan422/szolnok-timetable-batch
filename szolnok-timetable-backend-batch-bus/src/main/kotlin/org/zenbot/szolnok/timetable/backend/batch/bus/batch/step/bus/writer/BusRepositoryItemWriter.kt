@@ -13,6 +13,9 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 
+/**
+ * Writes the [BusEntity] into the database
+ */
 @Component
 @StepScope
 @Transactional
@@ -25,14 +28,23 @@ class BusRepositoryItemWriter(
 
     private lateinit var jobExecution: JobExecution
 
+    /**
+     * Sets the current step execution
+     * @param stepExecution The current step execution. Holds the [JobExecution]
+     */
     @BeforeStep
     fun before(stepExecution: StepExecution) {
         this.jobExecution = stepExecution.jobExecution
     }
 
+    /**
+     * Writes the [BusEntity] into the database
+     * @param list a list of [BusEntity] to write into the database. Always has to hold only one item
+     * @throws IllegalArgumentException if more than 1 item is present in the list
+     */
     override fun write(list: List<BusEntity>) {
         if (list.size > 1) {
-            throw IllegalArgumentException("Size of the list should be [1]! Actual size is [" + list.size + "]")
+            throw IllegalArgumentException("Size of the list should be [1]! Actual size is [${list.size}]")
         }
         val bus = list[0]
 
