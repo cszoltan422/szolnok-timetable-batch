@@ -10,3 +10,8 @@ asciidoctor.css
 README.html
 dump.rdb
 package-lock.json
+errorShots
+coverage
+.vscode
+!.vscode/extensions.json
+yarn.lock
