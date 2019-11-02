@@ -28,6 +28,7 @@ class JsoupDocumentService {
             try {
                 val connection = Jsoup.connect(url)
                 connection.timeout(CONNECT_TIMEOUT)
+                connection.maxBodySize(0);
                 return connection.get()
             } catch (e: IOException) {
                 log.debug("Read timed out [{}]", url)
