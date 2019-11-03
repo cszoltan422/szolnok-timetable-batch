@@ -51,7 +51,7 @@ class BatchJobLauncherService(
         ).forEach {
             if (it.parameters.equals(paramsSet)) {
                 it.promotable = false
-                batchJobRepository.saveAndFlush(it)
+                batchJobRepository.save(it)
             }
         }
     }

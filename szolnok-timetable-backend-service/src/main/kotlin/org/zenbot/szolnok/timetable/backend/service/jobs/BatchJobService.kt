@@ -42,7 +42,7 @@ class BatchJobService(
                 changeTargetStateOfBuses(currentProductionBuses, TargetState.PURGATORY)
                 changeTargetStateOfBuses(promotableBuses, TargetState.PRODUCTION)
                 it.promotedToProd = true
-                batchJobRepository.saveAndFlush(it)
+                batchJobRepository.save(it)
             }
         }
     }
@@ -53,7 +53,7 @@ class BatchJobService(
     ) {
         buses.forEach {
             it.targetState = futureState
-            busRepository.saveAndFlush(it)
+            busRepository.save(it)
         }
     }
 }
