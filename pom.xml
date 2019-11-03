@@ -35,6 +35,7 @@
 		<spring-boot.version>2.1.8.RELEASE</spring-boot.version>
 		<jasypt-spring-boot-starter.version>2.1.2</jasypt-spring-boot-starter.version>
 		<jsoup.version>1.11.3</jsoup.version>
+		<commons-io.version>2.6</commons-io.version>
 		<thymeleaf-extras-springsecurity4.version>3.0.2.RELEASE</thymeleaf-extras-springsecurity4.version>
 		<h2.version>1.4.199</h2.version>
 		<mysql-connector-java.version>8.0.17</mysql-connector-java.version>
@@ -55,7 +56,7 @@
 		<jacoco-line-coverage-minimum>0.9</jacoco-line-coverage-minimum>
 		<jacoco-branch-coverage-minimum>0.9</jacoco-branch-coverage-minimum>
 		<jacoco-class-coverage-minimum>0.99</jacoco-class-coverage-minimum>
-		<jacoco-method-coverage-minimum>0.99</jacoco-method-coverage-minimum>
+		<jacoco-method-coverage-minimum>0.95</jacoco-method-coverage-minimum>
 		<pitest-maven.version>1.1.10</pitest-maven.version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 		<frontend-maven-plugin.nodeVersion>v10.11.0</frontend-maven-plugin.nodeVersion>
@@ -176,11 +177,15 @@
 				<version>${jasypt-spring-boot-starter.version}</version>
 			</dependency>
 
-
 			<dependency>
 				<groupId>org.jsoup</groupId>
 				<artifactId>jsoup</artifactId>
 				<version>${jsoup.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
 			</dependency>
 
 			<dependency>
