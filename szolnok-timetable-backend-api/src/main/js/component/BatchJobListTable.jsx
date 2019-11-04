@@ -6,6 +6,7 @@ const Spinner = require("react-bootstrap").Spinner;
 const Badge = require("react-bootstrap").Badge;
 const BatchJobListTableHeader = require("./BatchJobListTableHeader");
 const BatchJobListTableRow = require("./BatchJobListTableRow");
+const LiveRefreshSwitch = require("./LiveRefreshSwitch");
 const client = require('../client');
 
 class BatchJobListTable extends React.Component {
@@ -22,9 +23,6 @@ class BatchJobListTable extends React.Component {
 
     componentDidMount() {
         this.fetchJobs();
-        setInterval(() => {
-            this.fetchJobs();
-        }, 3000);
     }
 
     fetchJobs() {
@@ -46,9 +44,12 @@ class BatchJobListTable extends React.Component {
             toRender =
                 <div className="batch-jobs-table">
                     <div className="batch-jobs-table-content">
-                        <h2>
+                        <h2 className="batch-jobs-table-content-title">
                             <Badge variant="secondary">Recent Jobs</Badge>
                         </h2>
+                        <LiveRefreshSwitch
+                            componentId="live-reload-jobs-switch"
+                            callback={this.fetchJobs}/>
                         <Table striped bordered hover>
                             <BatchJobListTableHeader />
                             <tbody>

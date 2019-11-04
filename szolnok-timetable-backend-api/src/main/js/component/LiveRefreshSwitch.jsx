@@ -1,7 +1,6 @@
 'use strict';
 
 const React = require('react');
-const client = require('../client');
 const Form = require("react-bootstrap").Form;
 
 class LiveRefreshSwitch extends React.Component {

@@ -95,7 +95,10 @@ div.navbar-header,
 
 .batch-target-state-buses-table-content-title,
 .batch-target-state-buses-table-content form,
-.batch-target-state-buses-table-content .switch-form {
+.batch-target-state-buses-table-content .switch-form,
+.batch-jobs-table-content-title,
+.batch-jobs-table-content form,
+.batch-jobs-table-content .switch-form {
     display: inline-block;
 }
 
