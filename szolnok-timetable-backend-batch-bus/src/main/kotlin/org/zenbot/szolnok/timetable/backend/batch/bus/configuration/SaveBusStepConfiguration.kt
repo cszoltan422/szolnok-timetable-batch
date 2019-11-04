@@ -5,7 +5,6 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.item.support.CompositeItemProcessor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.transaction.PlatformTransactionManager
 import org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.processor.TimetableToBusItemProcessor
 import org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.writer.BusRepositoryItemWriter
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.processor.JsoupDocumentToTimetableProcessor
@@ -18,8 +17,7 @@ import java.util.Arrays
 open class SaveBusStepConfiguration(
     private val stepBuilderFactory: StepBuilderFactory,
     private val urlResourceItemReader: UrlResourceItemReader,
-    private val busRepositoryItemWriter: BusRepositoryItemWriter,
-    private val transactionManager: PlatformTransactionManager
+    private val busRepositoryItemWriter: BusRepositoryItemWriter
 ) {
 
     @Bean
@@ -29,7 +27,6 @@ open class SaveBusStepConfiguration(
         timetableToBusItemProcessor: TimetableToBusItemProcessor
     ): Step {
         return stepBuilderFactory.get("saveBusStep")
-                .transactionManager(transactionManager)
                 .chunk<String, BusEntity>(1)
                 .reader(urlResourceItemReader)
                 .processor(
