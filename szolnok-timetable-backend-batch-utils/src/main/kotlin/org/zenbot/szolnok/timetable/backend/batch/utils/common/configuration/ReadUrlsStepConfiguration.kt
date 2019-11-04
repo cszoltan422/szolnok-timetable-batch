@@ -4,6 +4,7 @@ import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.transaction.support.AbstractPlatformTransactionManager
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.tasklet.ReadBusStopUrlResourcesTasklet
 
 /**
@@ -12,7 +13,8 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.tasklet.Rea
 @Configuration
 class ReadUrlsStepConfiguration(
     private val stepBuilderFactory: StepBuilderFactory,
-    private val readBusStopUrlResourcesTasklet: ReadBusStopUrlResourcesTasklet
+    private val readBusStopUrlResourcesTasklet: ReadBusStopUrlResourcesTasklet,
+    private val transactionManager: AbstractPlatformTransactionManager
 ) {
 
     /**
@@ -21,6 +23,7 @@ class ReadUrlsStepConfiguration(
     @Bean
     fun readUrlsStep(): Step {
         return stepBuilderFactory.get("readUrlsStep")
+                .transactionManager(transactionManager)
                 .tasklet(readBusStopUrlResourcesTasklet)
                 .build()
     }
