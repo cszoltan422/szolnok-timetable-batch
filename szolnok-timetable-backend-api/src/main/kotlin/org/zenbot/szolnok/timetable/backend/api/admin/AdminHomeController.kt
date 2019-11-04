@@ -9,7 +9,7 @@ import org.zenbot.szolnok.timetable.backend.api.configuration.properties.AdminPr
 @Controller
 @EnableConfigurationProperties(AdminProperties::class)
 class AdminHomeController(
-    private val adminProperties: AdminProperties
+        private val adminProperties: AdminProperties
 ) {
 
     @RequestMapping("/")

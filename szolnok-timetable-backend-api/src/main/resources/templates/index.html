@@ -20,7 +20,7 @@
                     <a class="nav-link" th:href="@{/}" >Home <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="${applicationConsole}" target="_blank" >Heroku App Home <span class="sr-only"></span></a>
+                    <a class="nav-link" href="https://dashboard.heroku.com/apps/szolnok-timetable-prod" target="_blank" >Heroku App Home <span class="sr-only"></span></a>
                 </li>
             </ul>
             <a class="nav-link navbar-right logout" sec:authentication="isAuthenticated()" th:href="@{/logout}">

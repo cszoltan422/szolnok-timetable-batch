@@ -4,6 +4,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties("admin")
 data class AdminProperties(
-    var user: AdminUserProperties = AdminUserProperties(),
-    var application: AdminApplicationrProperties = AdminApplicationrProperties()
+        var user: AdminUserProperties = AdminUserProperties(),
+        var application: AdminApplicationrProperties = AdminApplicationrProperties()
 )
