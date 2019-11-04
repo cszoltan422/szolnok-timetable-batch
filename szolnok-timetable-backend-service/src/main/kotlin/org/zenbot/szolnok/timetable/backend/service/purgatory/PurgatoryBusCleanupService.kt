@@ -1,18 +1,17 @@
 package org.zenbot.szolnok.timetable.backend.service.purgatory
 
-import org.aspectj.lang.annotation.After
-import org.aspectj.lang.annotation.Aspect
-import org.aspectj.lang.annotation.Pointcut
 import org.slf4j.LoggerFactory
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.TargetState
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 
 /**
- * Aspect class to remove the buses marked for [TargetState.PURGATORY]
+ * Scheduled class to remove the buses marked for [TargetState.PURGATORY]
  */
-@Aspect
 @Service
+@Transactional
 class PurgatoryBusCleanupService(
     private val busRepository: BusRepository
 ) {
@@ -20,18 +19,12 @@ class PurgatoryBusCleanupService(
     private val log = LoggerFactory.getLogger(PurgatoryBusCleanupService::class.java)
 
     /**
-     * After aspect to remove all the buses marked for [TargetState.PURGATORY] after the [BatchJobService::promoteToProduction]
+     * Scheduled task to remove all the buses marked for [TargetState.PURGATORY] in every
      * finished it's execution
      */
-    @After("promoteToProduction()")
+    @Scheduled(fixedDelay = 60000)
     fun cleanUpPurgatoryBuses() {
         log.info("Clearing all buses marked with [TargetState.PURGATORY]")
         busRepository.deleteAllByTargetState(TargetState.PURGATORY)
-    }
-
-    @Pointcut("execution (* " +
-            "org.zenbot.szolnok.timetable.backend.service.jobs.BatchJobService.promoteToProduction(..)" +
-            ")")
-    private fun promoteToProduction() {
     }
 }

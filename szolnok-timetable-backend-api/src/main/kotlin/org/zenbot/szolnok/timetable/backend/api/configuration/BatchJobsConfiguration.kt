@@ -5,13 +5,15 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.transaction.PlatformTransactionManager
 import javax.sql.DataSource
 
 @Configuration
+@EnableScheduling
+@EnableBatchProcessing
 @ComponentScan(basePackages = arrayOf("org.zenbot.szolnok.timetable.backend.batch.bus",
         "org.zenbot.szolnok.timetable.backend.batch.stops"))
-@EnableBatchProcessing
 class BatchJobsConfiguration {
 
     @Bean
