@@ -22,6 +22,9 @@ spring:
       enabled: false
   main:
     allow-bean-definition-overriding: true
+admin:
+  application:
+    application-console: "https://dashboard.heroku.com/apps/szolnok-timetable-prod"
 timetable:
   resource:
     base-url: "http://archiv.kmkk.hu/"

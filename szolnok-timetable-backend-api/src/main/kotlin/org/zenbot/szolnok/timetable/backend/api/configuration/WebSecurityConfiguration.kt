@@ -9,20 +9,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.zenbot.szolnok.timetable.backend.api.configuration.properties.AdminUserProperties
+import org.zenbot.szolnok.timetable.backend.api.configuration.properties.AdminProperties
 
 @Configuration
 @EnableWebSecurity
-@EnableConfigurationProperties(AdminUserProperties::class)
+@EnableConfigurationProperties(AdminProperties::class)
 class WebSecurityConfiguration(
-    private val adminUserProperties: AdminUserProperties
+    private val adminProperties: AdminProperties
 ) : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.inMemoryAuthentication()
-                .withUser(adminUserProperties.username)
-                .password(passwordEncoder().encode(adminUserProperties.password))
+                .withUser(adminProperties.user.username)
+                .password(passwordEncoder().encode(adminProperties.user.password))
                 .roles("ADMIN")
     }
 
