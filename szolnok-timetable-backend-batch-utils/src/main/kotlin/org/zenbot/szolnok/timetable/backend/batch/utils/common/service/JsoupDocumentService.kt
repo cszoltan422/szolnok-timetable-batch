@@ -34,6 +34,7 @@ class JsoupDocumentService {
                 val htmlString = IOUtils.toString(openStream, "UTF-8")
                 return Jsoup.parse(htmlString)
             } catch (e: IOException) {
+                log.warn("{}", e)
                 log.debug("Read timed out [{}]", url)
                 log.debug("Retry last operation for the [{}] time", i)
             }
