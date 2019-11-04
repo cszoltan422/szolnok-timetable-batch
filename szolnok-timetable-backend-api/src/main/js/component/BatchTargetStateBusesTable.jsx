@@ -5,6 +5,7 @@ const client = require('../client');
 const Table = require("react-bootstrap").Table;
 const Badge = require("react-bootstrap").Badge;
 const Spinner = require("react-bootstrap").Spinner;
+const LiveRefreshSwitch = require("./LiveRefreshSwitch");
 const BatchTargetStateBusesTableRow = require('./BatchTargetStateBusesTableRow');
 const BatchTargetStateBusesTableHeader = require('./BatchTargetStateBusesTableHeader');
 
@@ -14,7 +15,11 @@ class BatchTargetStateBusesTable extends React.Component {
         super(props);
         this.state = {
             buses: [],
-            fetched: false
+            fetched: false,
+            reload: {
+                enabled: false,
+                current: null
+            }
         };
 
         this.fetchBatchBuses = this.fetchBatchBuses.bind(this);
@@ -22,9 +27,6 @@ class BatchTargetStateBusesTable extends React.Component {
 
     componentDidMount() {
         this.fetchBatchBuses();
-        setInterval(() => {
-            this.fetchBatchBuses();
-        }, 3000);
     }
 
     fetchBatchBuses() {
@@ -46,9 +48,12 @@ class BatchTargetStateBusesTable extends React.Component {
             toRender =
                 <div className="batch-target-state-buses-table">
                     <div className="batch-target-state-buses-table-content">
-                        <h2>
+                        <h2 className="batch-target-state-buses-table-content-title">
                             <Badge variant="secondary">Buses in Batch Target State</Badge>
                         </h2>
+                        <LiveRefreshSwitch
+                            componentId="live-reload-bus-switch"
+                            callback={this.fetchBatchBuses}/>
                         <Table striped bordered hover>
                             <BatchTargetStateBusesTableHeader />
                             <tbody>

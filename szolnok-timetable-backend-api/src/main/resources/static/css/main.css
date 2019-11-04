@@ -92,3 +92,13 @@ div.navbar-header,
 .badge.hide {
     display: none;
 }
+
+.batch-target-state-buses-table-content-title,
+.batch-target-state-buses-table-content form,
+.batch-target-state-buses-table-content .switch-form {
+    display: inline-block;
+}
+
+.switch-form {
+    margin-left: 1rem;
+}
