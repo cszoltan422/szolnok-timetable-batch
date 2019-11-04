@@ -3,7 +3,6 @@ package org.zenbot.szolnok.timetable.backend.batch.bus.configuration
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.JobExecutionListener
 import org.springframework.batch.core.Step
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.listener.CompositeJobExecutionListener
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -14,7 +13,6 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.Ba
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 
 @Configuration
-@EnableBatchProcessing
 @EnableConfigurationProperties(TimetableProperties::class)
 class BusBatchConfiguration(
     private val jobBuilderFactory: JobBuilderFactory,

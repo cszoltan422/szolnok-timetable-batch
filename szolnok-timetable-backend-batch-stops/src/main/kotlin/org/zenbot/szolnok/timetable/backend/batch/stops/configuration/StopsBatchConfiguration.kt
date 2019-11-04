@@ -3,7 +3,6 @@ package org.zenbot.szolnok.timetable.backend.batch.stops.configuration
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.JobExecutionListener
 import org.springframework.batch.core.Step
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.listener.CompositeJobExecutionListener
 import org.springframework.context.annotation.Bean
@@ -13,7 +12,6 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.Ba
 import org.zenbot.szolnok.timetable.backend.repository.BusStopRepository
 
 @Configuration
-@EnableBatchProcessing
 class StopsBatchConfiguration(
     private val jobBuilderFactory: JobBuilderFactory,
     private val removeBusStopsExecutionListener: RemoveBusStopsExecutionListener,
