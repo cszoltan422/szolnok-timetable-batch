@@ -43,7 +43,7 @@ class JsoupDocumentService {
     }
 
     companion object {
-        val MAX_RETRY_COUNT = 4
+        val MAX_RETRY_COUNT = 25
         val INITIAL_RETRY_COUNT = 0
     }
 }
