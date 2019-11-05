@@ -7,6 +7,7 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.bus.TargetState
 import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
+import org.zenbot.szolnok.timetable.backend.service.purgatory.PurgatoryBusCleanupService
 
 /**
  * Service class to operate on the [BatchJobEntity] class
@@ -16,7 +17,8 @@ import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 class BatchJobService(
     private val busRepository: BusRepository,
     private val batchJobRepository: BatchJobRepository,
-    private val batchJobEntityTransformer: BatchJobEntityTransformer
+    private val batchJobEntityTransformer: BatchJobEntityTransformer,
+    private val purgatoryBusCleanupService: PurgatoryBusCleanupService
 ) {
 
     /**
@@ -43,6 +45,7 @@ class BatchJobService(
                 changeTargetStateOfBuses(promotableBuses, TargetState.PRODUCTION)
                 it.promotedToProd = true
                 batchJobRepository.save(it)
+                purgatoryBusCleanupService.cleanUpPurgatoryBuses()
             }
         }
     }
