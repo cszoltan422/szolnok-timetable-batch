@@ -6,7 +6,7 @@ import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.io.IOException
-import java.net.URL
+import java.net.URI
 
 /**
  * Reads a certain URL and return the HTML page. Reads the urls in a retry manner, maximum 4 times
@@ -29,9 +29,8 @@ class JsoupDocumentService {
         while (i <= MAX_RETRY_COUNT) {
             try {
                 i++
-                val urlValue = URL(url)
-                val openStream = urlValue.openStream()
-                val htmlString = IOUtils.toString(openStream, "UTF-8")
+                val uri = URI.create(url)
+                val htmlString = IOUtils.toString(uri, "UTF-8")
                 return Jsoup.parse(htmlString)
             } catch (e: IOException) {
                 log.warn("{}", e)

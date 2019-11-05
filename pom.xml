@@ -56,7 +56,7 @@
 		<jacoco-line-coverage-minimum>0.9</jacoco-line-coverage-minimum>
 		<jacoco-branch-coverage-minimum>0.9</jacoco-branch-coverage-minimum>
 		<jacoco-class-coverage-minimum>0.99</jacoco-class-coverage-minimum>
-		<jacoco-method-coverage-minimum>0.95</jacoco-method-coverage-minimum>
+		<jacoco-method-coverage-minimum>0.99</jacoco-method-coverage-minimum>
 		<pitest-maven.version>1.1.10</pitest-maven.version>
 		<frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
 		<frontend-maven-plugin.nodeVersion>v10.11.0</frontend-maven-plugin.nodeVersion>
