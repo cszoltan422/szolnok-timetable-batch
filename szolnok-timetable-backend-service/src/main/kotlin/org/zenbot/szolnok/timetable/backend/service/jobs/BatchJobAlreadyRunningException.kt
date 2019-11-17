@@ -1,7 +1,8 @@
 package org.zenbot.szolnok.timetable.backend.service.jobs
 
-import java.lang.RuntimeException
-
+/**
+ * Indicates that the given type of batch is already running
+ */
 class BatchJobAlreadyRunningException(
     override val message: String
 ) : RuntimeException(message)

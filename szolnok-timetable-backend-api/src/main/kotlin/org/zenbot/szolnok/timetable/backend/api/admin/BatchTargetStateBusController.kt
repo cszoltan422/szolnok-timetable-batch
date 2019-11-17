@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import org.zenbot.szolnok.timetable.backend.domain.api.bus.BusResponse
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.TargetState
-import org.zenbot.szolnok.timetable.backend.service.bus.BatchJobInProgressException
+import org.zenbot.szolnok.timetable.backend.service.bus.BatchJobOfBusInProgressException
 import org.zenbot.szolnok.timetable.backend.service.bus.BusNotFoundException
 import org.zenbot.szolnok.timetable.backend.service.bus.BusService
 
@@ -33,7 +33,7 @@ class BatchTargetStateBusController(
         try {
             busService.removeBusFromBatchTargetState(bus)
             response = ResponseEntity.ok("Successfully deleted!")
-        } catch (e: BatchJobInProgressException) {
+        } catch (e: BatchJobOfBusInProgressException) {
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.message)
         } catch (e: BusNotFoundException) {

@@ -23,5 +23,5 @@ data class BusArrivalEntity(
     var arrivalHour: Int = 0,
 
     @Column(name = "arrival_minute")
-    var arrivalMinute: Int? = 0
+    var arrivalMinute: Int = 0
 )

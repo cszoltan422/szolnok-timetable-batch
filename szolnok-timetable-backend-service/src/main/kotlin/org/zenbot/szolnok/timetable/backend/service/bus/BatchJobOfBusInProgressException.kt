@@ -1,8 +1,8 @@
 package org.zenbot.szolnok.timetable.backend.service.bus
 
 /**
- * Indicates that there is no such bus for the supplied parameters
+ * Indicates that the batch job of the bus to remove is still in progress
  */
-class BusNotFoundException(
+class BatchJobOfBusInProgressException(
     override val message: String
 ) : RuntimeException(message)

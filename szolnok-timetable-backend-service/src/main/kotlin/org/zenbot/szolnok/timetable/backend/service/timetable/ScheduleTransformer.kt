@@ -20,7 +20,7 @@ class ScheduleTransformer {
         val busArrivals = schedule.busArrivalEntities.map { busArrivalEntity ->
             BusArrivalResponse(
                     arrivalHour = busArrivalEntity.arrivalHour,
-                    arrivalMinute = busArrivalEntity.arrivalMinute ?: 0,
+                    arrivalMinute = busArrivalEntity.arrivalMinute,
                     isLowfloor = busArrivalEntity.isLowfloor
             )
         }

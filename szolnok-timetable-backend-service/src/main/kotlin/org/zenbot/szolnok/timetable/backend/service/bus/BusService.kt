@@ -30,7 +30,7 @@ class BusService(
     /**
      * Removes a bus from the batch target state
      * @param busName The name of the bus
-     * @throws BatchJobInProgressException If the batch process of the bus is still in progress
+     * @throws BatchJobOfBusInProgressException If the batch process of the bus is still in progress
      * @throws BusNotFoundException If the bus is not found by the busName
      */
     fun removeBusFromBatchTargetState(busName: String) {
@@ -39,7 +39,7 @@ class BusService(
             if (batchFinished(bus)) {
                 busRepository.deleteByBusNameAndTargetState(busName, TargetState.BATCH)
             } else {
-                throw BatchJobInProgressException("The batch process: [${bus.batchJobEntity?.id}]" +
+                throw BatchJobOfBusInProgressException("The batch process: [${bus.batchJobEntity?.id}] " +
                         "of the bus: [$busName] is still in progress!")
             }
         } else {
