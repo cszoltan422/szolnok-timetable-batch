@@ -35,15 +35,13 @@ class BusService(
      */
     fun removeBusFromBatchTargetState(busName: String) {
         val bus = busRepository.findByBusNameAndTargetState(busName, TargetState.BATCH)
-        if (bus != null) {
-            if (batchFinished(bus)) {
-                busRepository.deleteByBusNameAndTargetState(busName, TargetState.BATCH)
-            } else {
-                throw BatchJobOfBusInProgressException("The batch process: [${bus.batchJobEntity?.id}] " +
-                        "of the bus: [$busName] is still in progress!")
-            }
+                ?: throw BusNotFoundException("Bus[$busName] not found")
+
+        if (batchFinished(bus)) {
+            busRepository.deleteByBusNameAndTargetState(busName, TargetState.BATCH)
         } else {
-            throw BusNotFoundException("Bus[$busName] not found")
+            throw BatchJobOfBusInProgressException("The batch process: [${bus.batchJobEntity?.id}] " +
+                    "of the bus: [$busName] is still in progress!")
         }
     }
 

@@ -42,9 +42,8 @@ class BusStopsService(
     fun findAllBusStopsOfBus(bus: String, startBusStop: String): BusStopsResponse {
         val findByBusName = busRepository.findByBusNameAndTargetState(bus, TargetState.PRODUCTION)
         val result: BusStopsResponse
-        val foundBus = findByBusName != null && !findByBusName.hasNoBusRoute(BusRouteEntity(startBusStop = startBusStop))
-        result = if (foundBus) {
-            busStopsTransformer.transform(findByBusName!!, findByBusName.getBusRouteByStartStopName(startBusStop))
+        result = if (findByBusName != null && !findByBusName.hasNoBusRoute(BusRouteEntity(startBusStop = startBusStop))) {
+            busStopsTransformer.transform(findByBusName, findByBusName.getBusRouteByStartStopName(startBusStop))
         } else {
             busStopsTransformer.empty()
         }

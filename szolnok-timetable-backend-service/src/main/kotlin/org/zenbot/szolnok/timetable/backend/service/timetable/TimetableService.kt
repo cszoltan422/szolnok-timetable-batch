@@ -29,8 +29,8 @@ class TimetableService(
     fun getTimetable(bus: String, startBusStop: String, busStopName: String, occurrence: Int): TimetableResponse {
         val findByBusName = busRepository.findByBusNameAndTargetState(bus, TargetState.PRODUCTION)
         var result = timetableTransformer.empty()
-        if (busIsPresentAndHasRoute(findByBusName, startBusStop)) {
-            val busRouteByStartStopName = findByBusName!!.getBusRouteByStartStopName(startBusStop)
+        if (findByBusName != null && busIsPresentAndHasRoute(findByBusName, startBusStop)) {
+            val busRouteByStartStopName = findByBusName.getBusRouteByStartStopName(startBusStop)
             val busStops = busRouteByStartStopName.busStopEntities
             result = getResultForBusStopAndOccurrence(
                     busStops,
@@ -47,23 +47,22 @@ class TimetableService(
         busStops: MutableList<BusStopEntity>,
         busStopName: String,
         occurrence: Int,
-        findByBusName: BusEntity?,
+        findByBusName: BusEntity,
         busRouteByStartStopName: BusRouteEntity
     ): TimetableResponse {
         var foundOccurrences = 0
         var result = timetableTransformer.empty()
         for (busStop in busStops) {
-            if (busStop.busStopName.equals(busStopName)) {
+            if (busStop.busStopName == busStopName) {
                 foundOccurrences++
                 if (foundOccurrences == occurrence) {
-                    result =
-                            timetableTransformer.transform(findByBusName!!, busRouteByStartStopName, busStop, occurrence)
+                    result = timetableTransformer.transform(findByBusName, busRouteByStartStopName, busStop, occurrence)
                 }
             }
         }
         return result
     }
 
-    private fun busIsPresentAndHasRoute(findByBusName: BusEntity?, startBusStop: String) =
-            findByBusName != null && !findByBusName.hasNoBusRoute(BusRouteEntity(startBusStop = startBusStop))
+    private fun busIsPresentAndHasRoute(findByBusName: BusEntity, startBusStop: String) =
+            !findByBusName.hasNoBusRoute(BusRouteEntity(startBusStop = startBusStop))
 }

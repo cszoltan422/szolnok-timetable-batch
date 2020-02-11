@@ -47,7 +47,7 @@ complexity:
     includeStaticDeclarations: false
   ComplexMethod:
     active: true
-    threshold: 5
+    threshold: 6
     ignoreSingleWhenExpression: false
     ignoreSimpleWhenEntries: false
   LabeledExpression:
@@ -63,14 +63,14 @@ complexity:
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.IntegrationTest.kt,**/*.Spec.kt,**/*.Spek.kt"
   LongParameterList:
     active: true
-    threshold: 4
+    threshold: 6
     ignoreDefaultParameters: false
   MethodOverloading:
     active: false
     threshold: 6
   NestedBlockDepth:
     active: true
-    threshold: 3
+    threshold: 4
   StringLiteralDuplication:
     active: false
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
@@ -202,7 +202,7 @@ formatting:
     continuationIndentSize: 4
   MaximumLineLength:
     active: true
-    maxLineLength: 120
+    maxLineLength: 150
   ModifierOrdering:
     active: true
     autoCorrect: true
@@ -469,7 +469,7 @@ style:
     active: false
   MaxLineLength:
     active: true
-    maxLineLength: 120
+    maxLineLength: 150
     excludePackageStatements: true
     excludeImportStatements: true
     excludeCommentStatements: true

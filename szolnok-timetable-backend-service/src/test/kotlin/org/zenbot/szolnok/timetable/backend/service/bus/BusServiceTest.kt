@@ -3,9 +3,11 @@ package org.zenbot.szolnok.timetable.backend.service.bus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
-import org.mockito.BDDMockito.*
+import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.zenbot.szolnok.timetable.backend.domain.api.bus.BusResponse
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
