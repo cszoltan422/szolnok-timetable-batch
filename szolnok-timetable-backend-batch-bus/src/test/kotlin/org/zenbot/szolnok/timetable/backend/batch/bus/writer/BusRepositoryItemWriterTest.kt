@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.writer
+package org.zenbot.szolnok.timetable.backend.batch.bus.writer
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations
 import org.springframework.batch.core.JobExecution
 import org.springframework.batch.core.StepExecution
 import org.springframework.batch.item.ExecutionContext
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.SaveBatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
@@ -75,8 +75,8 @@ class BusRepositoryItemWriterTest {
         verify(stepExecution).jobExecution
         verify(jobExecution).executionContext
         verify(executionContext).getLong(
-                BatchJobExecutionListener.BATCH_JOB_ENTITY_ID_KEY,
-                BatchJobExecutionListener.DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
+                SaveBatchJobExecutionListener.BATCH_JOB_ENTITY_ID_KEY,
+                SaveBatchJobExecutionListener.DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
         verify(batchJobRepository).findById(0L)
         verify(busRepository).save(bus)
     }
@@ -99,8 +99,8 @@ class BusRepositoryItemWriterTest {
         verify(stepExecution).jobExecution
         verify(jobExecution).executionContext
         verify(executionContext).getLong(
-                BatchJobExecutionListener.BATCH_JOB_ENTITY_ID_KEY,
-                BatchJobExecutionListener.DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
+                SaveBatchJobExecutionListener.BATCH_JOB_ENTITY_ID_KEY,
+                SaveBatchJobExecutionListener.DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
         verify(batchJobRepository).findById(0L)
         verify(busRepository).save(bus)
 

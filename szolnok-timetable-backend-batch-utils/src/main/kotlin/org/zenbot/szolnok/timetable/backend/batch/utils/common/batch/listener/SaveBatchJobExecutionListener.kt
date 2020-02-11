@@ -15,11 +15,11 @@ import java.time.LocalDateTime
  */
 @Component
 @Transactional
-class BatchJobExecutionListener(
+class SaveBatchJobExecutionListener(
     private val batchJobRepository: BatchJobRepository
 ) : JobExecutionListener {
 
-    private val log = LoggerFactory.getLogger(BatchJobExecutionListener::class.java)
+    private val log = LoggerFactory.getLogger(SaveBatchJobExecutionListener::class.java)
 
     /**
      * Marks the [BatchJobEntity] finished for the current jobId in the execution context.
@@ -54,7 +54,7 @@ class BatchJobExecutionListener(
         batchJob.startTime = LocalDateTime.now()
         batchJob.status = BatchStatus.STARTED
         batchJob.type = jobExecution.jobInstance.jobName
-        batchJob.parameters = HashSet(selectedBuses.split(","))
+        batchJob.parameters = selectedBuses.split(SELECTED_BUSES_SPLIT_BY)
         batchJob.finished = false
         batchJob.promotable = true
 
@@ -64,10 +64,10 @@ class BatchJobExecutionListener(
     }
 
     companion object {
-        val DEFAULT_BATCH_JOB_ENTITY_ID_VALUE = 0L
-        val DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE = ""
-        val BATCH_JOB_ENTITY_ID_KEY = "batchJobEntityId"
-        val SELECTED_BUSES_JOB_PARAMETER_KEY = "selectedBuses"
-        val SELECTED_BUSES_SPLIT_BY = ","
+        const val DEFAULT_BATCH_JOB_ENTITY_ID_VALUE = 0L
+        const val DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE = ""
+        const val BATCH_JOB_ENTITY_ID_KEY = "batchJobEntityId"
+        const val SELECTED_BUSES_JOB_PARAMETER_KEY = "selectedBuses"
+        const val SELECTED_BUSES_SPLIT_BY = ","
     }
 }

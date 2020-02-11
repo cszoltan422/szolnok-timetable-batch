@@ -26,8 +26,8 @@ import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import java.time.LocalDateTime
 import java.util.Optional
 
-class BatchJobExecutionListenerTest {
-    private lateinit var testSubject: BatchJobExecutionListener
+class SaveBatchJobExecutionListenerTest {
+    private lateinit var testSubject: SaveBatchJobExecutionListener
 
     @Mock
     private lateinit var batchJobRepository: BatchJobRepository
@@ -41,7 +41,7 @@ class BatchJobExecutionListenerTest {
         properties = TimetableProperties()
         properties.selector = TimetableSelectorProperties()
 
-        testSubject = BatchJobExecutionListener(batchJobRepository)
+        testSubject = SaveBatchJobExecutionListener(batchJobRepository)
     }
 
     @Test
@@ -78,7 +78,7 @@ class BatchJobExecutionListenerTest {
         assertThat(argumentCaptor.value.startTime).isBeforeOrEqualTo(LocalDateTime.now())
         assertThat(argumentCaptor.value.status).isEqualTo(BatchStatus.STARTED)
         assertThat(argumentCaptor.value.type).isEqualTo("jobName")
-        assertThat(argumentCaptor.value.parameters).isEqualTo(hashSetOf("1", "2"))
+        assertThat(argumentCaptor.value.parameters).isEqualTo(listOf("1", "2"))
         assertThat(argumentCaptor.value.finished).isFalse()
     }
 
@@ -116,7 +116,7 @@ class BatchJobExecutionListenerTest {
         assertThat(argumentCaptor.value.startTime).isBeforeOrEqualTo(LocalDateTime.now())
         assertThat(argumentCaptor.value.status).isEqualTo(BatchStatus.STARTED)
         assertThat(argumentCaptor.value.type).isEqualTo("jobName")
-        assertThat(argumentCaptor.value.parameters).isEqualTo(hashSetOf("1", "2"))
+        assertThat(argumentCaptor.value.parameters).isEqualTo(listOf("1", "2"))
         assertThat(argumentCaptor.value.finished).isFalse()
     }
 

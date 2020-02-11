@@ -9,7 +9,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet
 import org.springframework.batch.repeat.RepeatStatus
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.SaveBatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.JsoupDocumentService
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.service.StringResourcesInMemoryStorage
@@ -38,8 +38,8 @@ class ReadBusStopUrlResourcesTasklet(
         val jobExecution = chunkContext.stepContext.stepExecution.jobExecution
         val selectedBuses = jobExecution
                 .jobParameters
-                .getString(BatchJobExecutionListener.SELECTED_BUSES_JOB_PARAMETER_KEY,
-                        BatchJobExecutionListener.DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE)
+                .getString(SaveBatchJobExecutionListener.SELECTED_BUSES_JOB_PARAMETER_KEY,
+                        SaveBatchJobExecutionListener.DEFAULT_SELECTED_BUSES_JOB_PARAMETER_KEY_VALUE)
         log.info("{}", selectedBuses)
         try {
             val landingPageHtml = fetchLandingPage()

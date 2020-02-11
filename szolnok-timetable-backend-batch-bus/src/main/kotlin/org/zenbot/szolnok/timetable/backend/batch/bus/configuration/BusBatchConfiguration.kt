@@ -8,8 +8,8 @@ import org.springframework.batch.core.listener.CompositeJobExecutionListener
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.listener.RemoveBusRoutesExecutionListener
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
+import org.zenbot.szolnok.timetable.backend.batch.bus.listener.RemoveBusRoutesExecutionListener
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.SaveBatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.TimetableProperties
 
 @Configuration
@@ -17,7 +17,7 @@ import org.zenbot.szolnok.timetable.backend.batch.utils.common.properties.Timeta
 class BusBatchConfiguration(
     private val jobBuilderFactory: JobBuilderFactory,
     private val removeBusRoutesExecutionListener: RemoveBusRoutesExecutionListener,
-    private val batchJobExecutionListener: BatchJobExecutionListener,
+    private val saveBatchJobExecutionListener: SaveBatchJobExecutionListener,
     private val readUrlsStep: Step,
     private val saveBusStep: Step
 ) {
@@ -26,7 +26,7 @@ class BusBatchConfiguration(
     fun szolnokBusesJob(): Job {
         val compositeJobExecutionListener = CompositeJobExecutionListener()
         val listeners = ArrayList<JobExecutionListener>()
-        listeners.add(0, batchJobExecutionListener)
+        listeners.add(0, saveBatchJobExecutionListener)
         listeners.add(1, removeBusRoutesExecutionListener)
         compositeJobExecutionListener.setListeners(listeners)
 

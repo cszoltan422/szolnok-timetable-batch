@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.writer
+package org.zenbot.szolnok.timetable.backend.batch.bus.writer
 
 import org.slf4j.LoggerFactory
 import org.springframework.batch.core.JobExecution
@@ -8,7 +8,7 @@ import org.springframework.batch.core.configuration.annotation.StepScope
 import org.springframework.batch.item.ItemWriter
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.BatchJobExecutionListener
+import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.SaveBatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.BusEntity
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
@@ -49,8 +49,8 @@ class BusRepositoryItemWriter(
         val bus = list[0]
 
         val batchJobId = jobExecution.executionContext.getLong(
-                BatchJobExecutionListener.BATCH_JOB_ENTITY_ID_KEY,
-                BatchJobExecutionListener.DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
+                SaveBatchJobExecutionListener.BATCH_JOB_ENTITY_ID_KEY,
+                SaveBatchJobExecutionListener.DEFAULT_BATCH_JOB_ENTITY_ID_VALUE)
         val batchJob = batchJobRepository.findById(batchJobId)
         batchJob.ifPresent { bus.batchJobEntity = it }
 

@@ -44,7 +44,7 @@ data class BatchJobEntity(
             joinColumns = arrayOf(JoinColumn(name = "batch_job_id"))
     )
     @Column(name = "parameter")
-    var parameters: Set<String> = HashSet(),
+    var parameters: List<String> = emptyList(),
 
     @Column(name = "finished")
     var finished: Boolean = false,

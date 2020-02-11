@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.processor
+package org.zenbot.szolnok.timetable.backend.batch.bus.processor
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before

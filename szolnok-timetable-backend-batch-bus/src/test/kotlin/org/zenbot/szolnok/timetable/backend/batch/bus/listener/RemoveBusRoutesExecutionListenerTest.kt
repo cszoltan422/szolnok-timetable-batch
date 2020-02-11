@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.batch.bus.batch.step.bus.listener
+package org.zenbot.szolnok.timetable.backend.batch.bus.listener
 
 import org.junit.Before
 import org.junit.Test
