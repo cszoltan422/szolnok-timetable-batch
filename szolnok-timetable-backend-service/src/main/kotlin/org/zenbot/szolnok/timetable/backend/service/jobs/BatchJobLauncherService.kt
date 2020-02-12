@@ -29,13 +29,17 @@ class BatchJobLauncherService(
      * @throws BatchJobAlreadyRunning if there's another job in progress for the given type
      */
     fun launch(launchJobRequest: LaunchJobRequest): LauchBatchJobResponse {
+        val result: LauchBatchJobResponse
         val job = batchJobMap[launchJobRequest.jobType]
         if (job != null) {
             batchJobValidatorService.validateJobNotRunning(launchJobRequest)
             batchJobInvalidatorService.invalidatePreviousJobs(launchJobRequest)
             launchJob(job, launchJobRequest)
+            result = LauchBatchJobResponse(success = true, message = "Start")
+        } else {
+            throw NoSuchBatchJobException("Can't find job with name [${launchJobRequest.jobType}]")
         }
-        return LauchBatchJobResponse(success = true, message = "Start")
+        return result
     }
 
     private fun launchJob(job: Job, launchJobRequest: LaunchJobRequest) {
