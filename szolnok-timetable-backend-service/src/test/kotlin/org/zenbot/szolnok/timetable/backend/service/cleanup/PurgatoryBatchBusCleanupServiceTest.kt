@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.service.purgatory
+package org.zenbot.szolnok.timetable.backend.service.cleanup
 
 import org.junit.Before
 import org.junit.Test
@@ -9,7 +9,7 @@ import org.mockito.MockitoAnnotations
 import org.zenbot.szolnok.timetable.backend.domain.entity.bus.TargetState
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
 
-class PurgatoryBusCleanupServiceTest {
+class PurgatoryBatchBusCleanupServiceTest {
 
     @InjectMocks
     private lateinit var testSubject: PurgatoryBusCleanupService

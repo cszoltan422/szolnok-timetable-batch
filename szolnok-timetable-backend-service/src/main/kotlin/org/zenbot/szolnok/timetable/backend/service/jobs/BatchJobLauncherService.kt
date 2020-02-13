@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.SaveBatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LauchBatchJobResponse
 import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LaunchJobRequest
+import org.zenbot.szolnok.timetable.backend.service.cleanup.BatchBusCleanupService
 
 /**
  * Class to launch a new batch job
@@ -15,6 +16,7 @@ import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LaunchJobRequest
 @Service
 @Transactional
 class BatchJobLauncherService(
+    private val batchBusCleanupService: BatchBusCleanupService,
     private val batchJobValidatorService: BatchJobValidatorService,
     private val batchJobInvalidatorService: BatchJobInvalidatorService,
     private val jobLauncher: JobLauncher,
@@ -34,6 +36,7 @@ class BatchJobLauncherService(
         if (job != null) {
             batchJobValidatorService.validateJobNotRunning(launchJobRequest)
             batchJobInvalidatorService.invalidatePreviousJobs(launchJobRequest)
+            batchBusCleanupService.removePreviousBuses(launchJobRequest)
             launchJob(job, launchJobRequest)
             result = LauchBatchJobResponse(success = true, message = "Start")
         } else {
