@@ -1,4 +1,4 @@
-package org.zenbot.szolnok.timetable.backend.service.purgatory
+package org.zenbot.szolnok.timetable.backend.service.cleanup
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service

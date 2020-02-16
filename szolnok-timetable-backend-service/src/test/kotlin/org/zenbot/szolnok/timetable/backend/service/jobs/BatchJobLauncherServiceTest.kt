@@ -18,11 +18,15 @@ import org.springframework.batch.core.JobParameters
 import org.springframework.batch.core.launch.JobLauncher
 import org.zenbot.szolnok.timetable.backend.batch.utils.common.batch.listener.SaveBatchJobExecutionListener
 import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LaunchJobRequest
+import org.zenbot.szolnok.timetable.backend.service.cleanup.BatchBusCleanupService
 
 class BatchJobLauncherServiceTest {
 
     @InjectMocks
     private lateinit var testSubject: BatchJobLauncherService
+
+    @Mock
+    private lateinit var batchBusCleanupService: BatchBusCleanupService
 
     @Mock
     private lateinit var batchJobValidatorService: BatchJobValidatorService
@@ -87,6 +91,7 @@ class BatchJobLauncherServiceTest {
                 .hasFieldOrPropertyWithValue("message", "Start")
         verify(batchJobValidatorService).validateJobNotRunning(request)
         verify(batchJobInvalidatorService).invalidatePreviousJobs(request)
+        verify(batchBusCleanupService).removePreviousBuses(request)
         Thread.sleep(500)
         Mockito.verify(jobLauncher).run(ArgumentMatchers.eq(job), argumentCaptor.capture())
 

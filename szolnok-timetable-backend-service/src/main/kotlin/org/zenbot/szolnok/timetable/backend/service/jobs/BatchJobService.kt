@@ -7,7 +7,7 @@ import org.zenbot.szolnok.timetable.backend.domain.entity.bus.TargetState
 import org.zenbot.szolnok.timetable.backend.domain.entity.job.BatchJobEntity
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 import org.zenbot.szolnok.timetable.backend.repository.BusRepository
-import org.zenbot.szolnok.timetable.backend.service.purgatory.PurgatoryBusCleanupService
+import org.zenbot.szolnok.timetable.backend.service.cleanup.PurgatoryBusCleanupService
 
 /**
  * Service class to operate on the [BatchJobEntity] class
