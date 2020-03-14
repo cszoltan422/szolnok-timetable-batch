@@ -59,6 +59,21 @@ class BatchJobLauncherServiceTest {
         // THEN exception is thrown...
     }
 
+    @Test(expected = EmptyJobParametersException::class)
+    fun `launch should throw exception if there is no parameters supplied`() {
+        // GIVEN
+        val job = mock(Job::class.java)
+        val request = LaunchJobRequest(jobType = "JOB_TYPE", parameters = emptyList())
+
+        given(batchJobMap["JOB_TYPE"]).willReturn(job)
+        given(batchJobValidatorService.validateNotEmptyParameterList(request)).willThrow(EmptyJobParametersException::class.java)
+
+        // WHEN
+        testSubject.launch(request)
+
+        // THEN exception is thrown...
+    }
+
     @Test(expected = BatchJobAlreadyRunningException::class)
     fun `launch should throw exception if there is a job already running for the same type`() {
         // GIVEN

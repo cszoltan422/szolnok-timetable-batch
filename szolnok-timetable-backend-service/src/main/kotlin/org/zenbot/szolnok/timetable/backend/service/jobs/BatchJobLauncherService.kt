@@ -28,12 +28,14 @@ class BatchJobLauncherService(
      * @param launchJobRequest The request to which job to launch
      * @return LauchBatchJobResponse if the the job was launchable
      * @throws NoSuchBatchJobException if there's no such job for the supplied type
+     * @throws EmptyJobParametersException if there's no parameter supplied for the given job
      * @throws BatchJobAlreadyRunning if there's another job in progress for the given type
      */
     fun launch(launchJobRequest: LaunchJobRequest): LauchBatchJobResponse {
         val result: LauchBatchJobResponse
         val job = batchJobMap[launchJobRequest.jobType]
         if (job != null) {
+            batchJobValidatorService.validateNotEmptyParameterList(launchJobRequest)
             batchJobValidatorService.validateJobNotRunning(launchJobRequest)
             batchJobInvalidatorService.invalidatePreviousJobs(launchJobRequest)
             batchBusCleanupService.removePreviousBuses(launchJobRequest)

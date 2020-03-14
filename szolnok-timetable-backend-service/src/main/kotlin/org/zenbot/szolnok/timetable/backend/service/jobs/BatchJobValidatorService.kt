@@ -6,7 +6,7 @@ import org.zenbot.szolnok.timetable.backend.domain.api.jobs.LaunchJobRequest
 import org.zenbot.szolnok.timetable.backend.repository.BatchJobRepository
 
 /**
- * Service to validate no current batch job is running for a given type.
+ * Service to validate a LaunchJobRequest
  */
 @Service
 class BatchJobValidatorService(
@@ -27,4 +27,15 @@ class BatchJobValidatorService(
     private fun jobAlreadyRunning(jobType: String) =
             batchJobRepository.findAllByTypeAndStatusAndFinishedFalse(jobType, BatchStatus.STARTED)
                     .isNotEmpty()
+
+    /**
+     * Validates that the given request has at least one parameter
+     * @param launchJobRequest The request to start a new job
+     * @throws EmptyJobParametersException if a batch job request has no parameters
+     */
+    fun validateNotEmptyParameterList(launchJobRequest: LaunchJobRequest) {
+        if (launchJobRequest.parameters.all { it.trim().isEmpty() }) {
+            throw EmptyJobParametersException("No parameters supplied for the new job [${launchJobRequest.jobType}]")
+        }
+    }
 }

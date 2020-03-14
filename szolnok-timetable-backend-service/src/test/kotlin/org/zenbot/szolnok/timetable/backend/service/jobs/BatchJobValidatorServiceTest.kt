@@ -49,4 +49,24 @@ class BatchJobValidatorServiceTest {
 
         // THEN exception is thrown
     }
+
+    @Test(expected = EmptyJobParametersException::class)
+    fun `validateNotEmptyParameterList should throw exception if the parameters are empty`() {
+        // GIVEN
+
+        // WHEN
+        testSubject.validateNotEmptyParameterList(LaunchJobRequest(jobType = "JOB_TYPE", parameters = emptyList()))
+
+        // THEN exception is thrown
+    }
+
+    @Test(expected = EmptyJobParametersException::class)
+    fun `validateNotEmptyParameterList should throw exception if the parameters only contains emty values`() {
+        // GIVEN
+
+        // WHEN
+        testSubject.validateNotEmptyParameterList(LaunchJobRequest(jobType = "JOB_TYPE", parameters = listOf("", "  ")))
+
+        // THEN exception is thrown
+    }
 }
