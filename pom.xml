@@ -35,7 +35,7 @@
 		<spring-boot.version>2.1.8.RELEASE</spring-boot.version>
 		<jasypt-spring-boot-starter.version>2.1.2</jasypt-spring-boot-starter.version>
 		<jsoup.version>1.11.3</jsoup.version>
-		<commons-io.version>2.6</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<thymeleaf-extras-springsecurity4.version>3.0.2.RELEASE</thymeleaf-extras-springsecurity4.version>
 		<h2.version>1.4.199</h2.version>
 		<mysql-connector-java.version>8.0.17</mysql-connector-java.version>
